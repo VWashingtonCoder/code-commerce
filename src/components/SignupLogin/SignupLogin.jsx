@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiFillFacebook } from "react-icons/ai";
+import { MdHorizontalRule } from "react-icons/md";
 import SignUpForm from "./SignUpForm";
 import "./SignupLogin.css";
 
@@ -35,7 +36,10 @@ const SignupLogin = () => {
   return (
     <div id="SignupLogin">
       <AiOutlineClose className="close-x" />
-      <div className="sign-log-inputs" onChange={toggleSignLog}>
+      <div 
+        className="sign-log-inputs flex-align-center" 
+        onChange={toggleSignLog}
+      >
         <input type="radio" value="sign-up" name="signLog" defaultChecked />
         <label className={signLog === "sign-up" && "active"}>
           Create Account
@@ -53,16 +57,22 @@ const SignupLogin = () => {
           add={addToAccounts}
         />
       ) : null}
-      <div className="operator">OR</div>
-
-      <div className="facebook-btn">
-        <span>Icon</span>
-        Sign {signLog === "sign-up" ? "Up" : "In"} With Facebook
+      
+      <div className="operator flex-align-center">
+        <MdHorizontalRule className="solid-line" /> 
+        OR 
+        <MdHorizontalRule className="solid-line" />
       </div>
 
-      <footer>
-        <p>Privacy Policy and Cookies</p>
-        <p>Terms of Sale and Use</p>
+      <button className="facebook-btn big-btn flex-align-center">
+        <AiFillFacebook className="fb-icon"/>
+        Sign {signLog === "sign-up" ? "Up" : "In"} With Facebook
+      </button>
+
+      <footer className="form-footer">
+        {["Privacy Policy and Cookies", "Terms of Sale and Use"].map((item, idx) => (
+          <button key={idx} className="foot-link">{item}</button>  
+        ))}
       </footer>
     </div>
   );

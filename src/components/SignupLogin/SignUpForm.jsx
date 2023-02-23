@@ -97,7 +97,7 @@ const SignUpForm = (props) => {
     <form id="SignUpForm" onSubmit={submit}>
         {!validForm && <p className="head-error">We're sorry, but one or more fields are incomplete or incorrect</p>}
       <div className="sign-up form-input email">
-        <div className="input-labels">
+        <div className="input-labels flex-align-center">
           <label htmlFor="email">Your Email Address *</label>
           <span className="error-text">{errors.email}</span>
         </div>
@@ -118,7 +118,7 @@ const SignUpForm = (props) => {
 
         return (
           <div key={key} className={`sign-up form-input ${name}`}>
-            <div className="input-labels">
+            <div className="input-labels flex-align-center">
               <label htmlFor={name}>{text}</label>
               <span className="error-text">{errors[name]}</span>
             </div>
@@ -152,7 +152,7 @@ const SignUpForm = (props) => {
 
         return (
           <div key={key} className={`sign-up form-input ${name}`}>
-            <div className="input-labels">
+            <div className="input-labels flex-align-center">
               <label htmlFor={name}>{label}</label>
               <span className="error-text">{errors[name]}</span>
             </div>
@@ -170,7 +170,7 @@ const SignUpForm = (props) => {
         );
       })}
       <div className="sign-up form-input postCode">
-        <div className="input-labels">
+        <div className="input-labels flex-align-center">
           <label htmlFor="postCode">Postcode</label>
           <span className="error-text">{errors.postCode}</span>
         </div>
