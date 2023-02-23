@@ -1,6 +1,7 @@
 import { useState } from "react";
-import "./SignupLogin.css";
+import { AiOutlineClose } from "react-icons/ai";
 import SignUpForm from "./SignUpForm";
+import "./SignupLogin.css";
 
 const SignupLogin = () => {
   const [signLog, setSignLog] = useState("sign-up");
@@ -20,34 +21,27 @@ const SignupLogin = () => {
   };
 
   const addToAccounts = (values) => {
-    const { 
-        email, 
-        password, 
-        firstName, 
-        surname, 
-        postCode 
-    } = values;
+    const { email, password, firstName, surname, postCode } = values;
     const accountInfo = {
-        key: accounts.length + 1,
-        email: email,
-        password: password,
-        name: `${firstName} ${surname}`,
-        zip: postCode
-    }
+      key: accounts.length + 1,
+      email: email,
+      password: password,
+      name: `${firstName} ${surname}`,
+      zip: postCode,
+    };
     setAccounts([...accounts, accountInfo]);
-  }
-
+  };
 
   return (
     <div id="SignupLogin">
-      <h1>SignupLogin</h1>
-      <div className="top-bar">
-        <div className="close-x header-md">X</div>
-        <div className="sign-log-inputs" onChange={toggleSignLog}>
-          <input type="radio" value="sign-up" name="signLog" defaultChecked />{" "}
+      <AiOutlineClose className="close-x" />
+      <div className="sign-log-inputs" onChange={toggleSignLog}>
+        <input type="radio" value="sign-up" name="signLog" defaultChecked />
+        <label className={signLog === "sign-up" && "active"}>
           Create Account
-          <input type="radio" value="login" name="signLog" /> Log In
-        </div>
+        </label>
+        <input type="radio" value="login" name="signLog" />
+        <label className={signLog === "login" && "active"}>Log In</label>
       </div>
 
       {signLog === "sign-up" ? (
@@ -56,14 +50,14 @@ const SignupLogin = () => {
           showCPW={showConfirmPW}
           accounts={accounts}
           hide={toggleHide}
-          add = {addToAccounts}
+          add={addToAccounts}
         />
       ) : null}
       <div className="operator">OR</div>
 
       <div className="facebook-btn">
         <span>Icon</span>
-        Sign {signLog==="sign-up" ? "Up" : "In"} With Facebook
+        Sign {signLog === "sign-up" ? "Up" : "In"} With Facebook
       </div>
 
       <footer>

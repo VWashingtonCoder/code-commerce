@@ -1,78 +1,82 @@
 import { useState } from "react";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"
-import { initSignUpForm, initSignUpErrors, pwInputsSignUp, nameInputsSignUp } from "./data";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import {
+  initSignUpForm,
+  initSignUpErrors,
+  pwInputsSignUp,
+  nameInputsSignUp,
+} from "./data";
 
 const SignUpForm = (props) => {
   const [formValues, setFormValues] = useState(initSignUpForm);
   const [errors, setErrors] = useState(initSignUpErrors);
-  const { showPW, showCPW, accounts, hide, add } = props
+  const [validForm, setValidForm] = useState(true);
+  const { showPW, showCPW, accounts, hide, add } = props;
   const { email, password, postCode } = formValues;
-  
-function validatePassword(pass) {
-    const regExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
-    if(pass.length < 8 || pass.length > 20 || !regExp.test(pass)) 
-        return false;
-    else return true
-}
 
-function containsNumbers(str) {
-    return /\d/.test(str);
-}
-
-function containsOnlyNumbers(str) {
-    return /^\d+$/.test(str);
-}
-
-const validateValue = (e) => {
-    let { name, value } = e.target;
-    setErrors(prev => {
-        const errorObj = { ...prev, [name]: "" };
-
-        switch(name) {
-            case "email":
-                const emailObj = accounts.find((account) => account.email === value);
-                if (!value || !value.includes('@') || !value.includes('.'))
-                    errorObj[name] = "Please enter a valid email.";
-                else if (emailObj)
-                    errorObj[name] = "Email is already in use. Log in instead."
-                break;
-            case "password":
-                if(!value) 
-                    errorObj[name] = "Please enter a password.";
-                else if(!validatePassword(value)) 
-                    errorObj[name] = "Password must be 8-20 characters including at least 1 of each: lowercase letter, uppercase letter, number, and symbols(!@#$%^&*).";
-                break;
-            case "confirm":
-                if (!value)
-                    errorObj[name] = "Please confirm your password."
-                else if (password !== value)
-                    errorObj[name] = "Your passwords aren't matching. Please try again." 
-                break;
-            case "firstName":
-                if (!value)
-                    errorObj[name] = "Please enter your first name."
-                else if(containsNumbers(value))
-                    errorObj[name] = "You cannot use numbers in your first name."
-                break;
-            case "surname":
-                if (!value)
-                    errorObj[name] = "Please enter your surname."
-                else if(containsNumbers(value))
-                    errorObj[name] = "You cannot use numbers in your surname."
-                break;
-            case "postCode":
-                if (!value)
-                    errorObj[name] = "Please enter your postcode." 
-                if (!containsOnlyNumbers(value))
-                    errorObj[name] = "You cannot use letters in your postcode."
-                break;
-            default:
-                break;
-        }
-
-        return errorObj;
-    })
+  function validatePassword(pass) {
+    const regExp =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
+    if (pass.length < 8 || pass.length > 20 || !regExp.test(pass)) return false;
+    else return true;
   }
+
+  function containsNumbers(str) {
+    return /\d/.test(str);
+  }
+
+  function containsOnlyNumbers(str) {
+    return /^\d+$/.test(str);
+  }
+
+  const validateValue = (e) => {
+    let { name, value } = e.target;
+    setValidForm(true);
+    setErrors((prev) => {
+      const errorObj = { ...prev, [name]: "" };
+
+      switch (name) {
+        case "email":
+          const emailObj = accounts.find((account) => account.email === value);
+          if (!value || !value.includes("@") || !value.includes("."))
+            errorObj[name] = "Please enter a valid email.";
+          else if (emailObj)
+            errorObj[name] = "Email is already in use. Log in instead.";
+          break;
+        case "password":
+          if (!value || !validatePassword(value)) errorObj[name] = "Please enter a valid password.";
+          break;
+        case "confirm":
+          if (!value) errorObj[name] = "Please confirm your password.";
+          else if (password !== value)
+            errorObj[name] =
+              "Your passwords aren't matching.";
+          break;
+        case "firstName":
+          if (!value) errorObj[name] = "Please enter your first name.";
+          else if (containsNumbers(value))
+            errorObj[name] = "No numbers in your name please.";
+          break;
+        case "surname":
+          if (!value) errorObj[name] = "Please enter your surname.";
+          else if (containsNumbers(value))
+            errorObj[name] = "No numbers in your name please.";
+          break;
+        case "postCode":
+          if (!value) errorObj[name] = "Please enter your postcode.";
+          if (!containsOnlyNumbers(value))
+            errorObj[name] = "No letters in your postcode please.";
+          break;
+        default:
+          break;
+      }
+
+      if(name !== "postCode" && errorObj[name] !== "") 
+        setValidForm(false);
+
+      return errorObj;
+    });
+  };
 
   const changeValues = (e) => {
     const { name, value } = e.target;
@@ -81,38 +85,46 @@ const validateValue = (e) => {
 
   const resetForm = () => {
     setFormValues(initSignUpForm);
-  }
+  };
 
   const submit = (e) => {
     e.preventDefault();
     add(formValues);
     resetForm();
-  }
-  
+  };
 
   return (
-      <form id="SignUpForm" onSubmit={submit}>
-        <div className="sign-up form-input email">
-          Your Email Address *
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={changeValues}
-            onBlur={validateValue}
-            required
-            autoComplete="off"
-          />
-          {errors.email}
+    <form id="SignUpForm" onSubmit={submit}>
+        {!validForm && <p className="head-error">We're sorry, but one or more fields are incomplete or incorrect</p>}
+      <div className="sign-up form-input email">
+        <div className="input-labels">
+          <label htmlFor="email">Your Email Address *</label>
+          <span className="error-text">{errors.email}</span>
         </div>
-        {pwInputsSignUp.map((input) => {
-          const { key, text, name } = input;
-          const state = name === "password" ? showPW : showCPW; 
+        <input
+        className={errors.email && "active-error"}
+          type="email"
+          name="email"
+          value={email}
+          onChange={changeValues}
+          onBlur={validateValue}
+          required
+          autoComplete="off"
+        />
+      </div>
+      {pwInputsSignUp.map((input) => {
+        const { key, text, name } = input;
+        const state = name === "password" ? showPW : showCPW;
 
-          return (
-            <div key={key} className={`sign-up form-input ${name}`}>
-              {text}
+        return (
+          <div key={key} className={`sign-up form-input ${name}`}>
+            <div className="input-labels">
+              <label htmlFor={name}>{text}</label>
+              <span className="error-text">{errors[name]}</span>
+            </div>
+            <div className="pw-input-hide">
               <input
+                className={errors[name] && "active-error"}
                 type={state ? "text" : "password"}
                 name={name}
                 value={formValues[name]}
@@ -120,53 +132,60 @@ const validateValue = (e) => {
                 onBlur={validateValue}
                 minLength="8"
                 maxLength="20"
+                autoComplete="off"
                 required
               />
-              <button
-                className={`pw-btn ${name}`}
-                value={name}
-                onClick={hide}
-              >
-                {formValues[state] 
-                    ? <AiFillEyeInvisible className="eye-icon" /> 
-                    : <AiFillEye className="eye-icon" />
-                }
+              <button className={`pw-btn ${name}`} value={name} onClick={hide}>
+                {formValues[state] ? (
+                  <AiFillEyeInvisible className="eye-icon" />
+                ) : (
+                  <AiFillEye className="eye-icon" />
+                )}
               </button>
-              {errors[name]}
             </div>
-          );
-        })}
-        {nameInputsSignUp.map((input) => {
-          const { key, label, name } = input;
+            { name==="password" && <p className="pw-rules">Password must be 8-20 characters, including: at least one capital letter, at least one small letter, one number, and one special character - !@#$%^&*</p>}
+          </div>
+        );
+      })}
+      {nameInputsSignUp.map((input) => {
+        const { key, label, name } = input;
 
-          return (
-            <div key={key} className={`sign-up form-input ${name}`}>
-              {label}
-              <input 
-                type="text" 
-                name={name} 
-                value={formValues[name]}
-                onBlur={validateValue} 
-                onChange={changeValues} 
-                required 
-              />
-              {errors[name]}
+        return (
+          <div key={key} className={`sign-up form-input ${name}`}>
+            <div className="input-labels">
+              <label htmlFor={name}>{label}</label>
+              <span className="error-text">{errors[name]}</span>
             </div>
-          );
-        })}
-        <div className="sign-up form-input postCode">
-          Postcode
-          <input 
-            type="text" 
-            name="postCode" 
-            value={postCode}
-            onChange={changeValues} 
-            onBlur={validateValue} 
-          />
-          {errors.postCode}
+            <input
+                className={errors[name] && "active-error"}
+              type="text"
+              name={name}
+              value={formValues[name]}
+              onBlur={validateValue}
+              onChange={changeValues}
+              autoComplete="off"
+              required
+            />
+          </div>
+        );
+      })}
+      <div className="sign-up form-input postCode">
+        <div className="input-labels">
+          <label htmlFor="postCode">Postcode</label>
+          <span className="error-text">{errors.postCode}</span>
         </div>
-        <input type="submit" value="Save" />
-      </form>
+        <input
+            className={errors.postCode && "active-error"}
+          type="text"
+          name="postCode"
+          value={postCode}
+          onChange={changeValues}
+          onBlur={validateValue}
+            autoComplete="off"
+        />
+      </div>
+      <input className="form-submit big-btn" type="submit" value="Save" />
+    </form>
   );
 };
 
