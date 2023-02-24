@@ -89,8 +89,11 @@ const SignUpForm = (props) => {
 
   const submit = (e) => {
     e.preventDefault();
-    add(formValues);
-    resetForm();
+    
+    if(validForm){
+      add(formValues);
+      resetForm();
+    }
   };
 
   return (
@@ -102,7 +105,7 @@ const SignUpForm = (props) => {
           <span className="error-text">{errors.email}</span>
         </div>
         <input
-        className={errors.email && "active-error"}
+          className={errors.email && "active-error"}
           type="email"
           name="email"
           value={email}
@@ -184,7 +187,11 @@ const SignUpForm = (props) => {
             autoComplete="off"
         />
       </div>
-      <input className="form-submit big-btn" type="submit" value="Save" />
+      <input 
+        className="form-submit big-btn" 
+        type="submit" 
+        value="Save"
+      />
     </form>
   );
 };

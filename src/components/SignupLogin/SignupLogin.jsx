@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AiOutlineClose, AiFillFacebook } from "react-icons/ai";
 import { MdHorizontalRule } from "react-icons/md";
 import SignUpForm from "./SignUpForm";
+import LoginForm from "./LoginForm";
 import "./SignupLogin.css";
 
 const SignupLogin = () => {
@@ -48,15 +49,17 @@ const SignupLogin = () => {
         <label className={signLog === "login" && "active"}>Log In</label>
       </div>
 
-      {signLog === "sign-up" ? (
-        <SignUpForm
-          showPW={showPassword}
-          showCPW={showConfirmPW}
-          accounts={accounts}
-          hide={toggleHide}
-          add={addToAccounts}
-        />
-      ) : null}
+      {signLog === "sign-up" 
+        ? (<SignUpForm
+            showPW={showPassword}
+            showCPW={showConfirmPW}
+            accounts={accounts}
+            hide={toggleHide}
+            add={addToAccounts}
+          />) 
+        : (<LoginForm 
+          />)
+      }
       
       <div className="operator flex-align-center">
         <MdHorizontalRule className="solid-line" /> 
