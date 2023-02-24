@@ -159,3 +159,16 @@
 .login.form-input input {
     margin-top: 0.3rem;
 }
+
+@media (max-width: 375px) {
+    #SignupLogin .sign-log-inputs,
+    #SignupLogin .close-x {
+        font-size: 18px;
+    }
+    #SignupLogin .sign-log-inputs {
+        margin-top: 3rem;
+    }       
+    #SignupLogin .facebook-btn {
+        font-size: 16px;
+    }
+}
