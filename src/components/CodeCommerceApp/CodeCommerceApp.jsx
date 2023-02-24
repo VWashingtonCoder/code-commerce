@@ -8,7 +8,7 @@ import Confirmation from "../Confirmation/Confirmation";
 
 const CodeCommerceApp = () => {
     const pageKeys = ["login", "cart", "ship", "pay", "confirm"];
-    const [page, setPage] = useState(pageKeys[0]);
+    const [page, setPage] = useState(pageKeys[1]);
 
     const changePage = (key) => {
         setPage(key);
