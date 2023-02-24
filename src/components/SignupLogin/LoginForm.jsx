@@ -19,7 +19,7 @@ const LoginForm = (props) => {
   return (
     <form id="LoginForm">
       <div className="login form-input">
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email" className="input-label">Email</label>
         <input
           name="email"
           type="email"
@@ -29,8 +29,8 @@ const LoginForm = (props) => {
           autoComplete="off"
         />
       </div>
-      <div className="login form-input">
-        <label htmlFor="password">Password</label>
+      <div className="login form-input pw-input-hide">
+        <label htmlFor="password" className="input-label">Password</label>
         <input
           name="password"
           type={showPW ? "text" : "password"}

@@ -50,7 +50,7 @@
     color: red;
 }
 
-#SignUpForm {
+#SignUpForm, #LoginForm {
     padding: 0px 2rem;
     font-size: 20px;
 }
@@ -74,7 +74,6 @@
     padding-left: 10px;
 }
 
-
 .form-input .active-error {
     background-color: mistyrose;
     border-color: lightcoral;
@@ -91,12 +90,20 @@
 }
 
 .pw-btn.password, 
-.pw-btn.confirm {
+.pw-btn.confirm, 
+.pw-btn.login-pw {
     position: absolute;
-    top: 4px;
     right: 0;
 }
 
+.pw-btn.password, 
+.pw-btn.confirm {
+    top: 4px;
+}
+
+.pw-btn.login-pw {
+    top: 37px;
+}
 .pw-btn .eye-icon {
     pointer-events: none;
 }
@@ -140,4 +147,15 @@
 
 .form-footer .foot-link:hover {
     color: blue;
+}
+
+#LoginForm {
+    max-width: 90%;
+    text-align: left;
+}
+.login.form-input {
+    width: 99%;
+}
+.login.form-input input {
+    margin-top: 0.3rem;
 }
