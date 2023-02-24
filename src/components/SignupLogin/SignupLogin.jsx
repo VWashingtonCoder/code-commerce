@@ -34,6 +34,10 @@ const SignupLogin = () => {
     setAccounts([...accounts, accountInfo]);
   };
 
+  const validateLogin = (info) => {
+    console.log(info);
+  }
+
   return (
     <div id="SignupLogin">
       <AiOutlineClose className="close-x" />
@@ -58,6 +62,7 @@ const SignupLogin = () => {
             add={addToAccounts}
           />) 
         : (<LoginForm 
+            validate={validateLogin}
           />)
       }
       

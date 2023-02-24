@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-const LoginForm = (props) => {
+const LoginForm = (validate) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPW, setShowPW] = useState(false);
+
 
   const updateForm = (e) => {
     const { name, value } = e.target;
@@ -15,6 +16,15 @@ const LoginForm = (props) => {
     e.preventDefault();
     setShowPW(!showPW);
   };
+
+  const submit = (e) => {
+    e.preventDefault();
+
+    if(email && password) {
+        const values = [email, password];
+        validate(values);
+    }
+  } 
 
   return (
     <form id="LoginForm">
