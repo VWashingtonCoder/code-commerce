@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-const LoginForm = (validate) => {
+const LoginForm = (props) => {
+  const { validate } = props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPW, setShowPW] = useState(false);
@@ -27,7 +28,7 @@ const LoginForm = (validate) => {
   } 
 
   return (
-    <form id="LoginForm">
+    <form id="LoginForm" onSubmit={submit}>
       <div className="login form-input">
         <label htmlFor="email" className="input-label">Email</label>
         <input

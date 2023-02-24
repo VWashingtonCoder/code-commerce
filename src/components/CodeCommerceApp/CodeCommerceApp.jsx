@@ -10,9 +10,13 @@ const CodeCommerceApp = () => {
     const pageKeys = ["login", "cart", "ship", "pay", "confirm"];
     const [page, setPage] = useState(pageKeys[0]);
 
+    const changePage = (key) => {
+        setPage(key);
+    }
+
     return (
         <div id="CodeCommerceApp">
-            { page === "login" && (<SignUpLogin />) }
+            { page === "login" && (<SignUpLogin pageSet={changePage} />) }
             { page === "cart" && (<Cart />) }
             { page === "ship" && (<Shipping />) }
             { page === "pay" && (<Payment />) }
