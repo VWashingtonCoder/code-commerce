@@ -15,54 +15,6 @@ const Cart = () => {
         {status && (<StatusBar status={status} />)}
         
         <Table />
-{/* 
-        <table className="cart-table">
-          <tr className="cart-table-head">
-            <th></th>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Total Price</th>
-          </tr>
-
-
-          {products.map((item, idx) => {
-            const { imgSrc, category, itemName, color, size, price } = item;
-
-            const key = idx + 1;
-
-            return (
-              <tr className="product-row" key={key}>
-                <td className="product-btn-row">
-                  <button className="product-btn">
-                    <AiFillCloseCircle />
-                  </button>
-                </td>
-                <td className="product-info-row">
-                  <ProductInfo
-                    img={imgSrc}
-                    category={category}
-                    name={itemName}
-                    color={color}
-                    size={size}
-                  />
-                </td>
-                <td className="product-price-row">{`$${price.toFixed(2)}`}</td>
-                <td className="product-quantity-row">
-                  <select name={`quantity-${key}`} className="product-quantity">
-                    {[1, 2, 3, 4, 5].map((num) => (
-                      <option value={num}>{num}</option>
-                    ))}
-                  </select>
-                </td>
-                <td className="product-total-row">
-                  {/* have to hook up a function to return total price of items 
-                  {price.toFixed(2)}
-                </td>
-              </tr>
-            );
-          })}
-        </table> */}
       </div>
       <div className="cart-summary">
         <div className="summary-title">Summary</div>
