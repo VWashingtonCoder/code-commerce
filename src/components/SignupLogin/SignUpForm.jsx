@@ -138,7 +138,7 @@ const SignUpForm = (props) => {
                 autoComplete="off"
                 required
               />
-              <button className={`pw-btn ${name}`} value={name} onClick={hide}>
+              <button className={`pw-btn icon-btn ${name}`} value={name} onClick={hide}>
                 {formValues[state] ? (
                   <AiFillEyeInvisible className="eye-icon" />
                 ) : (

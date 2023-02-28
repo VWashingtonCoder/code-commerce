@@ -1,3 +1,28 @@
 #CodeCommerceApp {
     background-color: #FFFAFA;
 }
+
+.flex-align-center {
+    display: flex;
+    align-items: center;
+}
+
+.big-btn {
+    font-size: 24px;
+    height: 3.5rem;
+    border: none;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.close-x {
+    pointer-events: none;
+    position: absolute;
+    color: gray;
+}
+
+.icon-btn {
+    border: none;
+    background: transparent;
+}

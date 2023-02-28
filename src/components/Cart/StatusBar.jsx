@@ -1,7 +1,7 @@
 const StatusBar = ({status}) => {
     return (
         <div id="StatusBar">
-            <button className="close-x">X</button>
+            <button className="close-x icon-btn">X</button>
             <div className="img-container">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/6745/6745042.png"

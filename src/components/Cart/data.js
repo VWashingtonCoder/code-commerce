@@ -15,7 +15,7 @@ export const products = [
       {
         imgSrc: MyHero,
         category: "Unisex",
-        itemName: "Anime Print Hoodie My Hero Academia",
+        itemName: "Anime Print Hoodie My Hero Acad",
         color: "Multi",
         size: "XL",
         price: 27.25,

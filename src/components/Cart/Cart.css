@@ -6,7 +6,7 @@
 }
 
 #Cart .cart-info {
-  width: 60vw;
+  width: 70vw;
 }
 
 #StatusBar {
@@ -15,19 +15,14 @@
   text-align: left;
   position: relative;
   background-color: gainsboro;
-  width: 100%;
   padding: 15px;
   margin-bottom: 20px;
   border-radius: 5px;
 }
 
 #StatusBar .close-x {
-  position: absolute;
   top: 5px;
   right: 5px;
-  background: transparent;
-  border: none;
-  color: gray;
   font-size: 20px;
 }
 
@@ -37,7 +32,7 @@
 }
 
 .img-container img {
-    width: 100%;
+  width: 100%;
 }
 
 .text-container .text-item {
@@ -52,8 +47,71 @@
   padding: 10px;
 }
 
-.cart-table-head th {
+th,
+td {
   border-bottom: 1px solid lightgray;
-  padding-bottom: 10px;
+}
+
+tr:last-of-type td {
+  border-bottom: none;
+}
+
+.cart-table-head th {
   text-transform: uppercase;
+  padding-bottom: 10px;
+  text-align: left;
+  font-size: 18px;
+}
+.product-btn-cell .product-btn {
+  font-size: 30px;
+}
+
+.product-row td {
+  padding: 10px 0;
+}
+
+.product-row .product-info-row {
+  width: 500px;
+}
+
+.product-info {
+  text-align: left;
+}
+
+.product-info .img-container {
+  max-width: 150px;
+  margin-right: 10px;
+}
+
+.name-text,
+.text-value, 
+.price,
+.product-quantity {
+  font-weight: 700;
+}
+
+.category-text {
+  color: darkgray;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1.25px;
+}
+
+.name-text {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.text-label {
+  width: 25%;
+} 
+
+.price {
+  font-size: 18px
+}
+
+.product-quantity {
+  width: 50px;
+    padding: 5px;
+    background-color: lightgrey;
 }

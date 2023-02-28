@@ -52,7 +52,7 @@ const LoginForm = (props) => {
           autoComplete="off"
           required
         />
-        <button className="pw-btn login-pw" onClick={hide}>
+        <button className="pw-btn icon-btn login-pw" onClick={hide}>
           {showPW ? (
             <AiFillEyeInvisible className="eye-icon" />
           ) : (
