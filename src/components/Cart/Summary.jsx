@@ -1,25 +1,8 @@
-import { useState } from "react";
-import "./Cart.css";
-import StatusBar from "./StatusBar";
-import Table from "./Table";
-import Summary from "./Summary";
+const Summary = ({ sub, total }) => {
 
-const Cart = () => {
-  const [status, setStatus] = useState("1 out of stock item removed");
-  const [subtotal, setSubtotal] = useState(50);
-  const [total, setTotal] = useState(50);
-
-  return (
-    <div id="Cart">
-      <div className="cart-info">
-        {status && (<StatusBar status={status} />)}
-        <Table />
-      </div>
-      <Summary sub={subtotal} total={total} />
-{/* 
-
-      <div className="cart-summary">
-        <div className="summary-title">Summary</div>
+    return (
+        <div id="Summary">
+            <div className="summary-title">Summary</div>
         <div className="promo">
           <label htmlFor="promo-code">Do you have a promo code?</label>
           <input type="text" name="promo-code" placeholder="Code" />
@@ -29,7 +12,7 @@ const Cart = () => {
           <div className="cart-subtotal totals-container">
             <p className="total-title">Cart Subtotal:</p>
             <p className="total-num">
-              {subtotal === 0 ? "-" : `$${subtotal.toFixed(2)}`}
+              {sub === 0 ? "-" : `$${sub.toFixed(2)}`}
             </p>
           </div>
           <div className="cart-shipping totals-container">
@@ -48,9 +31,8 @@ const Cart = () => {
           </div>
         </div>
         <button className="checkout-btn">Checkout</button>
-      </div> */}
-    </div>
-  );
-};
+      </div>
+    );
+}
 
-export default Cart;
+export default Summary;
