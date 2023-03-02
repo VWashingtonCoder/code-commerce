@@ -70,8 +70,13 @@ tr:last-of-type td {
   text-align: left;
   font-size: 18px;
 }
+
 .product-btn-cell .product-btn {
   font-size: 30px;
+}
+
+.remove-x {
+  pointer-events: none;
 }
 
 .product-row td {

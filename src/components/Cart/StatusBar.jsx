@@ -1,4 +1,4 @@
-const StatusBar = ({status}) => {
+const StatusBar = ({ top, item }) => {
     return (
         <div id="StatusBar">
             <button className="close-x icon-btn">X</button>
@@ -9,8 +9,8 @@ const StatusBar = ({status}) => {
               />
             </div>
             <div className="text-container">
-              <p className="text-status">{status}</p>
-              <p className="text-item">Floral Print Wrap Dress, Orange, 38</p>
+              <p className="text-status">{top}</p>
+              <p className="text-item">{item}</p>
             </div>
         </div>
     );
