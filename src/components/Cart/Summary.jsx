@@ -1,4 +1,5 @@
-const Summary = ({ sub, total, checkout }) => {
+const Summary = (props) => {
+  const { sub, total, checkout, disabled } = props;
   return (
     <div id="Summary">
       <h2 className="summary-title">Summary</h2>
@@ -30,7 +31,13 @@ const Summary = ({ sub, total, checkout }) => {
           </p>
         </div>
       </div>
-      <button className="checkout-btn" onClick={checkout}>Checkout</button>
+      <button 
+        className="checkout-btn" 
+        onClick={checkout}
+        disabled={disabled}
+      >
+        Checkout
+      </button>
     </div>
   );
 };

@@ -10,6 +10,7 @@ const Cart = ({ pageSet, final }) => {
   const [cartItems, setCartItems] = useState(productsInfo);
   const [cartStates, setCartStates] = useState(productsStates);
   const [totals, setTotals] = useState({ sub: 72.75, total: 72.75 });
+  const [disabled, setDisabled] = useState(false);
   const { top, item } = status;
   const { sub, total } = totals;
 
@@ -53,6 +54,8 @@ const Cart = ({ pageSet, final }) => {
     });
     setTotals({ sub: subtotal, total: subtotal });
     setStatus({ top: `${quantity} items removed:`, item: name })
+
+    cartItems.length <= 1 ? setDisabled(true) : setDisabled(false);
   }
 
   const checkout = (e) => {
@@ -78,7 +81,7 @@ const Cart = ({ pageSet, final }) => {
         {top && (<StatusBar top={top} item={item} />)}
         <Table cart={cartItems} states={cartStates} remove={removeItem} update={updateQuantityPrice}/>
       </div>
-      <Summary sub={sub} total={total} checkout={checkout} />
+      <Summary sub={sub} total={total} checkout={checkout} disabled={disabled} />
     </div>
   );
 };
