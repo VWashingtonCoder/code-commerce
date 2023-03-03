@@ -5,10 +5,11 @@ import Cart from "../Cart/Cart";
 import Shipping from "../Shipping/Shipping";
 import Payment from "../Payment/Payment";
 import Confirmation from "../Confirmation/Confirmation";
+import OrderSummary from "../OrderSummary/OrderSummary";
 
 const CodeCommerceApp = () => {
     const pageKeys = ["login", "cart", "ship", "pay", "confirm"];
-    const [page, setPage] = useState(pageKeys[1]);
+    const [page, setPage] = useState(pageKeys[2]);
     const [finalCart, setFinalCart] = useState({cart: [], subTotal: 0});
 
     const changePage = (key) => {
@@ -23,8 +24,13 @@ const CodeCommerceApp = () => {
         <div id="CodeCommerceApp">
             { page === "login" && (<SignUpLogin pageSet={changePage} />) }
             { page === "cart" && (<Cart pageSet={changePage} final={updateFinal} />) }
-            { page === "ship" && (<Shipping />) }
-            { page === "pay" && (<Payment />) }
+            
+            <div className="order-process">
+                <OrderSummary />
+                { page === "ship" && (<Shipping />) }
+                { page === "pay" && (<Payment />) }
+            </div>
+            
             { page === "confirm" && (<Confirmation />) }
         </div>
     );
