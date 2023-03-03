@@ -1,5 +1,5 @@
 import { AiFillCloseCircle } from "react-icons/ai";
-import { headers } from "./data";
+import { headersTable } from "../data";
 
 const Table = (props) => {
   const { cart, states, remove, update } = props
@@ -7,7 +7,7 @@ const Table = (props) => {
     <table id="Table">
       <thead>
         <tr className="cart-table-head">
-          {headers.map((head, idx) => (
+          {headersTable.map((head, idx) => (
             <th key={`head-${idx}`}>{head}</th>
           ))}
         </tr>

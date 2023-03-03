@@ -3,7 +3,7 @@ import "./Cart.css";
 import StatusBar from "./StatusBar";
 import Table from "./Table";
 import Summary from "./Summary";
-import { productsInfo, productsStates } from "./data";
+import { productsInfo, productsStates } from "../data";
 
 const Cart = ({ pageSet, final }) => {
   const [status, setStatus] = useState({ top: "", item: "" });
