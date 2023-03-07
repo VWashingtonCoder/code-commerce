@@ -2,8 +2,8 @@ const Summary = (props) => {
   const { sub, total, checkout, disabled } = props;
   return (
     <div id="Summary">
-      <h2 className="summary-title">Summary</h2>
-      <div className="promo">
+      <h2 className="summary-title underline-border">Summary</h2>
+      <div className="promo underline-border">
         <label htmlFor="promo-code">Do you have a promo code?</label>
         <div className="input-row flex-align-center">
           <input type="text" name="promo-code" placeholder="Code" />
@@ -11,7 +11,7 @@ const Summary = (props) => {
         </div>
         
       </div>
-      <div className="cart-totals">
+      <div className="cart-totals underline-border">
         <div className="cart-subtotal totals-container flex-align-center">
           <p className="total-title">Cart Subtotal:</p>
           <p className="total-num">{sub === 0 ? "-" : `$${sub.toFixed(2)}`}</p>

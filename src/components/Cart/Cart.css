@@ -1,15 +1,8 @@
 #Cart {
-  margin: 20px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-#Cart .cart-info {
   width: 70vw;
 }
 
-#StatusBar {
+.status-bar {
   display: flex;
   align-items: center;
   text-align: left;
@@ -20,32 +13,27 @@
   border-radius: 5px;
 }
 
-#StatusBar .close-x {
+.status-bar .close-x {
   top: 5px;
   right: 5px;
   font-size: 20px;
 }
 
-#StatusBar .img-container {
+.status-bar .img-container {
   max-width: 50px;
   margin-right: 25px;
-}
-
-.img-container img {
-  width: 100%;
 }
 
 .text-container .text-item {
   color: magenta;
 }
 
-#Table,
-#Summary {
-  border: 1px solid lightgray;
+.cart-table {
   box-shadow: 0px 0px 10px 5px lightgrey;
+  border: 1px solid lightgray;
 }
 
-#Table {
+.cart-table {
   width: 100%;
   background-color: white;
   border-radius: 5px;
@@ -53,23 +41,22 @@
   text-align: center;
 }
 
-th,
-td,
-.summary-title,
-.promo,
-.cart-totals {
-  border-bottom: 1px solid lightgray;
-}
 
 tr:last-of-type td {
   border-bottom: none;
 }
 
 .cart-table-head th {
+  padding-bottom: 5px;
   text-transform: uppercase;
-  padding-bottom: 10px;
   text-align: left;
   font-size: 18px;
+}
+th.close-row {
+  width: 85px;
+}
+td.close-row {
+  width: 100px;
 }
 
 .product-btn-cell .product-btn {
@@ -80,11 +67,11 @@ tr:last-of-type td {
   pointer-events: none;
 }
 
-.product-row td {
+.item-row td {
   padding: 10px 0;
 }
 
-.product-row .product-info-row {
+.item-row .product-info-row {
   width: 500px;
 }
 

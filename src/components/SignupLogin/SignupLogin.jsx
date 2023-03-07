@@ -47,7 +47,7 @@ const SignupLogin = ({ pageSet }) => {
         || emailObj.password !== password
       ) {
       setStatus("Account not found. Try again.");
-    } else pageSet("cart");
+    } else pageSet();
   }
 
   return (

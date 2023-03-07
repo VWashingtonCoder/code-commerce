@@ -2,27 +2,14 @@
     background-color: #FFFAFA;
 }
 
-.flex-align-center {
-    display: flex;
-    align-items: center;
-}
+#Summary {
+    box-shadow: 0px 0px 10px 5px lightgrey;
+    border: 1px solid lightgray;
+  }
 
-.big-btn {
-    font-size: 24px;
-    height: 3.5rem;
-    border: none;
-    color: white;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-.close-x {
-    pointer-events: none;
-    position: absolute;
-    color: gray;
-}
-
-.icon-btn {
-    border: none;
-    background: transparent;
+.page-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 20px 40px;
 }

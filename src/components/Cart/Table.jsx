@@ -1,30 +1,31 @@
 import { AiFillCloseCircle } from "react-icons/ai";
-import { headers } from "../data";
+import { headers, categories, qtyOptions } from "../data";
 
 const Table = (props) => {
-  const { cart, states, remove, update } = props
+  const { cart, remove, update } = props
   return (
     <table id="Table">
       <thead>
         <tr className="cart-table-head">
           {headers.map((head, idx) => (
-            <th key={`head-${idx}`} className={`${head}-header`}>{head}</th>
+            <th key={`head-${idx}`} className={`${head} t-head underline-border`}>{head}</th>
           ))}
         </tr>
       </thead>
 
       <tbody>
         {cart.map((item) => {
-          const { key, imgSrc, category, itemName, color, size, price } = item;
+          const { key, imgSrc, category, itemName, color, size, price, totalPrice } = item;
 
           return (
             <tr className="product-row" key={key}>
-              <td className="product-btn-cell">
+              <td className="product-column remove underline-border">
                 <button className="product-btn icon-btn" value={key} onClick={remove}>
                   <AiFillCloseCircle className="remove-x" />
                 </button>
               </td>
-              <td className="product-info-row">
+
+              <td className="product-column item underline-border">
                 <div className="product-info flex-align-center">
                   <div className="img-container">
                     <img src={imgSrc} alt={`${itemName} display`} />
@@ -32,35 +33,34 @@ const Table = (props) => {
                   <div className="text-container">
                     <p className="category-text">{category}</p>
                     <p className="name-text">{itemName}</p>
-                    <div className="info-container flex-align-center">
-                      <p className="text-label">Color:</p>
-                      <p className="text-value">{color}</p>
-                    </div>
-                    <div className="info-container flex-align-center">
-                      <p className="text-label">Size:</p>
-                      <p className="text-value">{size}</p>
-                    </div>
+                    {categories.map((info) => (
+                      <div className="info-container flex-align-center">
+                        <p className="text-label">{info}:</p>
+                        <p className="text-value">{info === "color" ? color : size}</p>
+                      </div>  
+                    ))}
                   </div>
                 </div>
               </td>
-              <td className="product-price-row price">
+
+              <td className="product-column price underline-border">
                 {`$${price.toFixed(2)}`}
               </td>
-              <td className="product-quantity-row">
+
+              <td className="product-column quantity underline-border">
                 <select
                   name={key}
                   className="product-quantity"
                   onChange={update}
                 >
-                  {[1, 2, 3, 4, 5].map((num, idx) => (
-                    <option key={idx} value={num}>
-                      {num}
-                    </option>
+                  {qtyOptions.map((num, idx) => (
+                    <option key={idx} value={num}>{num}</option>
                   ))}
                 </select>
               </td>
-              <td className="product-total-row price">
-                {`$${states[key].totalPrice.toFixed(2)}`}
+
+              <td className="product-column total underline-border">
+                {`$${totalPrice.toFixed(2)}`}
               </td>
             </tr>
           );

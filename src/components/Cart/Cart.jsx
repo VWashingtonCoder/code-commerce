@@ -1,87 +1,192 @@
 import { useState } from "react";
 import "./Cart.css";
-import StatusBar from "./StatusBar";
+import { headers, categories, qtyOptions } from "../data";
 import Table from "./Table";
-import Summary from "./Summary";
-import { productsInfo, productsStates } from "../data";
+import { AiFillCloseCircle } from "react-icons/ai";
 
-const Cart = ({ pageSet, final }) => {
-  const [status, setStatus] = useState({ top: "", item: "" });
-  const [cartItems, setCartItems] = useState(productsInfo);
-  const [cartStates, setCartStates] = useState(productsStates);
-  const [totals, setTotals] = useState({ sub: 72.75, total: 72.75 });
-  const [disabled, setDisabled] = useState(false);
-  const { top, item } = status;
-  const { sub, total } = totals;
-
-  function getSubTotal(key, total) {
-    let subtotal = 0;
-    for (let entry in cartStates) {
-      if (entry === key) subtotal = subtotal + total;
-      else subtotal = subtotal + cartStates[entry].totalPrice; 
-    }
-    return subtotal;
-  }
+const Cart = (props) => {
+  const { bag, pageSet, final, updateTotals, updateDisabled } = props;
+  const [status, setStatus] = useState("");
+  const [statusItem, setStatusItem] = useState("");
 
   const updateQuantityPrice = (e) => {
     const value = Number(e.target.value);
     const itemKey = e.target.name;
-    const item = productsInfo.find((item) => item.key === itemKey);
+    const item = bag.find((item) => item.key === itemKey);
     const price = item.price;
     const newTotal = price * value;
-    const subtotal = getSubTotal(itemKey, newTotal);
-
-    setCartStates({
-      ...cartStates,
-      [itemKey]: { quantity: value, totalPrice: newTotal },
-    });
-    setTotals({ sub: subtotal, total: subtotal });
   };
 
-  const removeItem = (e) => {
-    e.preventDefault();
-    const key = e.target.value;
-    const newCart = cartItems.filter(item => item.key !== key);
-    const item = cartItems.find(item => item.key === key);
-    const name = item.itemName
-    const quantity = cartStates[key].quantity
-    const subtotal = getSubTotal(key, 0)
- 
-    setCartItems(newCart)
-    setCartStates({
-      ...cartStates,
-      [key]: { quantity: 0, totalPrice: 0 },
-    });
-    setTotals({ sub: subtotal, total: subtotal });
-    setStatus({ top: `${quantity} items removed:`, item: name })
+  // const removeItem = (e) => {
+  //   e.preventDefault();
+  //   const key = e.target.value;
+  //   const newCart = cartItems.filter(item => item.key !== key);
+  //   const item = cartItems.find(item => item.key === key);
+  //   const name = item.itemName
+  //   const quantity = cartStates[key].quantity
+  //   const subtotal = getSubTotal(key, 0)
 
-    cartItems.length <= 1 ? setDisabled(true) : setDisabled(false);
-  }
+  //   setCartItems(newCart)
+  //   setCartStates({
+  //     ...cartStates,
+  //     [key]: { quantity: 0, totalPrice: 0 },
+  //   });
+  //   setStatus(`${quantity} items removed:`);
+  //   setStatusItem(name);
+  //   updateTotals(subtotal);
 
-  const checkout = (e) => {
-    e.preventDefault();
-    const cartInfo = {
-      cart: [],
-      subtotal: sub
-    }
+  //   if (cartItems.length <= 1) updateDisabled();
+  // }
 
-    cartItems.forEach(item => {
-      const { key } = item;
-      const cartItem = { ...item, quantity: cartStates[key].quantity}
-      cartInfo["cart"].push(cartItem);
-    })
+  // const checkout = (e) => {
+  //   e.preventDefault();
+  //   const cartInfo = {
+  //     cart: [],
+  //   }
 
-    final(cartInfo);
-    pageSet("ship");
-  }
+  //   cartItems.forEach(item => {
+  //     const { key } = item;
+  //     const cartItem = { ...item, quantity: cartStates[key].quantity}
+  //     cartInfo["cart"].push(cartItem);
+  //   })
+
+  //   final(cartInfo);
+  //   pageSet();
+  // }
 
   return (
     <div id="Cart">
-      <div className="cart-info">
-        {top && (<StatusBar top={top} item={item} />)}
-        <Table cart={cartItems} states={cartStates} remove={removeItem} update={updateQuantityPrice}/>
-      </div>
-      <Summary sub={sub} total={total} checkout={checkout} disabled={disabled} />
+      {status && (
+        <div className="status-bar">
+          <button className="close-x icon-btn">X</button>
+          <div className="img-container">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/6745/6745042.png"
+              alt="hazard sign"
+            />
+          </div>
+          <div className="text-container">
+            <p className="text-status">{status}</p>
+            <p className="text-item">{statusItem}</p>
+          </div>
+        </div>
+      )}
+
+
+
+
+      <table className="cart-table">
+        <thead>
+          <tr className="cart-table-head">
+            {headers.map((head, idx) => (
+              <th
+                key={`head-${idx}`}
+                className={`${head !== " " ? `${head}-row` : "close-row"} t-head underline-border`}
+              >
+                {head}
+              </th>
+            ))}
+          </tr>
+        </thead>
+      </table>
+
+      <tbody>
+        {bag.map((item) => {
+          const {
+            category,
+            color,
+            imgSrc,
+            itemName,
+            key,
+            price,
+            size,
+            totalPrice,
+          } = item;
+
+          return (
+            <tr className="item-row" key={key}>
+              <td className="product-column remove underline-border close-row">
+                <button className="product-btn icon-btn"  value={key}>
+                  <AiFillCloseCircle className="remove-x" />
+                </button>
+              </td>
+
+              <td className="product-column item underline-border">
+                <div className="product-info flex-align-center">
+                  <div className="img-container">
+                    <img src={imgSrc} alt={`${itemName} display`} />
+                  </div>
+                  <div className="text-container">
+                    <p className="category-text">{category}</p>
+                    <p className="name-text">{itemName}</p>
+                    {categories.map((info) => (
+                      <div className="info-container flex-align-center">
+                        <p className="text-label">{info}:</p>
+                        <p className="text-value">
+                          {info === "color" ? color : size}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </td>
+            </tr>
+          );
+          // return (
+          //   <tr className="product-row" key={key}>
+          //     <td className="product-column remove underline-border">
+          //       <button className="product-btn icon-btn" value={key}>
+          //         <AiFillCloseCircle className="remove-x" />
+          //       </button>
+          //     </td>
+
+          //     <td className="product-column item underline-border">
+          //       <div className="product-info flex-align-center">
+          //         <div className="img-container">
+          //           <img src={imgSrc} alt={`${itemName} display`} /
+          //         </div>
+          //         <div className="text-container">
+          //           <p className="category-text">{category}</p>
+          //           <p className="name-text">{itemName}</p>
+          //           {categories.map((info) => (
+          //             <div className="info-container flex-align-center">
+          //               <p className="text-label">{info}:</p>
+          //               <p className="text-value">{info === "color" ? color : size}</p>
+          //             </div>
+          //           ))}
+          //         </div>
+          //       </div>
+          //     </td>
+
+          //     <td className="product-column price underline-border">
+          //       {`$${price.toFixed(2)}`}
+          //     </td>
+
+          //     <td className="product-column quantity underline-border">
+          //       <select
+          //         name={key}
+          //         className="product-quantity"
+          //         onChange={updateQuantityPrice}
+          //       >
+          //         {qtyOptions.map((num, idx) => (
+          //           <option key={idx} value={num}>{num}</option>
+          //         ))}
+          //       </select>
+          //     </td>
+
+          //     <td className="product-column total underline-border">
+          //       {`$${totalPrice.toFixed(2)}`}
+          //     </td>
+          //   </tr>
+          // );
+        })}
+      </tbody>
+
+      {/* <Table 
+          cart={bag} 
+          // remove={removeItem} 
+          update={updateQuantityPrice}
+        /> */}
     </div>
   );
 };
