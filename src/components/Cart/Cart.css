@@ -3,8 +3,6 @@
 }
 
 .status-bar {
-  display: flex;
-  align-items: center;
   text-align: left;
   position: relative;
   background-color: gainsboro;
@@ -24,7 +22,7 @@
   margin-right: 25px;
 }
 
-.text-container .text-item {
+.status-item {
   color: magenta;
 }
 
@@ -38,28 +36,31 @@
   background-color: white;
   border-radius: 5px;
   padding: 10px;
-  text-align: center;
 }
-
 
 tr:last-of-type td {
   border-bottom: none;
 }
 
 .cart-table-head th {
-  padding-bottom: 5px;
+  padding: 10px 0 13px;
   text-transform: uppercase;
-  text-align: left;
-  font-size: 18px;
+  font-size: 22px;
 }
-th.close-row {
+
+th.close-column {
   width: 85px;
 }
-td.close-row {
+
+.item-row td {
+  padding: 10px 0;
+}
+
+.close-column {
   width: 100px;
 }
 
-.product-btn-cell .product-btn {
+.close-column .close-btn {
   font-size: 30px;
 }
 
@@ -67,28 +68,14 @@ td.close-row {
   pointer-events: none;
 }
 
-.item-row td {
-  padding: 10px 0;
-}
-
-.item-row .product-info-row {
-  width: 500px;
-}
-
-.product-info {
+.product-column {
+  width: 550px;
   text-align: left;
 }
 
 .product-info .img-container {
   max-width: 150px;
   margin-right: 10px;
-}
-
-.name-text,
-.text-value,
-.price,
-.product-quantity {
-  font-weight: 700;
 }
 
 .category-text {
@@ -101,21 +88,40 @@ td.close-row {
 .name-text {
   font-size: 18px;
   margin-bottom: 6px;
+  font-weight: 700;
 }
 
 .text-label {
   width: 25%;
 }
 
-.price {
+.text-value {
+  font-weight: 700;
+}
+.price-text, 
+.total-text {
   font-size: 18px;
+  font-weight: 700;
 }
 
-.product-quantity {
+.quantity-column,
+th.quantity-column {
+  width: 150px;
+  text-align: center;
+}
+.quantity-select {
   width: 50px;
   padding: 5px;
   background-color: lightgrey;
+  font-weight: 700;
 }
+
+
+
+/*********************************/
+
+
+
 
 #Summary {
   margin-left: 15px;
