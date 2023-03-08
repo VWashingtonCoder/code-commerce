@@ -74,11 +74,7 @@ export const nameInputsSignUp = [
 ];
 
 /* Init States_Cart */
-
 export const initTotals = { sub: 72.75, total: 72.75 };
-/* */
-
-
 /*Cart_Table*/
 export const headers = [" ", "product", "price", "quantity", "total price"];
 export const categories = ["color", "size"];

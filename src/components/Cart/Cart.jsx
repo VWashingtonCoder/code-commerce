@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./Cart.css";
 import { headers, categories, qtyOptions } from "../data";
-import Table from "./Table";
 import { AiFillCloseCircle } from "react-icons/ai";
 
 const Cart = (props) => {
@@ -57,7 +56,7 @@ const Cart = (props) => {
   return (
     <div id="Cart">
       {status && (
-        <div className="status-bar">
+        <div className="status-bar flex-align-center">
           <button className="close-x icon-btn">X</button>
           <div className="img-container">
             <img
@@ -66,14 +65,11 @@ const Cart = (props) => {
             />
           </div>
           <div className="text-container">
-            <p className="text-status">{status}</p>
-            <p className="text-item">{statusItem}</p>
+            <p className="status-text">{status}</p>
+            <p className="status-item">{statusItem}</p>
           </div>
         </div>
       )}
-
-
-
 
       <table className="cart-table">
         <thead>
@@ -81,114 +77,92 @@ const Cart = (props) => {
             {headers.map((head, idx) => (
               <th
                 key={`head-${idx}`}
-                className={`${head !== " " ? `${head}-row` : "close-row"} t-head underline-border`}
+                className={`${
+                  head !== " " ? `${head}-column` : "close-column"
+                } t-head underline-border`}
               >
                 {head}
               </th>
             ))}
           </tr>
         </thead>
-      </table>
 
-      <tbody>
-        {bag.map((item) => {
-          const {
-            category,
-            color,
-            imgSrc,
-            itemName,
-            key,
-            price,
-            size,
-            totalPrice,
-          } = item;
+        <tbody>
+          {bag.map((item) => {
+            const {
+              category,
+              color,
+              imgSrc,
+              itemName,
+              key,
+              price,
+              size,
+              totalPrice,
+            } = item;
 
-          return (
-            <tr className="item-row" key={key}>
-              <td className="product-column remove underline-border close-row">
-                <button className="product-btn icon-btn"  value={key}>
-                  <AiFillCloseCircle className="remove-x" />
-                </button>
-              </td>
+            return (
+              <tr className="item-row" key={key}>
+                <td className="close-column underline-border">
+                  <button className="close-btn icon-btn" value={key}>
+                    <AiFillCloseCircle className="remove-x" />
+                  </button>
+                </td>
 
-              <td className="product-column item underline-border">
-                <div className="product-info flex-align-center">
-                  <div className="img-container">
-                    <img src={imgSrc} alt={`${itemName} display`} />
+                <td className="product-column underline-border">
+                  <div className="product-info flex-align-center">
+                    <div className="img-container">
+                      <img src={imgSrc} alt={`${itemName} display`} />
+                    </div>
+
+                    <div className="text-container">
+                      <p className="category-text">{category}</p>
+                      <p className="name-text">{itemName}</p>
+                      {categories.map((info) => (
+                        <div className="info-container flex-align-center">
+                          <p className="text-label">{info}:</p>
+                          <p className="text-value">
+                            {info === "color" ? color : size}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <div className="text-container">
-                    <p className="category-text">{category}</p>
-                    <p className="name-text">{itemName}</p>
-                    {categories.map((info) => (
-                      <div className="info-container flex-align-center">
-                        <p className="text-label">{info}:</p>
-                        <p className="text-value">
-                          {info === "color" ? color : size}
-                        </p>
-                      </div>
+                </td>
+
+                <td className="price-column underline-border">
+                        <p className="price-text">{`$${price.toFixed(2)}`}</p>
+                </td>
+
+                <td className="quantity-column underline-border">
+                  <select
+                    name={key}
+                    className="quantity-select"
+                    onChange={updateQuantityPrice}
+                  >
+                    {qtyOptions.map((num, idx) => (
+                      <option key={idx} value={num}>{num}</option>
                     ))}
-                  </div>
-                </div>
-              </td>
-            </tr>
-          );
-          // return (
-          //   <tr className="product-row" key={key}>
-          //     <td className="product-column remove underline-border">
-          //       <button className="product-btn icon-btn" value={key}>
-          //         <AiFillCloseCircle className="remove-x" />
-          //       </button>
-          //     </td>
+                  </select>
+                </td>
 
-          //     <td className="product-column item underline-border">
-          //       <div className="product-info flex-align-center">
-          //         <div className="img-container">
-          //           <img src={imgSrc} alt={`${itemName} display`} /
-          //         </div>
-          //         <div className="text-container">
-          //           <p className="category-text">{category}</p>
-          //           <p className="name-text">{itemName}</p>
-          //           {categories.map((info) => (
-          //             <div className="info-container flex-align-center">
-          //               <p className="text-label">{info}:</p>
-          //               <p className="text-value">{info === "color" ? color : size}</p>
-          //             </div>
-          //           ))}
-          //         </div>
-          //       </div>
-          //     </td>
+                <td className="total-column underline-border">
+                  <p className="total-text">{`$${totalPrice.toFixed(2)}`}</p>
+                </td>
 
-          //     <td className="product-column price underline-border">
-          //       {`$${price.toFixed(2)}`}
-          //     </td>
-
-          //     <td className="product-column quantity underline-border">
-          //       <select
-          //         name={key}
-          //         className="product-quantity"
-          //         onChange={updateQuantityPrice}
-          //       >
-          //         {qtyOptions.map((num, idx) => (
-          //           <option key={idx} value={num}>{num}</option>
-          //         ))}
-          //       </select>
-          //     </td>
-
-          //     <td className="product-column total underline-border">
-          //       {`$${totalPrice.toFixed(2)}`}
-          //     </td>
-          //   </tr>
-          // );
-        })}
-      </tbody>
-
-      {/* <Table 
-          cart={bag} 
-          // remove={removeItem} 
-          update={updateQuantityPrice}
-        /> */}
+              </tr>
+            );
+          })};
+        </tbody>
+      </table>
     </div>
   );
 };
+
+
+
+
+
+//   </tr>
+// );
 
 export default Cart;
