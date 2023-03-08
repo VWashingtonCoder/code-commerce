@@ -1,20 +1,52 @@
 import { useState } from "react";
 import "./Cart.css";
-import { headers, categories, qtyOptions } from "../data";
+import { 
+  headers, 
+  categories, 
+  qtyOptions,
+  productsInfo,
+  productsQuantities, 
+  productsTotals 
+} from "../data";
 import { AiFillCloseCircle } from "react-icons/ai";
 
 const Cart = (props) => {
-  const { bag, pageSet, final, updateTotals, updateDisabled } = props;
+  const { 
+    bag, 
+    updateTotals,
+    // pageSet, 
+    // final, 
+     
+    // updateDisabled 
+  } = props;
   const [status, setStatus] = useState("");
   const [statusItem, setStatusItem] = useState("");
+  const [cartItems, setCartItems] = useState(productsInfo);
+  const [quantities, setQuantities] = useState(productsQuantities);
+  const [totals, setTotals] = useState(productsTotals);
 
-  const updateQuantityPrice = (e) => {
-    const value = Number(e.target.value);
-    const itemKey = e.target.name;
-    const item = bag.find((item) => item.key === itemKey);
-    const price = item.price;
-    const newTotal = price * value;
-  };
+  const updateQtyTotal = (e) => {
+    const { name, value } = e.target;
+    const item = cartItems.find((item) => item.key === name);
+    const itemTotal = item.price * Number(value);
+    const newTotals = {...totals, [name]: itemTotal};
+    const newTotalsArr = Object.values(newTotals);
+    
+    setQuantities({ ...quantities, [name]: Number(value) });
+    setTotals(newTotals);
+    updateTotals(newTotalsArr);
+  }
+
+  const removeItem = (e) => {
+    e.preventDefault();
+    const { value } = e.target;
+    const newCart = cartItems.filter(item => item.key !== value);
+    console.log(newCart);
+
+    setCartItems(newCart);
+    setQuantities({ ...quantities, [value]: 0 });
+  }
+
 
   // const removeItem = (e) => {
   //   e.preventDefault();
@@ -88,7 +120,7 @@ const Cart = (props) => {
         </thead>
 
         <tbody>
-          {bag.map((item) => {
+          {cartItems.map((item) => {
             const {
               category,
               color,
@@ -97,13 +129,17 @@ const Cart = (props) => {
               key,
               price,
               size,
-              totalPrice,
             } = item;
+            const totalPrice = totals[key];
 
             return (
               <tr className="item-row" key={key}>
                 <td className="close-column underline-border">
-                  <button className="close-btn icon-btn" value={key}>
+                  <button 
+                    className="close-btn icon-btn" 
+                    value={key}
+                    onClick={removeItem}
+                  >
                     <AiFillCloseCircle className="remove-x" />
                   </button>
                 </td>
@@ -137,7 +173,7 @@ const Cart = (props) => {
                   <select
                     name={key}
                     className="quantity-select"
-                    onChange={updateQuantityPrice}
+                    onChange={updateQtyTotal}
                   >
                     {qtyOptions.map((num, idx) => (
                       <option key={idx} value={num}>{num}</option>

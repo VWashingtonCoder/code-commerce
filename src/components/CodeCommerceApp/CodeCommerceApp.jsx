@@ -20,15 +20,10 @@ const CodeCommerceApp = () => {
         setPage(pages[pageIdx + 1]);
     }
 
-    const updateTotals = (productKey, total) => {
+    const updateTotals = (totals) => {
         let sub = 0;
-        products.forEach((item) => {
-            const { key, totalPrice } = item;
-            productKey !== key 
-                ? sub = sub + totalPrice
-                : sub = sub + total;
-        })
-        setBag({ ...bag, subtotal: sub, total: total});
+        totals.forEach((total) => sub = sub + total);
+        setBag({ ...bag, subtotal: sub, total: sub});
     }
 
     const updateDisabled = () => {
@@ -55,10 +50,12 @@ const CodeCommerceApp = () => {
                     { page === "cart" && (
                         <Cart
                             bag={products} 
-                            pageSet={changePage} 
-                            final={updateBag}
                             updateTotals={updateTotals}
-                            updateDisabled={updateDisabled} 
+                            // updateQty={updateQuantity}
+                            // pageSet={changePage}
+                            // final={updateBag}
+                            
+                            // updateDisabled={updateDisabled} 
                         />
                     )}
                     <Summary 
