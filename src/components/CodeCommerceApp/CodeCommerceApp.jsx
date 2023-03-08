@@ -55,7 +55,7 @@ const CodeCommerceApp = () => {
                             // pageSet={changePage}
                             // final={updateBag}
                             
-                            // updateDisabled={updateDisabled} 
+                            updateDisabled={updateDisabled} 
                         />
                     )}
                     <Summary 

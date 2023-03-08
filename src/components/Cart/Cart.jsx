@@ -17,34 +17,91 @@ const Cart = (props) => {
     // pageSet, 
     // final, 
      
-    // updateDisabled 
+    updateDisabled 
   } = props;
   const [status, setStatus] = useState("");
   const [statusItem, setStatusItem] = useState("");
   const [cartItems, setCartItems] = useState(productsInfo);
+  const [removedItems, setRemovedItems] = useState([]);
   const [quantities, setQuantities] = useState(productsQuantities);
   const [totals, setTotals] = useState(productsTotals);
 
+  const updateStatus = (act, val, item) => {
+    let message = "";
+    console.log(act, val, item);
+    switch(act) {
+      case "add": 
+        message = `${val} item(s) added to cart:`;
+        break;
+      case "minus":
+        message = `${val} item(s) removed from cart:`
+        break;
+      case "remove":
+        message = `${val} item(s) removed from cart:`
+        break;
+      default:
+        break;
+    }
+    console.log(message);
+  }
+
   const updateQtyTotal = (e) => {
     const { name, value } = e.target;
+    const newQty = Number(value);
     const item = cartItems.find((item) => item.key === name);
-    const itemTotal = item.price * Number(value);
-    const newTotals = {...totals, [name]: itemTotal};
+    const { itemName, price, key } = item;
+    const itemTotal = price * newQty;
+    const newTotals = { ...totals, [key]: itemTotal };
     const newTotalsArr = Object.values(newTotals);
     
-    setQuantities({ ...quantities, [name]: Number(value) });
-    setTotals(newTotals);
-    updateTotals(newTotalsArr);
+    console.log(quantities[key], newQty);
+    
+    // newQty > quantities[key] 
+    //   ?  updateStatus('add', (newQty - quantities[key]))
+    
+    if (newQty > quantities[key]) 
+      updateStatus('add', (newQty - quantities[key]), itemName);
+    else if (newQty < quantities[key] && newQty > 0)
+      updateStatus('minus', (quantities[key] - newQty), itemName);
+    else if (newQty === 0) {
+      updateStatus('remove', quantities[key], itemName);
+      //run removeitems function
+    }
+
+
+
+
+
+    // // if (value === "0") {
+      // const newCart = cartItems.filter(item => item.key !== name);
+      // if (newCart.length <= 0) updateDisabled();
+      // setCartItems(newCart);
+      // setRemovedItems(item);
+      // createStatus("remove");
+    // } else createStatus("update", value);
+
+    // setQuantities({ ...quantities, [name]: Number(value) });
+    // setTotals(newTotals);
+    // updateTotals(newTotalsArr);    
   }
 
   const removeItem = (e) => {
     e.preventDefault();
-    const { value } = e.target;
-    const newCart = cartItems.filter(item => item.key !== value);
-    console.log(newCart);
+    const { name, value } = e.target;
 
-    setCartItems(newCart);
-    setQuantities({ ...quantities, [value]: 0 });
+    console.log(name, value)
+    
+    // const { value } = e.target;
+    // const newCart = cartItems.filter(item => item.key !== value);
+    // const newTotals = { ...totals, [value]: 0 };
+    // const newTotalsArr = Object.values(newTotals);
+    // console.log(newCart);
+
+    // setCartItems(newCart);
+    // setQuantities({ ...quantities, [value]: 0 });
+    // setTotals(newTotals)
+    // updateTotals(newTotalsArr)
+  
   }
 
 
@@ -137,8 +194,9 @@ const Cart = (props) => {
                 <td className="close-column underline-border">
                   <button 
                     className="close-btn icon-btn" 
-                    value={key}
-                    onClick={removeItem}
+                    name={key}
+                    value="0"
+                    onClick={updateQtyTotal}
                   >
                     <AiFillCloseCircle className="remove-x" />
                   </button>
@@ -187,7 +245,7 @@ const Cart = (props) => {
 
               </tr>
             );
-          })};
+          })}
         </tbody>
       </table>
     </div>
