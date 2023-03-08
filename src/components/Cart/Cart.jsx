@@ -8,7 +8,7 @@ import {
   productsQuantities, 
   productsTotals 
 } from "../data";
-import { AiFillCloseCircle } from "react-icons/ai";
+import { AiOutlineClose, AiFillCloseCircle } from "react-icons/ai";
 
 const Cart = (props) => {
   const { 
@@ -19,8 +19,7 @@ const Cart = (props) => {
      
     updateDisabled 
   } = props;
-  const [status, setStatus] = useState("");
-  const [statusItem, setStatusItem] = useState("");
+  const [status, setStatus] = useState({ message: "", item: "" });
   const [cartItems, setCartItems] = useState(productsInfo);
   const [removedItems, setRemovedItems] = useState([]);
   const [quantities, setQuantities] = useState(productsQuantities);
@@ -36,13 +35,28 @@ const Cart = (props) => {
       case "minus":
         message = `${val} item(s) removed from cart:`
         break;
-      case "remove":
-        message = `${val} item(s) removed from cart:`
-        break;
       default:
         break;
     }
-    console.log(message);
+    setStatus({ message: message, item: item });
+  }
+
+  const closeStatus = (e) => {
+    console.log(e.target)
+    setStatus({ message: "", item: "" });
+  }
+
+  const removeItem = () => {
+    const newCart = cartItems.filter(item => item.key !== name);
+
+    console.log(newCart);
+       // // if (value === "0") {
+      // const newCart = cartItems.filter(item => item.key !== name);
+      // if (newCart.length <= 0) updateDisabled();
+      // setCartItems(newCart);
+      // setRemovedItems(item);
+      // createStatus("remove");
+    // } 
   }
 
   const updateQtyTotal = (e) => {
@@ -54,23 +68,14 @@ const Cart = (props) => {
     const newTotals = { ...totals, [key]: itemTotal };
     const newTotalsArr = Object.values(newTotals);
     
-    console.log(quantities[key], newQty);
-    
-    // newQty > quantities[key] 
-    //   ?  updateStatus('add', (newQty - quantities[key]))
-    
     if (newQty > quantities[key]) 
       updateStatus('add', (newQty - quantities[key]), itemName);
     else if (newQty < quantities[key] && newQty > 0)
       updateStatus('minus', (quantities[key] - newQty), itemName);
     else if (newQty === 0) {
-      updateStatus('remove', quantities[key], itemName);
+      updateStatus('minus', quantities[key], itemName);
       //run removeitems function
     }
-
-
-
-
 
     // // if (value === "0") {
       // const newCart = cartItems.filter(item => item.key !== name);
@@ -85,11 +90,11 @@ const Cart = (props) => {
     // updateTotals(newTotalsArr);    
   }
 
-  const removeItem = (e) => {
-    e.preventDefault();
-    const { name, value } = e.target;
+  // const removeItem = (e) => {
+  //   e.preventDefault();
+  //   const { name, value } = e.target;
 
-    console.log(name, value)
+  //   console.log(name, value)
     
     // const { value } = e.target;
     // const newCart = cartItems.filter(item => item.key !== value);
@@ -144,9 +149,11 @@ const Cart = (props) => {
 
   return (
     <div id="Cart">
-      {status && (
+      {status.message && (
         <div className="status-bar flex-align-center">
-          <button className="close-x icon-btn">X</button>
+          <button className="close-x icon-btn" onClick={closeStatus}>
+            <AiOutlineClose className="x-icon"/>
+          </button>
           <div className="img-container">
             <img
               src="https://cdn-icons-png.flaticon.com/512/6745/6745042.png"
@@ -154,8 +161,8 @@ const Cart = (props) => {
             />
           </div>
           <div className="text-container">
-            <p className="status-text">{status}</p>
-            <p className="status-item">{statusItem}</p>
+            <p className="status-text">{status.message}</p>
+            <p className="status-item">{status.item}</p>
           </div>
         </div>
       )}
@@ -193,12 +200,12 @@ const Cart = (props) => {
               <tr className="item-row" key={key}>
                 <td className="close-column underline-border">
                   <button 
-                    className="close-btn icon-btn" 
+                    className="remove-btn icon-btn" 
                     name={key}
                     value="0"
                     onClick={updateQtyTotal}
                   >
-                    <AiFillCloseCircle className="remove-x" />
+                    <AiFillCloseCircle className="x-icon" />
                   </button>
                 </td>
 
