@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./CodeCommerceApp.css";
-import { pages, initBag } from "../data";
+import { pageKeys, initBag } from "../data";
 import SignUpLogin from "../SignupLogin/SignupLogin";
 import Cart from "../Cart/Cart";
 import Shipping from "../Shipping/Shipping";
@@ -10,24 +10,30 @@ import Summary from "../Summary/Summary";
 
 
 const CodeCommerceApp = () => {    
-    const [page, setPage] = useState(pages[1]);
+    const [page, setPage] = useState(pageKeys[1]);
     const [bag, setBag] = useState(initBag);
     const [disabled, setDisabled] = useState(false);
     const [totals, setTotals] = useState(
         { subtotal: 72.75, total: 72.75 }
     )
     const { subtotal, total } = totals;
-    const [discount, setDiscount] = useState(
-        page === "cart" ? 0 : 4.50
-    );
+    const [discount, setDiscount] = useState(0);
     
     const changePage = () => {
-        const pageIdx = pages.findIndex(page);
-        setPage(pages[pageIdx + 1]);
+        const pageIdx = pageKeys.findIndex(key => key === page);
+        setPage(pageKeys[pageIdx + 1]);
     }
     const checkout = () => {
-        console.log("clicked");
-        // changePage();
+        switch(page) {
+            case("cart"):
+                setDiscount(4.50);
+                setTotals({...totals, total: total - 4.50});
+                break;
+            default:
+                break;
+        }
+        
+        changePage();
     }
     const updateTotals = (totals) => {
         let sub = 0;
@@ -61,7 +67,8 @@ const CodeCommerceApp = () => {
                         />
                     )}
                     
-                    <Summary 
+                    <Summary
+                        discount={discount} 
                         sub={subtotal} 
                         total={total} 
                         checkout={checkout} 

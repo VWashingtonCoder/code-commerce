@@ -1,7 +1,7 @@
 import "./Summary.css";
 
 const Summary = (props) => {
-  const { sub, total, checkout, disabled } = props;
+  const { discount, sub, total, checkout, disabled } = props;
   return (
     <div id="Summary">
       <h2 className="summary-title underline-border">Summary</h2>
@@ -11,7 +11,6 @@ const Summary = (props) => {
           <input type="text" name="promo-code" placeholder="Code" />
           <button className="promo-apply-btn">Apply</button>
         </div>
-        
       </div>
       <div className="cart-totals underline-border">
         <div className="cart-subtotal totals-container flex-align-center">
@@ -24,7 +23,7 @@ const Summary = (props) => {
         </div>
         <div className="cart-shipping totals-container flex-align-center">
           <p className="total-title">Discount:</p>
-          <p className="total-num">-</p>
+          <p className="total-num">{discount === 0 ? "-" : `$${discount.toFixed(2)}`}</p>
         </div>
         <div className="cart-total totals-container flex-align-center">
           <p className="total-title">Cart Total:</p>

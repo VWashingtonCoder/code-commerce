@@ -35,7 +35,7 @@ export const productsQuantities = { DS: 1, MHA: 1, NAR: 1 };
 export const productsTotals = { DS: 21.5, MHA: 27.25, NAR: 24 }
 
 /* CodeCommerce */
-export const pages = ["signLog", "cart", "ship", "pay", "confirm"]
+export const pageKeys = ["signLog", "cart", "ship", "pay", "confirm"]
 export const initBag = {
     bagItems: productsInfo,
     quantities: productsQuantities
