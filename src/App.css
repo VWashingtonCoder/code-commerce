@@ -17,9 +17,11 @@
   letter-spacing: 2px;
 }
 .close-x {
-  pointer-events: none;
   position: absolute;
   color: gray;
+}
+.x-icon {
+  pointer-events: none;
 }
 
 .icon-btn {

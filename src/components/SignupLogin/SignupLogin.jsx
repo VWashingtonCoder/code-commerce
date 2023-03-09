@@ -52,7 +52,7 @@ const SignupLogin = ({ pageSet }) => {
 
   return (
     <div id="SignupLogin">
-      <AiOutlineClose className="close-x" />
+      <AiOutlineClose className="close-x x-icon" />
       <div 
         className="sign-log-inputs flex-align-center" 
         onChange={toggleSignLog}

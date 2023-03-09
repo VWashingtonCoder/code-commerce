@@ -1,134 +1,95 @@
 import { useState } from "react";
 import "./Cart.css";
-import { 
-  headers, 
-  categories, 
+import {
+  headers,
+  categories,
   qtyOptions,
   productsInfo,
-  productsQuantities, 
-  productsTotals 
+  productsQuantities,
+  productsTotals,
 } from "../data";
 import { AiOutlineClose, AiFillCloseCircle } from "react-icons/ai";
 
 const Cart = (props) => {
-  const { 
-    bag, 
-    updateTotals,
-    // pageSet, 
-    // final, 
-     
-    updateDisabled 
-  } = props;
+  const { bag, updateBag, updateTotals, updateDisabled } = props;
+  const { bagItems, quantities } = bag;
   const [status, setStatus] = useState({ message: "", item: "" });
-  const [cartItems, setCartItems] = useState(productsInfo);
   const [removedItems, setRemovedItems] = useState([]);
-  const [quantities, setQuantities] = useState(productsQuantities);
-  const [totals, setTotals] = useState(productsTotals);
+  const [itemTotals, setItemTotals] = useState(productsTotals);
 
   const updateStatus = (act, val, item) => {
     let message = "";
-    console.log(act, val, item);
-    switch(act) {
-      case "add": 
+    switch (act) {
+      case "add":
         message = `${val} item(s) added to cart:`;
         break;
       case "minus":
-        message = `${val} item(s) removed from cart:`
+        message = `${val} item(s) removed from cart:`;
         break;
       default:
         break;
     }
     setStatus({ message: message, item: item });
-  }
-
-  const closeStatus = (e) => {
-    console.log(e.target)
+  };
+  const closeStatus = () => {
     setStatus({ message: "", item: "" });
-  }
+  };
 
-  const removeItem = () => {
-    const newCart = cartItems.filter(item => item.key !== name);
+  const removeItem = (e) => {
+    const { value } = e.target;
+    const removed = bagItems.find((item) => item.key === value);
+    const newCart = bagItems.filter((item) => item !== removed);
 
-    console.log(newCart);
-       // // if (value === "0") {
-      // const newCart = cartItems.filter(item => item.key !== name);
-      // if (newCart.length <= 0) updateDisabled();
-      // setCartItems(newCart);
-      // setRemovedItems(item);
-      // createStatus("remove");
-    // } 
-  }
+    setRemovedItems([...removedItems, removed]);
+    updateBag({ 
+      bagItems: newCart, 
+      qty: { ...quantities, [value]: 0 } 
+    });
+    updateTotals(Object.values({ 
+      ...itemTotals, [value]: 0 
+    }));
+    updateStatus("minus", quantities[value], removed.itemName);
+    if (newCart.length <= 0) updateDisabled();
+  };
 
-  const updateQtyTotal = (e) => {
-    const { name, value } = e.target;
-    const newQty = Number(value);
-    const item = cartItems.find((item) => item.key === name);
-    const { itemName, price, key } = item;
-    const itemTotal = price * newQty;
-    const newTotals = { ...totals, [key]: itemTotal };
-    const newTotalsArr = Object.values(newTotals);
-    
-    if (newQty > quantities[key]) 
-      updateStatus('add', (newQty - quantities[key]), itemName);
-    else if (newQty < quantities[key] && newQty > 0)
-      updateStatus('minus', (quantities[key] - newQty), itemName);
-    else if (newQty === 0) {
-      updateStatus('minus', quantities[key], itemName);
-      //run removeitems function
-    }
+  const undoRemove = () => {
+    const currBag = [...bagItems];
+    const removed = [...removedItems];
+    const lastIdx = removed.length - 1;
+    const lastItem = removed[lastIdx];
+    const { key, itemName, price } = lastItem;
+    currBag.unshift(lastItem);
+    removed.pop();
 
-    // // if (value === "0") {
-      // const newCart = cartItems.filter(item => item.key !== name);
-      // if (newCart.length <= 0) updateDisabled();
-      // setCartItems(newCart);
-      // setRemovedItems(item);
-      // createStatus("remove");
-    // } else createStatus("update", value);
+    setRemovedItems(removed);
+    setItemTotals({ ...itemTotals, [key]: price });
+    updateStatus("add", 1, itemName);
+    updateTotals(Object.values({ ...itemTotals, [key]: price }));
+    updateBag({
+      bagItems: currBag,
+      qty: { ...quantities, [key]: 1 },
+    });
+  };
 
-    // setQuantities({ ...quantities, [name]: Number(value) });
-    // setTotals(newTotals);
-    // updateTotals(newTotalsArr);    
-  }
-
-  // const removeItem = (e) => {
-  //   e.preventDefault();
+  // const updateQtyTotal = (e) => {
   //   const { name, value } = e.target;
+  //   const newQty = Number(value);
+  //   const item = cartItems.find((item) => item.key === name);
+  //   const { itemName, price, key } = item;
+  //   const itemTotal = price * newQty;
+  //   const newTotals = { ...totals, [key]: itemTotal };
 
-  //   console.log(name, value)
-    
-    // const { value } = e.target;
-    // const newCart = cartItems.filter(item => item.key !== value);
-    // const newTotals = { ...totals, [value]: 0 };
-    // const newTotalsArr = Object.values(newTotals);
-    // console.log(newCart);
-
-    // setCartItems(newCart);
-    // setQuantities({ ...quantities, [value]: 0 });
-    // setTotals(newTotals)
-    // updateTotals(newTotalsArr)
-  
-  }
-
-
-  // const removeItem = (e) => {
-  //   e.preventDefault();
-  //   const key = e.target.value;
-  //   const newCart = cartItems.filter(item => item.key !== key);
-  //   const item = cartItems.find(item => item.key === key);
-  //   const name = item.itemName
-  //   const quantity = cartStates[key].quantity
-  //   const subtotal = getSubTotal(key, 0)
-
-  //   setCartItems(newCart)
-  //   setCartStates({
-  //     ...cartStates,
-  //     [key]: { quantity: 0, totalPrice: 0 },
-  //   });
-  //   setStatus(`${quantity} items removed:`);
-  //   setStatusItem(name);
-  //   updateTotals(subtotal);
-
-  //   if (cartItems.length <= 1) updateDisabled();
+  //   if (newQty > quantities[key])
+  //     updateStatus('add', (newQty - quantities[key]), itemName);
+  //   else if (newQty < quantities[key] && newQty > 0)
+  //     updateStatus('minus', (quantities[key] - newQty), itemName);
+  //   else if (newQty === 0) {
+  //     updateStatus('minus', quantities[key], itemName);
+  //     removeItem(key, item);
+  //   }
+  //   setQuantities({ ...quantities, [name]: Number(value) });
+  //   setTotals(newTotals);
+  //   updateTotals(Object.values(newTotals));
   // }
 
   // const checkout = (e) => {
@@ -152,7 +113,7 @@ const Cart = (props) => {
       {status.message && (
         <div className="status-bar flex-align-center">
           <button className="close-x icon-btn" onClick={closeStatus}>
-            <AiOutlineClose className="x-icon"/>
+            <AiOutlineClose className="x-icon" />
           </button>
           <div className="img-container">
             <img
@@ -163,6 +124,11 @@ const Cart = (props) => {
           <div className="text-container">
             <p className="status-text">{status.message}</p>
             <p className="status-item">{status.item}</p>
+            {removedItems.length > 0 && (
+              <button className="last-btn" onClick={undoRemove}>
+                Undo Last Removed Item
+              </button>
+            )}
           </div>
         </div>
       )}
@@ -184,26 +150,18 @@ const Cart = (props) => {
         </thead>
 
         <tbody>
-          {cartItems.map((item) => {
-            const {
-              category,
-              color,
-              imgSrc,
-              itemName,
-              key,
-              price,
-              size,
-            } = item;
-            const totalPrice = totals[key];
+          {bagItems.map((item) => {
+            const { category, color, imgSrc, itemName, key, price, size } =
+              item;
+            const totalPrice = itemTotals[key];
 
             return (
               <tr className="item-row" key={key}>
                 <td className="close-column underline-border">
-                  <button 
-                    className="remove-btn icon-btn" 
-                    name={key}
-                    value="0"
-                    onClick={updateQtyTotal}
+                  <button
+                    className="remove-btn icon-btn"
+                    value={key}
+                    onClick={removeItem}
                   >
                     <AiFillCloseCircle className="x-icon" />
                   </button>
@@ -231,17 +189,19 @@ const Cart = (props) => {
                 </td>
 
                 <td className="price-column underline-border">
-                        <p className="price-text">{`$${price.toFixed(2)}`}</p>
+                  <p className="price-text">{`$${price.toFixed(2)}`}</p>
                 </td>
 
                 <td className="quantity-column underline-border">
                   <select
                     name={key}
                     className="quantity-select"
-                    onChange={updateQtyTotal}
+                    // onChange={updateQtyTotal}
                   >
                     {qtyOptions.map((num, idx) => (
-                      <option key={idx} value={num}>{num}</option>
+                      <option key={idx} value={num}>
+                        {num}
+                      </option>
                     ))}
                   </select>
                 </td>
@@ -249,7 +209,6 @@ const Cart = (props) => {
                 <td className="total-column underline-border">
                   <p className="total-text">{`$${totalPrice.toFixed(2)}`}</p>
                 </td>
-
               </tr>
             );
           })}
@@ -258,10 +217,6 @@ const Cart = (props) => {
     </div>
   );
 };
-
-
-
-
 
 //   </tr>
 // );

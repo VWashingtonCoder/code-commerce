@@ -12,8 +12,11 @@ import Summary from "../Summary/Summary";
 const CodeCommerceApp = () => {    
     const [page, setPage] = useState(pages[1]);
     const [bag, setBag] = useState(initBag);
+
+    const [totals, setTotals] = useState({ subtotal: 72.75, total: 72.75 })
+    const [discount, setDiscount] = useState(0);
     const [disabled, setDisabled] = useState(false);
-    const { products, subtotal, discount, total } = bag;
+    const { subtotal, total } = totals;
 
     const changePage = () => {
         const pageIdx = pages.findIndex(page);
@@ -23,38 +26,30 @@ const CodeCommerceApp = () => {
     const updateTotals = (totals) => {
         let sub = 0;
         totals.forEach((total) => sub = sub + total);
-        setBag({ ...bag, subtotal: sub, total: sub});
+        setTotals({ subtotal: sub, total: sub });
     }
 
     const updateDisabled = () => {
        setDisabled(!disabled); 
     }
 
-    const updateBag = (cartInfo) => {
-        const { cart, sub } = cartInfo;
-        const discount = 4.50;
-        setBag({
-            products: cart,
-            subtotal: sub,
-            discount: discount,
-            total: sub - discount
-        });
+    const updateBag = (bag) => {
+        setBag(bag);
     }
+    console.log(bag)
 
     return (
         <div id="CodeCommerceApp">
             { page === "signLog" && (<SignUpLogin pageSet={changePage} />) }
             
+            
             { page !== "signLog" && (
                 <div className="page-container">
                     { page === "cart" && (
                         <Cart
-                            bag={products} 
+                            bag={bag}
+                            updateBag={updateBag}
                             updateTotals={updateTotals}
-                            // updateQty={updateQuantity}
-                            // pageSet={changePage}
-                            // final={updateBag}
-                            
                             updateDisabled={updateDisabled} 
                         />
                     )}
@@ -66,7 +61,7 @@ const CodeCommerceApp = () => {
                     />
                 </div>
             )}
-            
+            /*}
             
             
             
