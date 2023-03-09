@@ -25,17 +25,13 @@ const Cart = (props) => {
 
   const updateStatus = (act, val, item) => {
     let message = "";
-    switch (act) {
-      case "add":
-        message = `${val} item(s) added to cart:`;
-        break;
-      case "minus":
-        message = `${val} item(s) removed from cart:`;
-        break;
-      default:
-        break;
-    }
-    setStatus({ message: message, item: item });
+
+    if (act === "add") 
+      message = `${val} item(s) added to cart:`;
+    else if (act === "minus")
+      message = `${val} item(s) removed from cart:`;
+    
+      setStatus({ message: message, item: item });
   };
   const closeStatus = () => {
     setStatus({ message: "", item: "" });
@@ -43,17 +39,18 @@ const Cart = (props) => {
   const removeItem = (e) => {
     const { value } = e.target;
     const removed = bagItems.find((item) => item.key === value);
+    const { key, itemName } = removed; 
     const newCart = bagItems.filter((item) => item !== removed);
 
     setRemovedItems([...removedItems, removed]);
     updateBag({ 
       bagItems: newCart, 
-      qty: { ...quantities, [value]: 0 } 
+      quantities: { ...quantities, [key]: 0 } 
     });
     updateTotals(Object.values({ 
-      ...itemTotals, [value]: 0 
+      ...itemTotals, [key]: 0 
     }));
-    updateStatus("minus", quantities[value], removed.itemName);
+    updateStatus("minus", quantities[value], itemName);
     if (newCart.length <= 0) updateDisabled();
   };
   const undoRemove = () => {
@@ -71,8 +68,9 @@ const Cart = (props) => {
     updateTotals(Object.values({ ...itemTotals, [key]: price }));
     updateBag({
       bagItems: currBag,
-      qty: { ...quantities, [key]: 1 },
+      quantities: { ...quantities, [key]: 1 },
     });
+    if (currBag.length === 1) updateDisabled();
   };
 
 

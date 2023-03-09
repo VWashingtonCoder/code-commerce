@@ -1,3 +1,5 @@
+import "./Summary.css";
+
 const Summary = (props) => {
   const { sub, total, checkout, disabled } = props;
   return (

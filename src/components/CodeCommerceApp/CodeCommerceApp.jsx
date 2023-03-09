@@ -25,6 +25,10 @@ const CodeCommerceApp = () => {
         const pageIdx = pages.findIndex(page);
         setPage(pages[pageIdx + 1]);
     }
+    const checkout = () => {
+        console.log("clicked");
+        // changePage();
+    }
     const updateTotals = (totals) => {
         let sub = 0;
         totals.forEach((total) => sub = sub + total);
@@ -39,7 +43,7 @@ const CodeCommerceApp = () => {
     const updateBagQty = (qty) => {
         setBag({ ...bag, quantities: qty });
     }
-
+    
     return (
         <div id="CodeCommerceApp">
             { page === "signLog" && (<SignUpLogin pageSet={changePage} />) }
@@ -60,7 +64,7 @@ const CodeCommerceApp = () => {
                     <Summary 
                         sub={subtotal} 
                         total={total} 
-                        checkout={changePage} 
+                        checkout={checkout} 
                         disabled={disabled} 
                     />
                 </div>

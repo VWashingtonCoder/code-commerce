@@ -1,0 +1,68 @@
+#Summary {
+    margin-left: 15px;
+    padding: 0px 20px 10px;
+    text-align: left;
+    width: 17vw;
+  }
+  
+  .summary-title {
+    text-align: right;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 10px;
+  }
+  
+  .promo {
+    padding: 15px 0 20px;
+  }
+  
+  .cart-totals {
+    padding: 15px 0;
+  }
+  
+  .promo .input-row {
+    margin-top: 7px;
+    justify-content: space-between;
+  }
+  
+  .input-row input {
+    width: 55%;
+    padding: 11px 10px;
+    font-style: italic;
+    border: 2px solid black;
+    font-size: 15px;
+  }
+  
+  .promo-apply-btn {
+    padding: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    background: transparent;
+  }
+  
+  .totals-container {
+    justify-content: space-between;
+    padding: 7px 0;
+  }
+  
+  .cart-subtotal .total-num,
+  .cart-total {
+    font-weight: 700;
+  }
+  
+  .cart-total .total-num {
+    color: red;
+    font-size: 18px;
+  }
+  
+  .checkout-btn {
+    width: 100%;
+    padding: 20px 0;
+    font-size: 20px;
+    text-transform: uppercase; 
+    color: white;
+    background-color: red;
+    border: none;
+    margin-top: 18rem;
+  }
+  
