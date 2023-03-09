@@ -10,7 +10,7 @@ export const productsInfo = [
     itemName: "Anime Print Hoodie Demon Slayer",
     color: "Pink",
     size: "XL",
-    price: 21.5
+    price: 21.5,
   },
   {
     key: "MHA",
@@ -19,7 +19,7 @@ export const productsInfo = [
     itemName: "Anime Print Hoodie My Hero Academia",
     color: "Multi",
     size: "XL",
-    price: 27.25
+    price: 27.25,
   },
   {
     key: "NAR",
@@ -28,18 +28,18 @@ export const productsInfo = [
     itemName: "Anime Print Hoodie Naruto",
     color: "Orange",
     size: "XL",
-    price: 24
-  }
+    price: 24,
+  },
 ];
 export const productsQuantities = { DS: 1, MHA: 1, NAR: 1 };
-export const productsTotals = { DS: 21.5, MHA: 27.25, NAR: 24 }
+export const productsTotals = { DS: 21.5, MHA: 27.25, NAR: 24 };
 
 /* CodeCommerce */
-export const pageKeys = ["signLog", "cart", "ship", "pay", "confirm"]
+export const pageKeys = ["signLog", "cart", "ship", "pay", "confirm"];
 export const initBag = {
-    bagItems: productsInfo,
-    quantities: productsQuantities
-}
+  bagItems: productsInfo,
+  quantities: productsQuantities,
+};
 /* SignupLogin */
 export const initSignUpForm = {
   email: "",
@@ -66,9 +66,7 @@ export const nameInputsSignUp = [
   { key: "sur", label: "Surname *", name: "surname" },
 ];
 
-
 /*Cart_Table*/
 export const headers = [" ", "product", "price", "quantity", "total"];
 export const categories = ["color", "size"];
 export const qtyOptions = [1, 2, 3, 4, 5];
-
