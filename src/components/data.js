@@ -68,7 +68,7 @@ export const nameInputsSignUp = [
 
 
 /*Cart_Table*/
-export const headers = [" ", "product", "price", "quantity", "total price"];
+export const headers = [" ", "product", "price", "quantity", "total"];
 export const categories = ["color", "size"];
 export const qtyOptions = [1, 2, 3, 4, 5];
 

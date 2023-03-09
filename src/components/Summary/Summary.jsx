@@ -23,7 +23,9 @@ const Summary = (props) => {
         </div>
         <div className="cart-shipping totals-container flex-align-center">
           <p className="total-title">Discount:</p>
-          <p className="total-num">{discount === 0 ? "-" : `$${discount.toFixed(2)}`}</p>
+          <p className="total-num">
+            {discount === 0 ? "-" : `$${discount.toFixed(2)}`}
+          </p>
         </div>
         <div className="cart-total totals-container flex-align-center">
           <p className="total-title">Cart Total:</p>
@@ -32,11 +34,7 @@ const Summary = (props) => {
           </p>
         </div>
       </div>
-      <button 
-        className="checkout-btn" 
-        onClick={checkout}
-        disabled={disabled}
-      >
+      <button className="checkout-btn" onClick={checkout} disabled={disabled}>
         Checkout
       </button>
     </div>
