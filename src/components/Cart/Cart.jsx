@@ -11,7 +11,13 @@ import {
 import { AiOutlineClose, AiFillCloseCircle } from "react-icons/ai";
 
 const Cart = (props) => {
-  const { bag, updateBag, updateTotals, updateDisabled } = props;
+  const { 
+    bag, 
+    updateBag, 
+    updateDisabled,
+    updateTotals, 
+    updateQty 
+  } = props;
   const { bagItems, quantities } = bag;
   const [status, setStatus] = useState({ message: "", item: "" });
   const [removedItems, setRemovedItems] = useState([]);
@@ -34,7 +40,6 @@ const Cart = (props) => {
   const closeStatus = () => {
     setStatus({ message: "", item: "" });
   };
-
   const removeItem = (e) => {
     const { value } = e.target;
     const removed = bagItems.find((item) => item.key === value);
@@ -51,7 +56,6 @@ const Cart = (props) => {
     updateStatus("minus", quantities[value], removed.itemName);
     if (newCart.length <= 0) updateDisabled();
   };
-
   const undoRemove = () => {
     const currBag = [...bagItems];
     const removed = [...removedItems];
@@ -71,26 +75,32 @@ const Cart = (props) => {
     });
   };
 
-  // const updateQtyTotal = (e) => {
-  //   const { name, value } = e.target;
-  //   const newQty = Number(value);
-  //   const item = cartItems.find((item) => item.key === name);
-  //   const { itemName, price, key } = item;
-  //   const itemTotal = price * newQty;
-  //   const newTotals = { ...totals, [key]: itemTotal };
 
-  //   if (newQty > quantities[key])
-  //     updateStatus('add', (newQty - quantities[key]), itemName);
-  //   else if (newQty < quantities[key] && newQty > 0)
-  //     updateStatus('minus', (quantities[key] - newQty), itemName);
-  //   else if (newQty === 0) {
-  //     updateStatus('minus', quantities[key], itemName);
-  //     removeItem(key, item);
-  //   }
-  //   setQuantities({ ...quantities, [name]: Number(value) });
-  //   setTotals(newTotals);
-  //   updateTotals(Object.values(newTotals));
-  // }
+
+  const updateQtyTotal = (e) => {
+    const { name, value } = e.target;
+    const newQty = Number(value);
+    const item = bagItems.find((item) => item.key === name);
+    const { itemName, price, key } = item;
+    const fullItemTotal = price * newQty;
+    const newItemTotals = { ...itemTotals, [key]: fullItemTotal };
+    const newQuantities = { ...quantities, [key]: newQty }
+
+    console.log(newQuantities);
+
+
+    if (newQty > quantities[key])
+      updateStatus('add', (newQty - quantities[key]), itemName);
+    else if (newQty < quantities[key] && newQty > 0)
+      updateStatus('minus', (quantities[key] - newQty), itemName);
+    else if (newQty === 0) {
+      updateStatus('minus', quantities[key], itemName);
+      removeItem(key, item);
+    }
+    setItemTotals(newItemTotals);
+    updateTotals(Object.values(newItemTotals));
+    updateQty(newQuantities);
+  }
 
   // const checkout = (e) => {
   //   e.preventDefault();
@@ -196,7 +206,7 @@ const Cart = (props) => {
                   <select
                     name={key}
                     className="quantity-select"
-                    // onChange={updateQtyTotal}
+                    onChange={updateQtyTotal}
                   >
                     {qtyOptions.map((num, idx) => (
                       <option key={idx} value={num}>

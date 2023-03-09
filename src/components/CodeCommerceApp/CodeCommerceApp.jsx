@@ -12,31 +12,33 @@ import Summary from "../Summary/Summary";
 const CodeCommerceApp = () => {    
     const [page, setPage] = useState(pages[1]);
     const [bag, setBag] = useState(initBag);
-
-    const [totals, setTotals] = useState({ subtotal: 72.75, total: 72.75 })
-    const [discount, setDiscount] = useState(0);
     const [disabled, setDisabled] = useState(false);
+    const [totals, setTotals] = useState(
+        { subtotal: 72.75, total: 72.75 }
+    )
     const { subtotal, total } = totals;
-
+    const [discount, setDiscount] = useState(
+        page === "cart" ? 0 : 4.50
+    );
+    
     const changePage = () => {
         const pageIdx = pages.findIndex(page);
         setPage(pages[pageIdx + 1]);
     }
-
     const updateTotals = (totals) => {
         let sub = 0;
         totals.forEach((total) => sub = sub + total);
         setTotals({ subtotal: sub, total: sub });
     }
-
-    const updateDisabled = () => {
-       setDisabled(!disabled); 
-    }
-
+    const updateDisabled = () => { 
+        setDisabled(!disabled); 
+    };
     const updateBag = (bag) => {
         setBag(bag);
     }
-    console.log(bag)
+    const updateBagQty = (qty) => {
+        setBag({ ...bag, quantities: qty });
+    }
 
     return (
         <div id="CodeCommerceApp">
@@ -49,19 +51,21 @@ const CodeCommerceApp = () => {
                         <Cart
                             bag={bag}
                             updateBag={updateBag}
+                            updateDisabled={updateDisabled}
                             updateTotals={updateTotals}
-                            updateDisabled={updateDisabled} 
+                            updateQty={updateBagQty} 
                         />
                     )}
+                    
                     <Summary 
                         sub={subtotal} 
                         total={total} 
-                        // checkout={checkout} 
+                        checkout={changePage} 
                         disabled={disabled} 
                     />
                 </div>
             )}
-            /*}
+
             
             
             
