@@ -4,8 +4,6 @@ import {
   headers,
   categories,
   qtyOptions,
-  productsInfo,
-  productsQuantities,
   productsTotals,
 } from "../data";
 import { AiOutlineClose, AiFillCloseCircle } from "react-icons/ai";
