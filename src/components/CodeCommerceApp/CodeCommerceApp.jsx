@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./CodeCommerceApp.css";
-import { pageKeys, initBag } from "../data";
+import { pageKeys, initBag, productsTotals } from "../data";
 import SignUpLogin from "../SignupLogin/SignupLogin";
 import Cart from "../Cart/Cart";
 import Shipping from "../Shipping/Shipping";
@@ -12,9 +12,14 @@ const CodeCommerceApp = () => {
   const [page, setPage] = useState(pageKeys[1]);
   const [bag, setBag] = useState(initBag);
   const [disabled, setDisabled] = useState(false);
-  const [totals, setTotals] = useState({ subtotal: 72.75, total: 72.75 });
-  const { subtotal, total } = totals;
+  const [totals, setTotals] = useState({ 
+    items: productsTotals,
+    subtotal: 72.75, 
+    total: 72.75 
+  });
+  const { items, subtotal, total } = totals;
   const [discount, setDiscount] = useState(0);
+
 
   const changePage = () => {
     const pageIdx = pageKeys.findIndex((key) => key === page);
@@ -32,19 +37,26 @@ const CodeCommerceApp = () => {
 
     changePage();
   };
-  const updateTotals = (totals) => {
-    let sub = 0;
-    totals.forEach((total) => (sub = sub + total));
-    setTotals({ subtotal: sub, total: sub });
-  };
-  const updateDisabled = () => {
-    setDisabled(!disabled);
-  };
   const updateBag = (bag) => {
     setBag(bag);
   };
   const updateBagQty = (qty) => {
     setBag({ ...bag, quantities: qty });
+  };
+  const updateDisabled = () => {
+    setDisabled(!disabled);
+  };
+
+
+  const updateTotals = (itemTotals) => {
+    let sub = 0;
+    const itemTotalsArr = Object.values(itemTotals);
+    itemTotalsArr.forEach((total) => (sub = sub + total));
+    setTotals({ 
+      items: itemTotals, 
+      subtotal: sub, 
+      total: sub 
+    });
   };
 
   return (
@@ -56,15 +68,18 @@ const CodeCommerceApp = () => {
           {page === "cart" && (
             <Cart
               bag={bag}
+              itemTotals={items}
               updateBag={updateBag}
               updateDisabled={updateDisabled}
-              updateTotals={updateTotals}
               updateQty={updateBagQty}
+              updateTotals={updateTotals}
             />
           )}
 
           <Summary
+            bag={bag}
             discount={discount}
+            page={page}
             sub={subtotal}
             total={total}
             checkout={checkout}

@@ -1,14 +1,21 @@
 import { useState } from "react";
 import "./Cart.css";
-import { headers, categories, qtyOptions, productsTotals } from "../data";
+import { headers, categories, qtyOptions,  } from "../data";
 import { AiOutlineClose, AiFillCloseCircle } from "react-icons/ai";
 
 const Cart = (props) => {
-  const { bag, updateBag, updateDisabled, updateTotals, updateQty } = props;
+  const { 
+    bag, 
+    itemTotals, 
+    updateBag, 
+    updateDisabled,
+    updateTotals,  
+    updateQty 
+  } = props;
   const { bagItems, quantities } = bag;
   const [status, setStatus] = useState({ message: "", item: "" });
   const [removedItems, setRemovedItems] = useState([]);
-  const [itemTotals, setItemTotals] = useState(productsTotals);
+  
 
   const updateStatus = (act, val, item) => {
     let message = "";
@@ -23,23 +30,18 @@ const Cart = (props) => {
   };
   const removeItem = (e) => {
     const { value } = e.target;
-    const removed = bagItems.find((item) => item.key === value);
+    const removed = bagItems.find(item => item.key === value);
     const { key, itemName } = removed;
-    const newCart = bagItems.filter((item) => item !== removed);
+    const newCart = bagItems.filter(item => item !== removed);
 
     setRemovedItems([...removedItems, removed]);
+    if (newCart.length <= 0) updateDisabled();
     updateBag({
       bagItems: newCart,
       quantities: { ...quantities, [key]: 0 },
     });
-    updateTotals(
-      Object.values({
-        ...itemTotals,
-        [key]: 0,
-      })
-    );
     updateStatus("minus", quantities[value], itemName);
-    if (newCart.length <= 0) updateDisabled();
+    updateTotals({ ...itemTotals, [key]: 0 })
   };
   const undoRemove = () => {
     const currBag = [...bagItems];
@@ -49,16 +51,15 @@ const Cart = (props) => {
     const { key, itemName, price } = lastItem;
     currBag.unshift(lastItem);
     removed.pop();
-
+    
     setRemovedItems(removed);
-    setItemTotals({ ...itemTotals, [key]: price });
-    updateStatus("add", 1, itemName);
-    updateTotals(Object.values({ ...itemTotals, [key]: price }));
+    if (currBag.length === 1) updateDisabled();
     updateBag({
       bagItems: currBag,
       quantities: { ...quantities, [key]: 1 },
     });
-    if (currBag.length === 1) updateDisabled();
+    updateStatus("add", 1, itemName);
+    updateTotals({ ...itemTotals, [key]: price });
   };
 
   const updateQtyTotal = (e) => {
@@ -67,7 +68,6 @@ const Cart = (props) => {
     const item = bagItems.find((item) => item.key === name);
     const { itemName, price, key } = item;
     const fullItemTotal = price * newQty;
-    const newItemTotals = { ...itemTotals, [key]: fullItemTotal };
     const newQuantities = { ...quantities, [key]: newQty };
 
     if (newQty > quantities[key])
@@ -78,9 +78,8 @@ const Cart = (props) => {
       updateStatus("minus", quantities[key], itemName);
       removeItem(key, item);
     }
-    setItemTotals(newItemTotals);
-    updateTotals(Object.values(newItemTotals));
     updateQty(newQuantities);
+    updateTotals({ ...itemTotals, [key]: fullItemTotal });
   };
 
   return (
@@ -126,9 +125,7 @@ const Cart = (props) => {
 
         <tbody>
           {bagItems.map((item) => {
-            const { category, color, imgSrc, itemName, key, price, size } =
-              item;
-            const totalPrice = itemTotals[key];
+            const { category, color, imgSrc, itemName, key, price, size } = item;
 
             return (
               <tr className="item-row" key={key}>
@@ -182,7 +179,9 @@ const Cart = (props) => {
                 </td>
 
                 <td className="total-column underline-border">
-                  <p className="total-text">{`$${totalPrice.toFixed(2)}`}</p>
+                  <p className="total-text">
+                    ${itemTotals[key].toFixed(2)}
+                  </p>
                 </td>
               </tr>
             );

@@ -1,17 +1,50 @@
 import "./Summary.css";
 
 const Summary = (props) => {
-  const { discount, sub, total, checkout, disabled } = props;
+  const { 
+    bag, 
+    discount, 
+    page, 
+    sub, 
+    total, 
+    checkout, 
+    disabled 
+  } = props;
+  const { bagItems, quantities } = bag;
+
   return (
     <div id="Summary">
       <h2 className="summary-title underline-border">Summary</h2>
-      <div className="promo underline-border">
-        <label htmlFor="promo-code">Do you have a promo code?</label>
-        <div className="input-row flex-align-center">
-          <input type="text" name="promo-code" placeholder="Code" />
-          <button className="promo-apply-btn">Apply</button>
+      {page === "cart" && (
+        <div className="promo underline-border">
+          <label htmlFor="promo-code">Do you have a promo code?</label>
+          <div className="input-row flex-align-center">
+            <input type="text" name="promo-code" placeholder="Code" />
+            <button className="promo-apply-btn">Apply</button>
+          </div>
         </div>
-      </div>
+      )}
+      {(page === "ship" || page=== "pay") && (
+        <div className="bag-summary">
+          <div className="bag-items-num underline-border">
+            <p className="bag-num">
+              <span>{bagItems.length}</span> items in your bag
+            </p>
+          </div>
+          <div className="bag-items">
+            {bagItems.map(item => {
+              console.log(item);
+              const {
+                color,
+                imgSrc,
+                itemName,
+                key,
+                price,
+              } = item;
+            })}
+          </div>
+        </div>
+      )}
       <div className="cart-totals underline-border">
         <div className="cart-subtotal totals-container flex-align-center">
           <p className="total-title">Cart Subtotal:</p>
