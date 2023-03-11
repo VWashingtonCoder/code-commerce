@@ -5,6 +5,7 @@ const Summary = (props) => {
     bag, 
     discount, 
     page, 
+    itemTotals,
     sub, 
     total, 
     checkout, 
@@ -31,7 +32,7 @@ const Summary = (props) => {
               <span>{bagItems.length}</span> items in your bag
             </p>
           </div>
-          <div className="bag-items">
+          <div className="bag-items-summary">
             {bagItems.map(item => {
               console.log(item);
               const {
@@ -39,8 +40,33 @@ const Summary = (props) => {
                 imgSrc,
                 itemName,
                 key,
-                price,
+                size
               } = item;
+
+              return(
+                <div className="bag-item" key={key}>
+                  <div className="item-img">
+                    <img src={imgSrc} alt="product" />
+                  </div>
+                  <div className="item-text">
+                    <p className="item-name">{itemName}</p>
+                    <div className="item-description-container">
+                      <p className="item-description">
+                        Color: <span>{color}</span>
+                      </p>
+                      <p className="item-description">
+                        Size: <span>{size}</span>
+                      </p>
+                      <p className="item-description">
+                        Qty: 
+                        <span>{quantities[key]}</span> 
+                        <span className="item-total">{itemTotals[key]}</span>
+                      </p>
+                    </div>
+                    
+                  </div>
+                </div>
+              );
             })}
           </div>
         </div>
@@ -57,7 +83,7 @@ const Summary = (props) => {
         <div className="cart-shipping totals-container flex-align-center">
           <p className="total-title">Discount:</p>
           <p className="total-num">
-            {discount === 0 ? "-" : `$${discount.toFixed(2)}`}
+            {discount === 0 ? "-" : `-$${discount.toFixed(2)}`}
           </p>
         </div>
         <div className="cart-total totals-container flex-align-center">

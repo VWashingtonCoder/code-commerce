@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./CodeCommerceApp.css";
-import { pageKeys, initBag, productsTotals } from "../data";
+import { pageKeys, initBag, initTotals } from "../data";
 import SignUpLogin from "../SignupLogin/SignupLogin";
 import Cart from "../Cart/Cart";
 import Shipping from "../Shipping/Shipping";
@@ -9,16 +9,12 @@ import Confirmation from "../Confirmation/Confirmation";
 import Summary from "../Summary/Summary";
 
 const CodeCommerceApp = () => {
-  const [page, setPage] = useState(pageKeys[1]);
+  const [page, setPage] = useState(pageKeys[2]);
   const [bag, setBag] = useState(initBag);
   const [disabled, setDisabled] = useState(false);
-  const [totals, setTotals] = useState({ 
-    items: productsTotals,
-    subtotal: 72.75, 
-    total: 72.75 
-  });
+  const [totals, setTotals] = useState({ ...initTotals, total: 68.25 });
   const { items, subtotal, total } = totals;
-  const [discount, setDiscount] = useState(0);
+  const [discount, setDiscount] = useState(4.50); // init_0
 
 
   const changePage = () => {
@@ -80,6 +76,7 @@ const CodeCommerceApp = () => {
             bag={bag}
             discount={discount}
             page={page}
+            itemTotals={items}
             sub={subtotal}
             total={total}
             checkout={checkout}

@@ -40,6 +40,11 @@ export const initBag = {
   bagItems: productsInfo,
   quantities: productsQuantities,
 };
+export const initTotals = { 
+  items: productsTotals,
+  subtotal: 72.75, 
+  total: 72.75 
+}
 /* SignupLogin */
 export const initSignUpForm = {
   email: "",
