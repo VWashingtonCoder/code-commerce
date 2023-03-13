@@ -1,5 +1,5 @@
 import './App.css';
-import CodeCommerceApp from './components/CodeCommerceApp/CodeCommerceApp';
+import CodeCommerceApp from './CodeCommerceApp';
 
 function App() {
   return (

@@ -29,16 +29,15 @@ const Summary = (props) => {
         <div className="bag-summary">
           <div className="bag-items-num underline-border">
             <p className="bag-num">
-              <span>{bagItems.length}</span> items in your bag
+              <span>{bagItems.length} items</span> in your bag
             </p>
           </div>
-          <div className="bag-items-summary">
+          <div className="bag-items-summary underline-border">
             {bagItems.map(item => {
               console.log(item);
               const {
                 color,
                 imgSrc,
-                itemName,
                 key,
                 size
               } = item;
@@ -49,9 +48,9 @@ const Summary = (props) => {
                     <img src={imgSrc} alt="product" />
                   </div>
                   <div className="item-text">
-                    <p className="item-name">{itemName}</p>
+                    <p className="item-name">Anime Print Hoodie</p>
                     <div className="item-description-container">
-                      <p className="item-description">
+                      <p className="item-description">  
                         Color: <span>{color}</span>
                       </p>
                       <p className="item-description">
@@ -60,10 +59,9 @@ const Summary = (props) => {
                       <p className="item-description">
                         Qty: 
                         <span>{quantities[key]}</span> 
-                        <span className="item-total">{itemTotals[key]}</span>
+                        <span className="item-total">${itemTotals[key].toFixed(2)}</span>
                       </p>
                     </div>
-                    
                   </div>
                 </div>
               );
@@ -82,7 +80,7 @@ const Summary = (props) => {
         </div>
         <div className="cart-shipping totals-container flex-align-center">
           <p className="total-title">Discount:</p>
-          <p className="total-num">
+          <p className="total-num discount">
             {discount === 0 ? "-" : `-$${discount.toFixed(2)}`}
           </p>
         </div>

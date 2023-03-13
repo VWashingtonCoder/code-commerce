@@ -1,12 +1,12 @@
 import { useState } from "react";
 import "./CodeCommerceApp.css";
-import { pageKeys, initBag, initTotals } from "../data";
-import SignUpLogin from "../SignupLogin/SignupLogin";
-import Cart from "../Cart/Cart";
-import Shipping from "../Shipping/Shipping";
-import Payment from "../Payment/Payment";
-import Confirmation from "../Confirmation/Confirmation";
-import Summary from "../Summary/Summary";
+import { pageKeys, initBag, initTotals } from "./components/data";
+import SignUpLogin from "./components/pages/SignupLogin/SignupLogin";
+import Cart from "./components/pages/Cart/Cart";
+import Shipping from "./components/pages/Shipping/Shipping";
+import Payment from "./components/pages/Payment/Payment";
+import Confirmation from "./components/pages/Confirmation/Confirmation";
+import Summary from "./components/Summary/Summary";
 
 const CodeCommerceApp = () => {
   const [page, setPage] = useState(pageKeys[2]);
@@ -71,6 +71,7 @@ const CodeCommerceApp = () => {
               updateTotals={updateTotals}
             />
           )}
+          {page === "ship" && <Shipping />}
 
           <Summary
             bag={bag}
@@ -85,7 +86,7 @@ const CodeCommerceApp = () => {
         </div>
       )}
 
-      {page === "ship" && <Shipping />}
+      
       {page === "pay" && <Payment />}
       {page === "confirm" && <Confirmation />}
     </div>

@@ -1,68 +1,113 @@
 #Summary {
-    margin-left: 15px;
-    padding: 0px 20px 10px;
-    text-align: left;
-    width: 17vw;
-  }
-  
-  .summary-title {
-    text-align: right;
-    text-transform: uppercase;
-    margin: 0;
-    padding: 10px;
-  }
-  
-  .promo {
-    padding: 15px 0 20px;
-  }
-  
-  .cart-totals {
-    padding: 15px 0;
-  }
-  
-  .promo .input-row {
-    margin-top: 7px;
-    justify-content: space-between;
-  }
-  
-  .input-row input {
-    width: 55%;
-    padding: 11px 10px;
-    font-style: italic;
-    border: 2px solid black;
-    font-size: 15px;
-  }
-  
-  .promo-apply-btn {
-    padding: 10px;
-    font-weight: 900;
-    text-transform: uppercase;
-    background: transparent;
-  }
-  
-  .totals-container {
-    justify-content: space-between;
-    padding: 7px 0;
-  }
-  
-  .cart-subtotal .total-num,
-  .cart-total {
-    font-weight: 700;
-  }
-  
-  .cart-total .total-num {
-    color: red;
-    font-size: 18px;
-  }
-  
-  .checkout-btn {
-    width: 100%;
-    padding: 20px 0;
-    font-size: 20px;
-    text-transform: uppercase; 
-    color: white;
-    background-color: red;
-    border: none;
-    margin-top: 18rem;
-  }
-  
+  margin-left: 15px;
+  padding: 0px 20px 10px;
+  text-align: left;
+  max-width: 19vw;
+}
+
+.summary-title,
+.bag-items-num {
+  text-align: right;
+  padding: 10px;
+}
+
+.summary-title {
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.promo {
+  padding: 15px 0 20px;
+}
+
+.promo .input-row {
+  margin-top: 7px;
+  justify-content: space-between;
+}
+
+.input-row input {
+  width: 55%;
+  padding: 11px 10px;
+  font-style: italic;
+  border: 2px solid black;
+  font-size: 15px;
+}
+
+.promo-apply-btn {
+  padding: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  background: transparent;
+}
+
+.bag-items-summary {
+  padding: 5px 0 10px;
+}
+
+.bag-items-num {
+  margin-bottom: 10px;
+}
+
+.bag-items-num span {
+  font-weight: 700;
+}
+
+.bag-item {
+  display: flex;
+  width: 300px;
+}
+
+.item-img {
+  max-width: 100px;
+  margin-right: 10px;
+}
+
+.item-name {
+  font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.item-description {
+  display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    max-width: 170px;
+}
+
+.item-total {
+  text-align: right;
+  font-weight: 700;
+}
+
+.cart-totals {
+  padding: 15px 0;
+}
+
+.totals-container {
+  justify-content: space-between;
+  padding: 7px 0;
+}
+
+.cart-subtotal .total-num,
+.cart-total {
+  font-weight: 700;
+}
+
+.cart-total .total-num {
+  color: red;
+  font-size: 18px;
+}
+
+.total-num.discount {
+  color: forestgreen;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 20px 0;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: white;
+  background-color: red;
+  border: none;
+  margin-top: 18rem;
+}
