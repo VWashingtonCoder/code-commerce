@@ -1,11 +1,11 @@
 import { useState } from "react";
 import "./CodeCommerceApp.css";
-import { pageKeys, initBag, initTotals } from "./components/data";
-import SignUpLogin from "./components/pages/SignupLogin/SignupLogin";
-import Cart from "./components/pages/Cart/Cart";
-import Shipping from "./components/pages/Shipping/Shipping";
-import Payment from "./components/pages/Payment/Payment";
-import Confirmation from "./components/pages/Confirmation/Confirmation";
+import { pageKeys, initBag, initTotals } from "./data";
+import SignUpLogin from "./pages/SignupLogin/SignupLogin";
+import Cart from "./pages/Cart/Cart";
+import Shipping from "./pages/Shipping/Shipping";
+import Payment from "./pages/Payment/Payment";
+import Confirmation from "./pages/Confirmation/Confirmation";
 import Summary from "./components/Summary/Summary";
 
 const CodeCommerceApp = () => {
@@ -16,11 +16,11 @@ const CodeCommerceApp = () => {
   const { items, subtotal, total } = totals;
   const [discount, setDiscount] = useState(4.50); // init_0
 
-
   const changePage = () => {
     const pageIdx = pageKeys.findIndex((key) => key === page);
     setPage(pageKeys[pageIdx + 1]);
   };
+
   const checkout = () => {
     switch (page) {
       case "cart":
@@ -30,19 +30,20 @@ const CodeCommerceApp = () => {
       default:
         break;
     }
-
     changePage();
   };
+  
   const updateBag = (bag) => {
     setBag(bag);
   };
+  
   const updateBagQty = (qty) => {
     setBag({ ...bag, quantities: qty });
   };
+  
   const updateDisabled = () => {
     setDisabled(!disabled);
   };
-
 
   const updateTotals = (itemTotals) => {
     let sub = 0;
