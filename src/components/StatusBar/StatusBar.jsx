@@ -2,15 +2,10 @@ import { AiFillCheckCircle } from "react-icons/ai";
 import { TbTruckDelivery } from "react-icons/tb";
 import { MdPayment } from "react-icons/md";
 import { GiConfirmed } from "react-icons/gi";
-import { useState } from "react";
 import "./StatusBar.css"
 
-const StatusBar = ({page}) => {
-    const [barProgress, setBarProgress] = useState(
-        { ship: false, pay: false }
-    );
-    const { ship, pay } = barProgress;
-
+const StatusBar = ({progress}) => { 
+    const { ship, pay } = progress;
 
     return (
         <div id="StatusBar" className="flex-align-center">

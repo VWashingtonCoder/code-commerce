@@ -6,6 +6,7 @@ import Cart from "./pages/Cart/Cart";
 import Shipping from "./pages/Shipping/Shipping";
 import Payment from "./pages/Payment/Payment";
 import Confirmation from "./pages/Confirmation/Confirmation";
+import StatusBar from "./components/StatusBar/StatusBar";
 import Summary from "./components/Summary/Summary";
 
 const CodeCommerceApp = () => {
@@ -14,7 +15,8 @@ const CodeCommerceApp = () => {
   const [disabled, setDisabled] = useState(false);
   const [totals, setTotals] = useState({ ...initTotals, total: 68.25 });
   const { items, subtotal, total } = totals;
-  const [discount, setDiscount] = useState(4.50); // init_0
+  const [discount, setDiscount] = useState(4.5); // init_0
+  const [barProgress, setBarProgress] = useState({ ship: false, pay: false });
 
   const changePage = () => {
     const pageIdx = pageKeys.findIndex((key) => key === page);
@@ -32,15 +34,15 @@ const CodeCommerceApp = () => {
     }
     changePage();
   };
-  
+
   const updateBag = (bag) => {
     setBag(bag);
   };
-  
+
   const updateBagQty = (qty) => {
     setBag({ ...bag, quantities: qty });
   };
-  
+
   const updateDisabled = () => {
     setDisabled(!disabled);
   };
@@ -49,10 +51,10 @@ const CodeCommerceApp = () => {
     let sub = 0;
     const itemTotalsArr = Object.values(itemTotals);
     itemTotalsArr.forEach((total) => (sub = sub + total));
-    setTotals({ 
-      items: itemTotals, 
-      subtotal: sub, 
-      total: sub 
+    setTotals({
+      items: itemTotals,
+      subtotal: sub,
+      total: sub,
     });
   };
 
@@ -62,7 +64,7 @@ const CodeCommerceApp = () => {
 
       {page !== "signLog" && (
         <div className="page-container">
-          {page === "cart" && (
+          {page === "cart" ? (
             <Cart
               bag={bag}
               itemTotals={items}
@@ -71,9 +73,14 @@ const CodeCommerceApp = () => {
               updateQty={updateBagQty}
               updateTotals={updateTotals}
             />
+          ) : (
+            <div className="page-status">
+              <StatusBar progress={barProgress} />
+              {page === "ship" && (
+                <Shipping />
+              )}
+            </div>
           )}
-          {page === "ship" && <Shipping />}
-
           <Summary
             bag={bag}
             discount={discount}
@@ -87,7 +94,6 @@ const CodeCommerceApp = () => {
         </div>
       )}
 
-      
       {page === "pay" && <Payment />}
       {page === "confirm" && <Confirmation />}
     </div>
