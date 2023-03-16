@@ -83,8 +83,8 @@ export const cities = {
   PUE: "Pueblo",
 };
 export const phoneData = [
-  { key: "cell", label: "Cell Phone", id: "cellPhone" },
-  { key: "tel", label: "Telephone", id: "telephone" }
+  { key: "cell", label: "Cell Phone" },
+  { key: "tel", label: "Telephone" }
 ]; 
 export const shipMethods = [
   {

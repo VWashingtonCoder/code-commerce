@@ -1,25 +1,99 @@
 import "./Shipping.css";
 import { cities, phoneData, shipMethods } from "../../data";
+import { useState } from "react";
+
+const shippingFormValues = {
+  addressTitle: "",
+  name: "",
+  street: "",
+  zip: "",
+  country: "",
+  city: "",
+  state: "",
+  cellCode: "",
+  cellNum: "",
+  telCode: "",
+  telNum: "",
+  method: ""
+}
 
 const Shipping = () => {
+  const [formValues, setFormValues] = useState(shippingFormValues);
+  const { 
+    addressTitle, 
+    name, 
+    street, 
+    zip, 
+    country, 
+    city,
+    state,
+    cellCode,
+    cellNum, 
+    telCode,
+    telNum, 
+    method 
+  } = formValues;
+  
+  function validateValues(name, val) {
+    const valid = true;
+    console.log(name, val);
+
+    switch(name) {
+      case "name":
+        break;
+      default:
+        break;
+    }
+
+    return valid;
+  }
+
+  const updateFormValues = (e) => {
+    const { name, value } = e.target;
+    const valid = validateValues(name, value);
+
+    if (valid) 
+      setFormValues({ ...formValues, [name]: value });
+  }
+
+
+
   return (
     <div id="Shipping">
       <form className="table-view">
         <h2 className="underline-border form-title">Shipping Information</h2>
         <div className="ship-address-group underline-border">
           <div className="input-bar flex-align-center">
-            <label htmlFor="address-title" className="first-label">Address Title</label>
-            <input id="address-title" name="address-title" type="text" />
+            <label htmlFor="addressTitle" className="first-label">Address Title</label>
+            <input 
+              id="addressTitle"
+              name="addressTitle" 
+              type="text"
+              value={addressTitle}
+              onChange={updateFormValues} 
+            />
           </div>
 
           <div className="input-bar flex-align-center">
             <label htmlFor="name" className="first-label">Name - Surname</label>
-            <input id="name" name="name" type="text" />
+            <input 
+              id="name" 
+              name="name"
+              type="text"
+              value={name} 
+              onChange={updateFormValues} 
+            />
           </div>
 
           <div className="input-bar flex-align-center">
             <label htmlFor="street" className="first-label">Your Address</label>
-            <input id="street" name="street" type="text" />
+            <input 
+              id="street"
+              name="street" 
+              type="text" 
+              value={street}
+              onChange={updateFormValues}
+            />
           </div>
 
           <div className="input-bar group flex-align-center">
@@ -29,20 +103,32 @@ const Shipping = () => {
                 id="zip"
                 name="zip"
                 type="text"
+                value={zip}
                 pattern="[0-9]*"
                 maxLength={5}
+                onChange={updateFormValues}
               />
             </div>
             <div className="input-group country">
               <label htmlFor="country">Country</label>
-              <select id="country" name="country">
+              <select 
+                id="country"
+                name="country" 
+                value={country}
+                onChange={updateFormValues}
+              >
                 <option value="">Select</option>
                 <option value="USA">United States</option>
               </select>
             </div>
             <div className="input-group city">
               <label htmlFor="city">City</label>
-              <select id="city" name="city">
+              <select 
+                id="city" 
+                name="city"
+                value={city}
+                onChange={updateFormValues}
+              >
                 <option value="">Select</option>
                 {Object.entries(cities).map((city) => {
                   const [key, val] = city;
@@ -57,7 +143,12 @@ const Shipping = () => {
             </div>
             <div className="input-group state">
               <label htmlFor="state">State</label>
-              <select name="state" id="state">
+              <select 
+                id="state"
+                name="state"
+                value={state}
+                onChange={updateFormValues}
+              >
                 <option value="">Select</option>
                 <option value="CO">CO</option>
               </select>
@@ -65,7 +156,7 @@ const Shipping = () => {
           </div>
           
           {phoneData.map((phone) => {
-            const { key, label, id } = phone;
+            const { key, label } = phone;
             return (
               <div 
                 className="input-bar flex-align-center" 
@@ -75,19 +166,23 @@ const Shipping = () => {
                   {label}
                 </span>
                 <div className="phone-code-input">
-                  <label htmlFor={`${id}Code`}>+1</label>
+                  <label htmlFor={`${key}Code`}>+1</label>
                   <input
                     type="tel"
-                    id={`${id}Code`}
-                    name="phone-code"
+                    id={`${key}Code`}
+                    name={`${key}Code`}
+                    value={key === "cell" ? cellCode : telCode}
+                    onChange={updateFormValues}
                     pattern="[0-9]{3}"
                     maxLength={3}
                   />
                 </div>
                 <input
                   type="tel"
-                  name={`${key}-num`}
-                  className="phone-num"
+                  id={`${key}Num`}
+                  name={`${key}Num`}
+                  value={key === "cell" ? cellNum : telNum}
+                  onChange={updateFormValues}
                   pattern={"[0-9]{3}-[0-9]{4}" || "[0-9]{7}"}
                   maxLength={7}
                 />
@@ -102,7 +197,13 @@ const Shipping = () => {
             const { key, info } = method;
             return (
               <div className="radio-row" key={key}>
-                <input type="radio" name="ship-method" id={key} value={key} />
+                <input 
+                  type="radio" 
+                  name="method" 
+                  id={key} 
+                  value={key} 
+                  onChange={updateFormValues}
+                />
                 <span className="label-key">{key}</span>
                 <span className="label-info">{info}</span>
               </div>

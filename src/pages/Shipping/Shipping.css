@@ -74,8 +74,8 @@
   padding-bottom: 3px;
   border-right: 1px solid black;
 }
-#cellPhoneCode,
-#telephoneCode {
+#cellCode,
+#telCode {
   padding-left: 40px;
   margin-right: 10px;
   max-width: 40px;
