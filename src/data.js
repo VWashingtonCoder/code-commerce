@@ -75,3 +75,26 @@ export const nameInputsSignUp = [
 export const headers = [" ", "product", "price", "quantity", "total"];
 export const categories = ["color", "size"];
 export const qtyOptions = [1, 2, 3, 4, 5];
+
+/*Shipping*/
+export const cities = {
+  COS: "Colorado Springs",
+  DEN: "Denver",
+  PUE: "Pueblo",
+};
+
+export const phoneData = [
+  { key: "cell", label: "Cell Phone", id: "cellPhone" },
+  { key: "tel", label: "Telephone", id: "telephone" }
+]; 
+
+export const shipMethods = [
+  {
+    key: "standard",
+    info: "Delivery in 4-6 Business Days - Free",
+  },
+  {
+    key: "express",
+    info: "Delivery in 1-3 Business Days - $5.00",
+  },
+];

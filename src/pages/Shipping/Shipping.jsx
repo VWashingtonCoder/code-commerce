@@ -1,28 +1,5 @@
 import "./Shipping.css";
-
-const cities = {
-  COS: "Colorado Springs",
-  DEN: "Denver",
-  PUE: "Pueblo",
-};
-
-const phoneData = [
-  { key: "cell", label: "Cell Phone", id: "cellPhone" },
-  { key: "tel", label: "Telephone", id: "telephone" }
-]; 
-
-const shipMethods = [
-  {
-    key: "standard",
-    info: "Delivery in 4-6 Business Days - Free",
-  },
-  {
-    key: "express",
-    info: "Delivery in 1-3 Business Days - $5.00",
-  },
-];
-
-
+import { cities, phoneData, shipMethods } from "../../data";
 
 const Shipping = () => {
   return (
