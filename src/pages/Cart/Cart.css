@@ -27,18 +27,6 @@
   color: magenta;
 }
 
-.cart-table {
-  box-shadow: 0px 0px 10px 5px lightgrey;
-  border: 1px solid lightgray;
-}
-
-.cart-table {
-  width: 100%;
-  background-color: white;
-  border-radius: 5px;
-  padding: 10px;
-}
-
 tr:last-of-type td {
   border-bottom: none;
 }

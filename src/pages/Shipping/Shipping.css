@@ -1,0 +1,106 @@
+#Shipping {
+  text-align: left;
+}
+#Shipping form {
+    padding-left: 30px;
+    padding-bottom: 20px;
+}
+.form-title,
+.ship-address-group,
+.ship-method-group {
+  padding-bottom: 15px;
+}
+.form-title,
+.method-title {
+  text-transform: uppercase;
+}
+.input-bar,
+.input-bar.group,
+.radio-row .label-key {
+  font-size: 18px;
+  font-weight: 600;
+}
+.input-bar {
+  margin-bottom: 10px;
+}
+.input-bar input,
+.input-bar select {
+  height: 25px;
+  font-size: 15px;
+}
+.input-bar input {
+  border: 2px solid lightgrey;
+  padding-left: 10px;
+}
+.first-label,
+.zip label {
+  width: 200px;
+}
+#address-title,
+#name {
+  width: 250px;
+}
+#street {
+  width: 750px;
+}
+.input-bar.group {
+  max-width: 900px;
+}
+.input-bar.group .zip label {
+  display: inline-flex;
+}
+#zip {
+  width: 50px;
+}
+.country label,
+.city label,
+.state label {
+  padding-left: 1rem;
+  padding-right: 0.75rem;
+}
+.input-bar select {
+  background-color: gainsboro;
+  border: none;
+  padding: 0 5px;
+}
+.phone-code-input {
+  position: relative;
+}
+.phone-code-input label {
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  padding-right: 5px;
+  padding-bottom: 3px;
+  border-right: 1px solid black;
+}
+#cellPhoneCode,
+#telephoneCode {
+  padding-left: 40px;
+  margin-right: 10px;
+  max-width: 40px;
+}
+#standard, 
+#express {
+    accent-color: red;
+}
+.radio-row {
+    text-align: left;
+    max-width: 500px;
+    display: grid;
+    grid-template-columns: 0.1fr 0.35fr 1fr;
+}
+.radio-row .label-key {
+    text-transform: uppercase;
+    margin-left: 7px;
+}
+.radio-row .label-info {
+    font-size: 18px;
+}
+.back-btn {
+    margin: 15px 0 10px;
+    padding: 7px;
+    text-transform: uppercase;
+    font-weight: 700;
+    background-color: transparent;
+}

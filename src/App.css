@@ -32,3 +32,12 @@
 .underline-border {
   border-bottom: 1px solid lightgray;
 }
+
+.table-view {
+  box-shadow: 0px 0px 10px 5px lightgrey;
+  border: 1px solid lightgray;
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+}

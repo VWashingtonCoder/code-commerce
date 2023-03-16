@@ -107,7 +107,7 @@ const Cart = (props) => {
         </div>
       )}
 
-      <table className="cart-table">
+      <table className="cart-table table-view">
         <thead>
           <tr className="cart-table-head">
             {headers.map((head, idx) => (

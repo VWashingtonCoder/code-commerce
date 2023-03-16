@@ -1,6 +1,7 @@
 #StatusBar {
     font-size: 35px;
     max-width: 70vw;
+    margin-bottom: 20px;
 }
 .logo-circle {
     background-color: lightgrey;
