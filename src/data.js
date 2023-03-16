@@ -78,16 +78,14 @@ export const qtyOptions = [1, 2, 3, 4, 5];
 
 /*Shipping*/
 export const cities = {
-  COS: "Colorado Springs",
   DEN: "Denver",
+  FOU: "Fountain",
   PUE: "Pueblo",
 };
-
 export const phoneData = [
   { key: "cell", label: "Cell Phone", id: "cellPhone" },
   { key: "tel", label: "Telephone", id: "telephone" }
 ]; 
-
 export const shipMethods = [
   {
     key: "standard",
