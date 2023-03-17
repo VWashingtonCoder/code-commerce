@@ -14,7 +14,7 @@ const shippingFormValues = {
   cellNum: "",
   telCode: "",
   telNum: "",
-  method: ""
+  method: "standard"
 }
 
 const Shipping = () => {
@@ -34,17 +34,37 @@ const Shipping = () => {
     method 
   } = formValues;
   
+  function containsNumbers(str) {
+    return /\d/.test(str);
+  }
+
+  function containsLetters(str) {
+    return /[A-Za-z]/.test(str);
+  }
+
   function validateValues(name, val) {
-    const valid = true;
+    let valid = true;
     console.log(name, val);
 
-    switch(name) {
-      case "name":
-        break;
-      default:
-        break;
-    }
-
+    if (name === "name")
+      if (containsNumbers(val)) valid = false;
+    else if (name === "zip" || name === "")
+    
+    
+    
+    
+    
+    // switch(name) {
+    //   case "name":
+    //     if (containsNumbers(val)) valid = false;
+    //     break;
+    //   case "zip":
+    //     if (containsLetters(val)) valid = false;
+    //     break;
+    //   default:
+    //     break;
+    // }
+    console.log(valid);
     return valid;
   }
 
@@ -193,10 +213,10 @@ const Shipping = () => {
 
         <div className="ship-method-group">
           <h2 className="method-title">Shipping Method</h2>
-          {shipMethods.map((method) => {
-            const { key, info } = method;
+          {shipMethods.map((type) => {
+            const { key, info } = type;
             return (
-              <div className="radio-row" key={key}>
+              <div className="radio-row" key={key} value={method}>
                 <input 
                   type="radio" 
                   name="method" 
