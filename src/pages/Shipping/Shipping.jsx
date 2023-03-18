@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 const Shipping = (props) => {
   const { 
+    errors,
     form,
     method, 
     checkFullForm,
@@ -33,7 +34,7 @@ const Shipping = (props) => {
     <div id="Shipping">
       <form className="table-view">
         <h2 className="underline-border form-title">Shipping Information</h2>
-        <div className="ship-address-group underline-border">
+         <div className="ship-address-group underline-border">
           <div className="input-bar flex-align-center">
             <label htmlFor="addressTitle" className="first-label">Address Title</label>
             <input 
