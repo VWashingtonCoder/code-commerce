@@ -93,8 +93,7 @@ export const shippingFormValues = {
   cellCode: "",
   cellNum: "",
   telCode: "",
-  telNum: "",
-  method: "standard"
+  telNum: ""
 }
 
 export const cities = {

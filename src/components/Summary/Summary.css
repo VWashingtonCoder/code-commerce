@@ -3,6 +3,7 @@
   padding: 0px 20px 10px;
   text-align: left;
   max-width: 19vw;
+  position: relative;
 }
 
 .summary-title,
@@ -109,5 +110,5 @@
   color: white;
   background-color: red;
   border: none;
-  margin-top: 18rem;
+  margin-bottom: 10px;
 }

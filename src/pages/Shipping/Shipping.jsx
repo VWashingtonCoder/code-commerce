@@ -1,7 +1,16 @@
 import "./Shipping.css";
 import { cities, phoneData, shipMethods } from "../../data";
+import { useEffect } from "react";
 
-const Shipping = ({ form, updateVals }) => {
+const Shipping = (props) => {
+  const { 
+    form,
+    method, 
+    checkFullForm,
+    updateMethod, 
+    updateVals,
+    goBack
+  } = props
   const { 
     addressTitle, 
     name, 
@@ -13,13 +22,12 @@ const Shipping = ({ form, updateVals }) => {
     cellCode,
     cellNum, 
     telCode,
-    telNum, 
-    method 
+    telNum
   } = form;
-  
-  
 
-
+  useEffect(() => {
+    checkFullForm()
+  })
 
   return (
     <div id="Shipping">
@@ -165,7 +173,8 @@ const Shipping = ({ form, updateVals }) => {
                   name="method" 
                   id={key} 
                   value={key} 
-                  onChange={updateVals}
+                  checked={method === key}
+                  onChange={updateMethod}
                 />
                 <span className="label-key">{key}</span>
                 <span className="label-info">{info}</span>
@@ -174,7 +183,7 @@ const Shipping = ({ form, updateVals }) => {
           })}
         </div>
 
-        <button className="back-btn">Back To Cart</button>
+        <button className="back-btn" onClick={goBack}>Back To Cart</button>
       </form>
     </div>
   );
