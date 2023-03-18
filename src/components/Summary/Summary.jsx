@@ -6,6 +6,7 @@ const Summary = (props) => {
     discount, 
     page, 
     itemTotals,
+    shipCost,
     sub, 
     total, 
     checkout, 
@@ -34,7 +35,6 @@ const Summary = (props) => {
           </div>
           <div className="bag-items-summary underline-border">
             {bagItems.map(item => {
-              console.log(item);
               const {
                 color,
                 imgSrc,
@@ -76,7 +76,7 @@ const Summary = (props) => {
         </div>
         <div className="cart-shipping totals-container flex-align-center">
           <p className="total-title">Shipping & Handling:</p>
-          <p className="total-num">-</p>
+          <p className="total-num">{shipCost === 0 ? "-" : `$${shipCost.toFixed(2)}`}</p>
         </div>
         <div className="cart-shipping totals-container flex-align-center">
           <p className="total-title">Discount:</p>

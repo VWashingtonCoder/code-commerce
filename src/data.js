@@ -42,8 +42,13 @@ export const initBag = {
 };
 export const initTotals = { 
   items: productsTotals,
-  subtotal: 72.75, 
-  total: 72.75 
+  subtotal: 72.75,
+  shipCost: 0,
+  discount: 0, 
+  total: 72.75
+}
+export const initBarProgress = {
+  ship: false, pay: false
 }
 /* SignupLogin */
 export const initSignUpForm = {
@@ -77,6 +82,21 @@ export const categories = ["color", "size"];
 export const qtyOptions = [1, 2, 3, 4, 5];
 
 /*Shipping*/
+export const shippingFormValues = {
+  addressTitle: "",
+  name: "",
+  street: "",
+  zip: "",
+  country: "",
+  city: "",
+  state: "",
+  cellCode: "",
+  cellNum: "",
+  telCode: "",
+  telNum: "",
+  method: "standard"
+}
+
 export const cities = {
   DEN: "Denver",
   FOU: "Fountain",

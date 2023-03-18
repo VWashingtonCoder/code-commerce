@@ -1,24 +1,7 @@
 import "./Shipping.css";
 import { cities, phoneData, shipMethods } from "../../data";
-import { useState } from "react";
 
-const shippingFormValues = {
-  addressTitle: "",
-  name: "",
-  street: "",
-  zip: "",
-  country: "",
-  city: "",
-  state: "",
-  cellCode: "",
-  cellNum: "",
-  telCode: "",
-  telNum: "",
-  method: "standard"
-}
-
-const Shipping = () => {
-  const [formValues, setFormValues] = useState(shippingFormValues);
+const Shipping = ({ form, updateVals }) => {
   const { 
     addressTitle, 
     name, 
@@ -32,49 +15,9 @@ const Shipping = () => {
     telCode,
     telNum, 
     method 
-  } = formValues;
+  } = form;
   
-  function containsNumbers(str) {
-    return /\d/.test(str);
-  }
-
-  function containsLetters(str) {
-    return /[A-Za-z]/.test(str);
-  }
-
-  function validateValues(name, val) {
-    let valid = true;
-    console.log(name, val);
-
-    if (name === "name")
-      if (containsNumbers(val)) valid = false;
-    else if (name === "zip" || name === "")
-    
-    
-    
-    
-    
-    // switch(name) {
-    //   case "name":
-    //     if (containsNumbers(val)) valid = false;
-    //     break;
-    //   case "zip":
-    //     if (containsLetters(val)) valid = false;
-    //     break;
-    //   default:
-    //     break;
-    // }
-    console.log(valid);
-    return valid;
-  }
-
-  const updateFormValues = (e) => {
-    const { name, value } = e.target;
-    const valid = validateValues(name, value);
-
-    if (valid) 
-      setFormValues({ ...formValues, [name]: value });
-  }
+  
 
 
 
@@ -90,7 +33,7 @@ const Shipping = () => {
               name="addressTitle" 
               type="text"
               value={addressTitle}
-              onChange={updateFormValues} 
+              onChange={updateVals} 
             />
           </div>
 
@@ -101,7 +44,7 @@ const Shipping = () => {
               name="name"
               type="text"
               value={name} 
-              onChange={updateFormValues} 
+              onChange={updateVals} 
             />
           </div>
 
@@ -112,7 +55,7 @@ const Shipping = () => {
               name="street" 
               type="text" 
               value={street}
-              onChange={updateFormValues}
+              onChange={updateVals}
             />
           </div>
 
@@ -126,7 +69,7 @@ const Shipping = () => {
                 value={zip}
                 pattern="[0-9]*"
                 maxLength={5}
-                onChange={updateFormValues}
+                onChange={updateVals}
               />
             </div>
             <div className="input-group country">
@@ -135,7 +78,7 @@ const Shipping = () => {
                 id="country"
                 name="country" 
                 value={country}
-                onChange={updateFormValues}
+                onChange={updateVals}
               >
                 <option value="">Select</option>
                 <option value="USA">United States</option>
@@ -147,7 +90,7 @@ const Shipping = () => {
                 id="city" 
                 name="city"
                 value={city}
-                onChange={updateFormValues}
+                onChange={updateVals}
               >
                 <option value="">Select</option>
                 {Object.entries(cities).map((city) => {
@@ -167,7 +110,7 @@ const Shipping = () => {
                 id="state"
                 name="state"
                 value={state}
-                onChange={updateFormValues}
+                onChange={updateVals}
               >
                 <option value="">Select</option>
                 <option value="CO">CO</option>
@@ -192,7 +135,7 @@ const Shipping = () => {
                     id={`${key}Code`}
                     name={`${key}Code`}
                     value={key === "cell" ? cellCode : telCode}
-                    onChange={updateFormValues}
+                    onChange={updateVals}
                     pattern="[0-9]{3}"
                     maxLength={3}
                   />
@@ -202,7 +145,7 @@ const Shipping = () => {
                   id={`${key}Num`}
                   name={`${key}Num`}
                   value={key === "cell" ? cellNum : telNum}
-                  onChange={updateFormValues}
+                  onChange={updateVals}
                   pattern={"[0-9]{3}-[0-9]{4}" || "[0-9]{7}"}
                   maxLength={7}
                 />
@@ -222,7 +165,7 @@ const Shipping = () => {
                   name="method" 
                   id={key} 
                   value={key} 
-                  onChange={updateFormValues}
+                  onChange={updateVals}
                 />
                 <span className="label-key">{key}</span>
                 <span className="label-info">{info}</span>

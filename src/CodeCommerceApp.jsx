@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./CodeCommerceApp.css";
-import { pageKeys, initBag, initTotals } from "./data";
+import { pageKeys, initBag, initTotals, shippingFormValues, initBarProgress } from "./data";
+import { validateValues } from "./helpers";
 import SignUpLogin from "./pages/SignupLogin/SignupLogin";
 import Cart from "./pages/Cart/Cart";
 import Shipping from "./pages/Shipping/Shipping";
@@ -13,10 +14,11 @@ const CodeCommerceApp = () => {
   const [page, setPage] = useState(pageKeys[2]);
   const [bag, setBag] = useState(initBag);
   const [disabled, setDisabled] = useState(false);
-  const [totals, setTotals] = useState({ ...initTotals, total: 68.25 });
-  const { items, subtotal, total } = totals;
-  const [discount, setDiscount] = useState(4.5); // init_0
-  const [barProgress, setBarProgress] = useState({ ship: false, pay: false });
+  const [totals, setTotals] = useState({ ...initTotals, discount: 4.50, total: 68.25 });
+  const [barProgress, setBarProgress] = useState(initBarProgress);
+  const [shipFormValues, setShipFormValues] = useState(shippingFormValues);
+  const { items, subtotal, shipCost, discount, total } = totals;
+  
 
   const changePage = () => {
     const pageIdx = pageKeys.findIndex((key) => key === page);
@@ -26,8 +28,12 @@ const CodeCommerceApp = () => {
   const checkout = () => {
     switch (page) {
       case "cart":
-        setDiscount(4.5);
-        setTotals({ ...totals, total: total - 4.5 });
+        setTotals({ 
+          ...totals, 
+          discount: 4.50, 
+          total: total - 4.5 
+        });
+        setDisabled(true);
         break;
       default:
         break;
@@ -57,6 +63,29 @@ const CodeCommerceApp = () => {
       total: sub,
     });
   };
+  const updateShipFormValues = (e) => {
+    const { name, value } = e.target;
+    const valid = validateValues(name, value);
+
+    if (valid) 
+      setShipFormValues({ ...shipFormValues, [name]: value });
+    
+    if (name === "method") {
+      if (value === "standard" && shipCost === 5) {
+        setTotals({ 
+            ...totals, 
+            shipCost: 0, 
+            total: total - 5 
+          });
+      } else if (value === "express") {
+        setTotals({ 
+          ...totals, 
+          shipCost: 5, 
+          total: total + 5 
+        });
+      }
+    }
+  }
 
   return (
     <div id="CodeCommerceApp">
@@ -77,7 +106,7 @@ const CodeCommerceApp = () => {
             <div className="page-status">
               <StatusBar progress={barProgress} />
               {page === "ship" && (
-                <Shipping />
+                <Shipping form={shipFormValues} updateVals={updateShipFormValues} />
               )}
             </div>
           )}
@@ -86,6 +115,7 @@ const CodeCommerceApp = () => {
             discount={discount}
             page={page}
             itemTotals={items}
+            shipCost = {shipCost}
             sub={subtotal}
             total={total}
             checkout={checkout}
