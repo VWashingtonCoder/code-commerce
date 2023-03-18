@@ -80,9 +80,8 @@ export const nameInputsSignUp = [
 export const headers = [" ", "product", "price", "quantity", "total"];
 export const categories = ["color", "size"];
 export const qtyOptions = [1, 2, 3, 4, 5];
-
 /*Shipping*/
-export const shippingFormValues = {
+export const initShipFormValues = {
   addressTitle: "",
   name: "",
   street: "",
@@ -95,7 +94,19 @@ export const shippingFormValues = {
   telCode: "",
   telNum: ""
 }
-
+export const initShipFormErrors = {
+  addressTitle: "",
+  name: "",
+  street: "",
+  zip: "",
+  country: "",
+  city: "",
+  state: "",
+  cellCode: "",
+  cellNum: "",
+  telCode: "",
+  telNum: ""
+}
 export const cities = {
   DEN: "Denver",
   FOU: "Fountain",

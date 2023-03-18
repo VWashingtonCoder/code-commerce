@@ -4,7 +4,8 @@ import {
   pageKeys,
   initBag,
   initTotals,
-  shippingFormValues,
+  initShipFormValues,
+  initShipFormErrors,
   initBarProgress,
 } from "./data";
 import { validateValues } from "./helpers";
@@ -22,19 +23,18 @@ const CodeCommerceApp = () => {
   const [disabled, setDisabled] = useState(true);
   const [totals, setTotals] = useState(initTotals);
   const [barProgress, setBarProgress] = useState(initBarProgress);
-  const [shipFormValues, setShipFormValues] = useState(shippingFormValues);
+  const [shipFormValues, setShipFormValues] = useState(initShipFormValues);
+  const [shipFormErrors, setShipFormErrors] = useState(initShipFormErrors);
   const [shipMethod, setShipMethod] = useState("standard");
   const { items, subtotal, shipCost, discount, total } = totals;
 
   const resetShipState = () => {
     setTotals(initTotals);
     setBarProgress(initBarProgress);
-    setShipFormValues(shippingFormValues);
+    setShipFormValues(initShipFormValues);
     setShipMethod("standard");
     setDisabled(false);
   }
-
-
 
   const changePage = () => {
     const pageIdx = pageKeys.findIndex((key) => key === page);
@@ -111,13 +111,22 @@ const CodeCommerceApp = () => {
 
   const updateShipFormValues = (e) => {
     const { name, value } = e.target;
-    const valid = validateValues(name, value);
+    const { valid, error } = validateValues(name, value);
 
-    if (valid)
+    console.log(`valid: ${valid}, error: ${error}`);
+
+    if (valid) {
       setShipFormValues({
         ...shipFormValues,
-        [name]: value,
+        [name]: value
       });
+    }
+
+    setShipFormErrors({
+      ...shipFormErrors,
+      [name]: error
+    });
+      
   };
 
   return (
@@ -140,6 +149,7 @@ const CodeCommerceApp = () => {
               <StatusBar progress={barProgress} />
               {page === "ship" && (
                 <Shipping
+                  errors={shipFormErrors}
                   form={shipFormValues}
                   method={shipMethod}
                   checkFullForm={checkFullForm}
