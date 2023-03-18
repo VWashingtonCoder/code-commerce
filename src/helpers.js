@@ -8,7 +8,7 @@ function containsLetters(str) {
   
 export function validateValues(name, val) {
     let validObj = { valid: true, error: "" };
-    console.log(name, val)
+
     switch(name) {
       case "addressTitle":
         if (val === "") 
@@ -66,17 +66,6 @@ export function validateValues(name, val) {
       default:
         break;
     }
-
-    // if (name === "name") {
-    //   
-    // } else if (name === "zip" 
-    //   || name === "cellCode" 
-    //   || name === "cellNum"
-    //   || name === "telCode"
-    //   || name === "telNum"
-    // ) {
-    //   if (containsLetters(val)) valid = false;
-    // }
 
     return validObj;
   }
