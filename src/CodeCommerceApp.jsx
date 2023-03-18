@@ -34,7 +34,7 @@ const CodeCommerceApp = () => {
     setShipFormValues(initShipFormValues);
     setShipMethod("standard");
     setDisabled(false);
-  }
+  };
 
   const changePage = () => {
     const pageIdx = pageKeys.findIndex((key) => key === page);
@@ -46,7 +46,7 @@ const CodeCommerceApp = () => {
     setPage(pageKeys[pageIdx - 1]);
 
     if (page === "ship") resetShipState();
-  }
+  };
 
   const checkFullForm = () => {
     if (
@@ -63,7 +63,7 @@ const CodeCommerceApp = () => {
         discount: 4.5,
         total: total - 4.5,
       });
-    
+
     changePage();
     setDisabled(true);
   };
@@ -113,20 +113,17 @@ const CodeCommerceApp = () => {
     const { name, value } = e.target;
     const { valid, error } = validateValues(name, value);
 
-    console.log(`valid: ${valid}, error: ${error}`);
-
     if (valid) {
       setShipFormValues({
         ...shipFormValues,
-        [name]: value
+        [name]: value,
       });
     }
 
     setShipFormErrors({
       ...shipFormErrors,
-      [name]: error
+      [name]: error,
     });
-      
   };
 
   return (

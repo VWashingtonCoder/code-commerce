@@ -2,8 +2,8 @@
   text-align: left;
 }
 #Shipping form {
-    padding-left: 30px;
-    padding-bottom: 20px;
+  padding-left: 30px;
+  padding-bottom: 20px;
 }
 .form-title,
 .ship-address-group,
@@ -13,6 +13,15 @@
 .form-title,
 .method-title {
   text-transform: uppercase;
+}
+.error-box {
+  border: 2px solid indianred;
+  padding: 10px;
+  margin-bottom: 20px;
+  max-width: 40%;
+  letter-spacing: 1.25px;
+  font-weight: 600;
+  background-color: lavenderblush;
 }
 .input-bar,
 .input-bar.group,
@@ -80,27 +89,27 @@
   margin-right: 10px;
   max-width: 40px;
 }
-#standard, 
+#standard,
 #express {
-    accent-color: red;
+  accent-color: red;
 }
 .radio-row {
-    text-align: left;
-    max-width: 500px;
-    display: grid;
-    grid-template-columns: 0.1fr 0.35fr 1fr;
+  text-align: left;
+  max-width: 500px;
+  display: grid;
+  grid-template-columns: 0.1fr 0.35fr 1fr;
 }
 .radio-row .label-key {
-    text-transform: uppercase;
-    margin-left: 7px;
+  text-transform: uppercase;
+  margin-left: 7px;
 }
 .radio-row .label-info {
-    font-size: 18px;
+  font-size: 18px;
 }
 .back-btn {
-    margin: 15px 0 10px;
-    padding: 7px;
-    text-transform: uppercase;
-    font-weight: 700;
-    background-color: transparent;
+  margin: 15px 0 10px;
+  padding: 7px;
+  text-transform: uppercase;
+  font-weight: 700;
+  background-color: transparent;
 }
