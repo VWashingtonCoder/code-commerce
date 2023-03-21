@@ -7,6 +7,7 @@ import {
   initShipFormValues,
   initShipFormErrors,
   initBarProgress,
+  shipMethods
 } from "./data";
 import { validateValues } from "./helpers";
 import SignUpLogin from "./pages/SignupLogin/SignupLogin";
@@ -17,15 +18,47 @@ import Confirmation from "./pages/Confirmation/Confirmation";
 import StatusBar from "./components/StatusBar/StatusBar";
 import Summary from "./components/Summary/Summary";
 
+const testData = {
+  account: {
+    key: 1,
+    email: "ex@aol.com",
+    password: "Password2022*",
+    name: "Andre Blaze",
+    zip: 81004,
+  },
+  shipForm: {
+    addressTitle: "Home",
+    name: "Andre Blaze",
+    street: "88 Ex St",
+    zip: "81457",
+    country: "USA",
+    city: "Fountain",
+    state: "CO",
+    cellCode: "719",
+    cellNum: "8504",
+    telCode: "789",
+    telNum: "5486"
+  },
+  totals: { 
+    items: { DS: 21.5, MHA: 27.25, NAR: 24 },
+    subtotal: 72.75,
+    shipCost: 0,
+    discount: 4.50, 
+    total: 72.75 - 4.50
+  }
+};
+
+
 const CodeCommerceApp = () => {
-  const [page, setPage] = useState(pageKeys[2]);
+  const [page, setPage] = useState(pageKeys[3]);
+  const [accounts, setAccounts] = useState(testData.account);
   const [bag, setBag] = useState(initBag);
   const [disabled, setDisabled] = useState(true);
-  const [totals, setTotals] = useState(initTotals);
+  const [totals, setTotals] = useState(testData.totals);
   const [barProgress, setBarProgress] = useState(initBarProgress);
-  const [shipFormValues, setShipFormValues] = useState(initShipFormValues);
+  const [shipFormValues, setShipFormValues] = useState(testData.shipForm);
   const [shipFormErrors, setShipFormErrors] = useState(initShipFormErrors);
-  const [shipMethod, setShipMethod] = useState("standard");
+  const [shipMethod, setShipMethod] = useState(shipMethods[0]);
   const { items, subtotal, shipCost, discount, total } = totals;
 
   const resetShipState = () => {
@@ -45,7 +78,9 @@ const CodeCommerceApp = () => {
     const pageIdx = pageKeys.findIndex((key) => key === page);
     setPage(pageKeys[pageIdx - 1]);
 
-    if (page === "ship") resetShipState();
+    if (page === "ship") {
+      resetShipState();
+    }
   };
 
   const checkFullForm = () => {
@@ -67,6 +102,10 @@ const CodeCommerceApp = () => {
     changePage();
     setDisabled(true);
   };
+
+  const updateAccounts = (accountInfo) => {
+    setAccounts([...accounts, accountInfo]);
+  }
 
   const updateBag = (bag) => {
     setBag(bag);
@@ -93,6 +132,9 @@ const CodeCommerceApp = () => {
 
   const updateShipMethod = (e) => {
     const method = e.target.value;
+    const methodInfo = shipMethods.find(type => type.key === method);
+
+
     if (method === "standard" && shipCost === 5) {
       setTotals({
         ...totals,
@@ -106,7 +148,7 @@ const CodeCommerceApp = () => {
         total: total + 5,
       });
     }
-    setShipMethod(method);
+    setShipMethod(methodInfo);
   };
 
   const updateShipFormValues = (e) => {
@@ -128,11 +170,17 @@ const CodeCommerceApp = () => {
 
   return (
     <div id="CodeCommerceApp">
-      {page === "signLog" && <SignUpLogin pageSet={changePage} />}
+      {page === "signLog" && (
+        <SignUpLogin
+          accounts={accounts}
+          updateAccounts={updateAccounts}
+          pageSet={changePage} 
+        />
+      )}
 
       {page !== "signLog" && (
         <div className="page-container">
-          {page === "cart" ? (
+          {(page === "cart" && 
             <Cart
               bag={bag}
               itemTotals={items}
@@ -141,10 +189,12 @@ const CodeCommerceApp = () => {
               updateQty={updateBagQty}
               updateTotals={updateTotals}
             />
-          ) : (
+          )} 
+          
+          {(page === "ship" || page === "pay") &&
             <div className="page-status">
               <StatusBar progress={barProgress} />
-              {page === "ship" && (
+              {page === "ship" && 
                 <Shipping
                   errors={shipFormErrors}
                   form={shipFormValues}
@@ -154,15 +204,22 @@ const CodeCommerceApp = () => {
                   updateVals={updateShipFormValues}
                   goBack={changePageBack}
                 />
-              )}
+              }
+              {page === "pay" &&
+                <Payment />
+              }
+             
             </div>
-          )}
+          }
           <Summary
+            accounts={accounts}
+            addressInfo={shipFormValues}
             bag={bag}
             discount={discount}
             page={page}
             itemTotals={items}
             shipCost={shipCost}
+            shipMethod={shipMethod}
             sub={subtotal}
             total={total}
             checkout={checkout}
@@ -171,7 +228,6 @@ const CodeCommerceApp = () => {
         </div>
       )}
 
-      {page === "pay" && <Payment />}
       {page === "confirm" && <Confirmation />}
     </div>
   );
