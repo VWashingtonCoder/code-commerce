@@ -51,7 +51,7 @@ const testData = {
 
 const CodeCommerceApp = () => {
   const [page, setPage] = useState(pageKeys[3]);
-  const [accounts, setAccounts] = useState(testData.account);
+  const [activeAccount, setActiveAccount] = useState(testData.account);
   const [bag, setBag] = useState(initBag);
   const [disabled, setDisabled] = useState(true);
   const [totals, setTotals] = useState(testData.totals);
@@ -103,8 +103,8 @@ const CodeCommerceApp = () => {
     setDisabled(true);
   };
 
-  const updateAccounts = (accountInfo) => {
-    setAccounts([...accounts, accountInfo]);
+  const updateActiveAccount = (accountInfo) => {
+    setActiveAccount(accountInfo);
   }
 
   const updateBag = (bag) => {
@@ -172,8 +172,7 @@ const CodeCommerceApp = () => {
     <div id="CodeCommerceApp">
       {page === "signLog" && (
         <SignUpLogin
-          accounts={accounts}
-          updateAccounts={updateAccounts}
+          updateActive={updateActiveAccount}
           pageSet={changePage} 
         />
       )}
@@ -212,7 +211,7 @@ const CodeCommerceApp = () => {
             </div>
           }
           <Summary
-            accounts={accounts}
+            account={activeAccount}
             addressInfo={shipFormValues}
             bag={bag}
             discount={discount}

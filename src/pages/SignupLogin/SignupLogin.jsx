@@ -6,7 +6,8 @@ import LoginForm from "./LoginForm";
 import "./SignupLogin.css";
 
 const SignupLogin = (props) => {
-  const { accounts, pageSet, updateAccounts } = props
+  const { pageSet, updateActive } = props;
+  const [accounts, setAccounts] = useState([]);
   const [signLog, setSignLog] = useState("sign-up");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPW, setShowConfirmPW] = useState(false);
@@ -33,9 +34,9 @@ const SignupLogin = (props) => {
       name: `${firstName} ${surname}`,
       zip: postCode,
     };
+    setAccounts([...accounts, accountInfo]);
     setStatus(`Welcome ${firstName} ${surname}. Please log in.`);
     setSignLog("login");
-    updateAccounts(accountInfo);
   };
 
   const validateLogin = (info) => {
@@ -48,7 +49,10 @@ const SignupLogin = (props) => {
         || emailObj.password !== password
       ) {
       setStatus("Account not found. Try again.");
-    } else pageSet();
+    } else {
+      updateActive(emailObj);
+      pageSet();
+    }
   }
 
   return (

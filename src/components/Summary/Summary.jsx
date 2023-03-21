@@ -2,17 +2,23 @@ import "./Summary.css";
 
 const Summary = (props) => {
   const { 
+    account,
+    addressInfo,
     bag, 
     discount, 
     page, 
     itemTotals,
     shipCost,
+    shipMethod,
     sub, 
     total, 
     checkout, 
     disabled 
   } = props;
   const { bagItems, quantities } = bag;
+  const  { name, street, city, state, country, zip } = addressInfo;
+  
+
 
   return (
     <div id="Summary">
@@ -91,6 +97,29 @@ const Summary = (props) => {
           </p>
         </div>
       </div>
+
+      {page === "pay" && (
+        <div className="shipment-info">
+          <div className="shipment-address underline-border">
+            <h2>Shipment Address</h2>
+            <div className="shipment-address-text">
+              <p className="shipment-name">{name}</p>
+              <p className="shipment-street">{street}</p>
+              <p className="shipment-zip">{city}, {state} {country} {zip}</p>
+              <p className="shipment-email">Email: {account.email}</p>
+            </div>
+          </div>
+          <div className="shipment-method">
+            <h2>Shipment Method</h2>
+            <div className="shipment-method-text">
+              <p className="shipment-method-key">{shipMethod.key}</p>
+              <p className="shipment-method-info">{shipMethod.info}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+
       <button className="checkout-btn" onClick={checkout} disabled={disabled}>
         Checkout
       </button>

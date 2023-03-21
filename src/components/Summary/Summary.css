@@ -102,6 +102,19 @@
   color: forestgreen;
 }
 
+.shipment-address {
+  padding-bottom: 15px;
+}
+
+.shipment-method {
+ margin-bottom: 20px; 
+}
+
+.shipment-method-key {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
 .checkout-btn {
   width: 100%;
   padding: 20px 0;
