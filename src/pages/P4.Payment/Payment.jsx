@@ -6,7 +6,7 @@ const Payment = () => {
 
   return (
     <div id="Payment">
-      <h2>Payment Information</h2>
+      <h2 className="underline-border">Payment Information</h2>
       <div className="pay-inputs-container">
         <div className="pay-row name">
           <label htmlFor="cardName">Cardholder Name</label>
@@ -37,7 +37,7 @@ const Payment = () => {
             ))}
           </select>
         </div>
-        <div className="pay-row cvv">
+        <div className="pay-row cvv flex-align-center">
           <label htmlFor="cvv">CVV</label>
           <input type="text" id="cvv" />
           <AiOutlineQuestionCircle className="question-circle" />

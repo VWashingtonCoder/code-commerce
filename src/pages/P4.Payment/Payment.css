@@ -1,0 +1,49 @@
+#Payment {
+    text-align: left;
+    border: 1px solid lightgrey;
+    padding: 10px 15px;
+}
+
+#Payment h2 {
+    margin-top: 0px;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.pay-inputs-container {
+    margin-bottom: 25px;
+}
+
+.pay-row {
+    margin-bottom: 10px;
+}
+.pay-row label, .pay-row span {
+    display: inline-flex;
+    width: 140px;
+    font-weight: 600;
+}
+.pay-row input, .pay-row.exp select {
+    height: 25px;
+    border: 1px solid lightgrey;
+}
+.pay-row.name input, .pay-row.num input {
+    width: 20vw;
+}
+.pay-row.exp select {
+    margin-right: 10px;
+    width: 7vw;
+    background-color: gainsboro;
+}
+
+.pay-row.cvv input {
+    width: 5vw; 
+}
+
+.question-circle {
+    margin-left: 10px;
+    color: darkgray;
+    font-size: 18px;
+    pointer-events: none;
+}
+
