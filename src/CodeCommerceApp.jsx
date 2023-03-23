@@ -10,11 +10,11 @@ import {
   shipMethods
 } from "./data";
 import { validateValues } from "./helpers";
-import SignUpLogin from "./pages/SignupLogin/SignupLogin";
-import Cart from "./pages/Cart/Cart";
-import Shipping from "./pages/Shipping/Shipping";
-import Payment from "./pages/Payment/Payment";
-import Confirmation from "./pages/Confirmation/Confirmation";
+import SignUpLogin from "./pages/P1.SignupLogin/SignupLogin";
+import Cart from "./pages/P2.Cart/Cart";
+import Shipping from "./pages/P3.Shipping/Shipping";
+import Payment from "./pages/P4.Payment/Payment";
+import Confirmation from "./pages/P5.Confirmation/Confirmation";
 import StatusBar from "./components/StatusBar/StatusBar";
 import Summary from "./components/Summary/Summary";
 
@@ -25,6 +25,10 @@ const testData = {
     password: "Password2022*",
     name: "Andre Blaze",
     zip: 81004,
+  },
+  barProgress: {
+    ship: true,
+    pay: false
   },
   shipForm: {
     addressTitle: "Home",
@@ -53,9 +57,9 @@ const CodeCommerceApp = () => {
   const [page, setPage] = useState(pageKeys[3]);
   const [activeAccount, setActiveAccount] = useState(testData.account);
   const [bag, setBag] = useState(initBag);
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(true); // init: false
   const [totals, setTotals] = useState(testData.totals);
-  const [barProgress, setBarProgress] = useState(initBarProgress);
+  const [barProgress, setBarProgress] = useState(testData.barProgress);
   const [shipFormValues, setShipFormValues] = useState(testData.shipForm);
   const [shipFormErrors, setShipFormErrors] = useState(initShipFormErrors);
   const [shipMethod, setShipMethod] = useState(shipMethods[0]);
@@ -92,13 +96,16 @@ const CodeCommerceApp = () => {
   };
 
   const checkout = () => {
-    if (page === "cart")
+    if (page === "cart"){
       setTotals({
         ...totals,
         discount: 4.5,
         total: total - 4.5,
       });
-
+    } else if (page === "ship") {
+      setBarProgress({ ...barProgress, ship: true });
+    }
+    
     changePage();
     setDisabled(true);
   };

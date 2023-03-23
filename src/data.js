@@ -40,16 +40,17 @@ export const initBag = {
   bagItems: productsInfo,
   quantities: productsQuantities,
 };
-export const initTotals = { 
+export const initTotals = {
   items: productsTotals,
   subtotal: 72.75,
   shipCost: 0,
-  discount: 0, 
-  total: 72.75
-}
+  discount: 0,
+  total: 72.75,
+};
 export const initBarProgress = {
-  ship: false, pay: false
-}
+  ship: false,
+  pay: false,
+};
 /* SignupLogin */
 export const initSignUpForm = {
   email: "",
@@ -92,8 +93,8 @@ export const initShipFormValues = {
   cellCode: "",
   cellNum: "",
   telCode: "",
-  telNum: ""
-}
+  telNum: "",
+};
 export const initShipFormErrors = {
   addressTitle: "",
   name: "",
@@ -105,8 +106,8 @@ export const initShipFormErrors = {
   cellCode: "",
   cellNum: "",
   telCode: "",
-  telNum: ""
-}
+  telNum: "",
+};
 export const cities = {
   DEN: "Denver",
   FOU: "Fountain",
@@ -114,8 +115,8 @@ export const cities = {
 };
 export const phoneData = [
   { key: "cell", label: "Cell Phone" },
-  { key: "tel", label: "Telephone" }
-]; 
+  { key: "tel", label: "Telephone" },
+];
 export const shipMethods = [
   {
     key: "standard",
@@ -126,3 +127,30 @@ export const shipMethods = [
     info: "Delivery in 1-3 Business Days - $5.00",
   },
 ];
+
+/* Payment */
+export const monthOptions = [
+  { key: 0, text: "Month", value: "" },
+  { key: 1, text: "01-Jan", value: "01" },
+  { key: 2, text: "02-Feb", value: "02" },
+  { key: 3, text: "03-Mar", value: "03" },
+  { key: 4, text: "04-Apr", value: "04" },
+  { key: 5, text: "05-Mar", value: "05" },
+  { key: 6, text: "06-Jun", value: "06" },
+  { key: 7, text: "07-Jul", value: "07" },
+  { key: 8, text: "08-Aug", value: "08" },
+  { key: 9, text: "09-Sep", value: "09" },
+  { key: 10, text: "10-Oct", value: "10" },
+  { key: 11, text: "11-Nov", value: "11" },
+  { key: 12, text: "12-Dec", value: "12" },
+];
+
+export const yearOptions = () => {
+  const years = [];
+  const yearsLength = 10;
+  const currentYear = new Date().getFullYear();
+  for (let i = 0; i < yearsLength; i++) {
+    years.push(currentYear + i);
+  }
+  return years;
+};
