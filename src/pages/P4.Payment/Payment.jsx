@@ -14,7 +14,7 @@ const initCardForm = {
 
 const errorKeys = ["cardName", "cardNum", "expMonth", "expYear", "cvv"];
 
-const Payment = ({ updateDisabled }) => {
+const Payment = ({ updateDisabled, sendCardData }) => {
   const [cardValues, setCardValues] = useState(initCardForm);
   const [errors, setErrors] = useState({});
 
@@ -29,7 +29,10 @@ const Payment = ({ updateDisabled }) => {
     const cardVals = Object.values(cardValues);
     const errorVals = Object.values(errors);
 
-    if (!cardVals.includes("") && !errorVals) updateDisabled();
+    if (!cardVals.includes("") && !errorVals){
+      sendCardData(cardValues);
+      updateDisabled();
+    }
   })
 
   return (

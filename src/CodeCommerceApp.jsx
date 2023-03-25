@@ -64,6 +64,7 @@ const CodeCommerceApp = () => {
   const [shipFormErrors, setShipFormErrors] = useState(initShipFormErrors);
   const [shipMethod, setShipMethod] = useState(shipMethods[0]);
   const { items, subtotal, shipCost, discount, total } = totals;
+  const [payCard, setPayCard] = useState({});
 
   const resetShipState = () => {
     setTotals(initTotals);
@@ -125,6 +126,10 @@ const CodeCommerceApp = () => {
   const updateDisabled = () => {
     setDisabled(!disabled);
   };
+
+  const updatePayCard = (cardData) => {
+    setPayCard(cardData);
+  }
 
   const updateTotals = (itemTotals) => {
     let sub = 0;
@@ -212,7 +217,7 @@ const CodeCommerceApp = () => {
                 />
               }
               {page === "pay" &&
-                <Payment updateDisabled={updateDisabled}/>
+                <Payment updateDisabled={updateDisabled} sendCardData={updatePayCard}/>
               }
              
             </div>
