@@ -2,86 +2,31 @@ import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import {
   initSignUpForm,
-  initSignUpErrors,
   pwInputsSignUp,
   nameInputsSignUp,
 } from "../../data-helpers/data";
+import { validateSignUpValues } from "../../data-helpers/validation";
 
 const SignUpForm = (props) => {
   const [formValues, setFormValues] = useState(initSignUpForm);
-  const [errors, setErrors] = useState(initSignUpErrors);
+  const [errors, setErrors] = useState({});
   const [validForm, setValidForm] = useState(true);
   const { showPW, showCPW, accounts, hide, add } = props;
-  const { email, password, postCode } = formValues;
-
-  function validatePassword(pass) {
-    const regExp =
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
-    if (pass.length < 8 || pass.length > 20 || !regExp.test(pass)) return false;
-    else return true;
-  }
-
-  function containsNumbers(str) {
-    return /\d/.test(str);
-  }
-
-  function containsOnlyNumbers(str) {
-    return /^\d+$/.test(str);
-  }
-
-  const validateValue = (e) => {
-    let { name, value } = e.target;
-    setValidForm(true);
-    setErrors((prev) => {
-      const errorObj = { ...prev, [name]: "" };
-
-      switch (name) {
-        case "email":
-          const emailObj = accounts.find((account) => account.email === value);
-          if (!value || !value.includes("@") || !value.includes("."))
-            errorObj[name] = "Please enter a valid email.";
-          else if (emailObj)
-            errorObj[name] = "Email is already in use. Log in instead.";
-          break;
-        case "password":
-          if (!value || !validatePassword(value)) errorObj[name] = "Please enter a valid password.";
-          break;
-        case "confirm":
-          if (!value) errorObj[name] = "Please confirm your password.";
-          else if (password !== value)
-            errorObj[name] =
-              "Your passwords aren't matching.";
-          break;
-        case "firstName":
-          if (!value) errorObj[name] = "Please enter your first name.";
-          else if (containsNumbers(value))
-            errorObj[name] = "No numbers in your name please.";
-          break;
-        case "surname":
-          if (!value) errorObj[name] = "Please enter your surname.";
-          else if (containsNumbers(value))
-            errorObj[name] = "No numbers in your name please.";
-          break;
-        case "postCode":
-          if (!value) errorObj[name] = "Please enter your postcode.";
-          if (!containsOnlyNumbers(value))
-            errorObj[name] = "No letters in your postcode please.";
-          break;
-        default:
-          break;
-      }
-
-      if(name !== "postCode" && errorObj[name] !== "") 
-        setValidForm(false);
-
-      return errorObj;
-    });
-  };
 
   const changeValues = (e) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
+    const { valid, error } = 
+      name !== "confirm" 
+        ? validateSignUpValues(name, value) 
+        : validateSignUpValues(name, value, formValues.password);
+    if (valid) setFormValues({ ...formValues, [name]: value });
+    setErrors({ ...errors, [name]: error });
   };
+
+  const checkAvailableEmail = (e) => {
+    if (accounts.find((account) => account.email === e.target.value)) 
+      setErrors({ ...errors, email: "Email is already in use. Log in instead." });
+  }
 
   const resetForm = () => {
     setFormValues(initSignUpForm);
@@ -89,9 +34,13 @@ const SignUpForm = (props) => {
 
   const submit = (e) => {
     e.preventDefault();
-    
-    if(validForm){
+    const { email, password, confirm, firstName, surname } = formValues;
+
+    if (!email || !password || !confirm || !firstName || !surname)
+      setValidForm(false);
+    else {
       add(formValues);
+      setValidForm(true);
       resetForm();
     }
   };
@@ -108,9 +57,9 @@ const SignUpForm = (props) => {
           className={errors.email && "active-error"}
           type="email"
           name="email"
-          value={email}
+          value={formValues.email}
           onChange={changeValues}
-          onBlur={validateValue}
+          onBlur={checkAvailableEmail}
           required
           autoComplete="off"
         />
@@ -132,7 +81,7 @@ const SignUpForm = (props) => {
                 name={name}
                 value={formValues[name]}
                 onChange={changeValues}
-                onBlur={validateValue}
+
                 minLength="8"
                 maxLength="20"
                 autoComplete="off"
@@ -160,11 +109,10 @@ const SignUpForm = (props) => {
               <span className="error-text">{errors[name]}</span>
             </div>
             <input
-                className={errors[name] && "active-error"}
+              className={errors[name] && "active-error"}
               type="text"
               name={name}
               value={formValues[name]}
-              onBlur={validateValue}
               onChange={changeValues}
               autoComplete="off"
               required
@@ -181,10 +129,9 @@ const SignUpForm = (props) => {
             className={errors.postCode && "active-error"}
           type="text"
           name="postCode"
-          value={postCode}
+          value={formValues.postCode}
           onChange={changeValues}
-          onBlur={validateValue}
-            autoComplete="off"
+          autoComplete="off"
         />
       </div>
       <input 

@@ -1,6 +1,6 @@
 import "./Payment.css";
 import { monthOptions, yearOptions } from "../../data-helpers/data";
-import { validateValues } from "../../data-helpers/helpers";
+import { validateValues } from "../../data-helpers/validation";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
 

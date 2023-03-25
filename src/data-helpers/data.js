@@ -60,14 +60,6 @@ export const initSignUpForm = {
   surname: "",
   postCode: "",
 };
-export const initSignUpErrors = {
-  email: "",
-  password: "",
-  confirm: "",
-  firstName: "",
-  surname: "",
-  postCode: "",
-};
 export const pwInputsSignUp = [
   { key: "pw", text: "Create Password *", name: "password" },
   { key: "con", text: "Confirm Password *", name: "confirm" },

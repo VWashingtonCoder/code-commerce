@@ -9,7 +9,7 @@ import {
   initBarProgress,
   shipMethods
 } from "./data-helpers/data";
-import { validateValues } from "./data-helpers/helpers";
+import { validateValues } from "./data-helpers/validation";
 import SignUpLogin from "./pages/P1.SignupLogin/SignupLogin";
 import Cart from "./pages/P2.Cart/Cart";
 import Shipping from "./pages/P3.Shipping/Shipping";
@@ -54,7 +54,7 @@ const testData = {
 
 
 const CodeCommerceApp = () => {
-  const [page, setPage] = useState(pageKeys[3]);
+  const [page, setPage] = useState(pageKeys[0]);
   const [activeAccount, setActiveAccount] = useState(testData.account);
   const [bag, setBag] = useState(initBag);
   const [disabled, setDisabled] = useState(true); // init: false
