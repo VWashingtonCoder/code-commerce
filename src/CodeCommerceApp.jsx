@@ -217,7 +217,10 @@ const CodeCommerceApp = () => {
                 />
               }
               {page === "pay" &&
-                <Payment updateDisabled={updateDisabled} sendCardData={updatePayCard}/>
+                <Payment 
+                  updateDisabled={updateDisabled} 
+                  sendCardData={updatePayCard}
+                />
               }
              
             </div>
