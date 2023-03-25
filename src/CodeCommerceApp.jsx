@@ -8,8 +8,8 @@ import {
   initShipFormErrors,
   initBarProgress,
   shipMethods
-} from "./data";
-import { validateValues } from "./helpers";
+} from "./data-helpers/data";
+import { validateValues } from "./data-helpers/helpers";
 import SignUpLogin from "./pages/P1.SignupLogin/SignupLogin";
 import Cart from "./pages/P2.Cart/Cart";
 import Shipping from "./pages/P3.Shipping/Shipping";
@@ -212,7 +212,7 @@ const CodeCommerceApp = () => {
                 />
               }
               {page === "pay" &&
-                <Payment />
+                <Payment updateDisabled={updateDisabled}/>
               }
              
             </div>

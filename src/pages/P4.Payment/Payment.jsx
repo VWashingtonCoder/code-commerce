@@ -1,7 +1,8 @@
 import "./Payment.css";
-import { monthOptions, yearOptions } from "../../data";
+import { monthOptions, yearOptions } from "../../data-helpers/data";
+import { validateValues } from "../../data-helpers/helpers";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const initCardForm = {
   cardName: "",
@@ -13,30 +14,23 @@ const initCardForm = {
 
 const errorKeys = ["cardName", "cardNum", "expMonth", "expYear", "cvv"];
 
-const Payment = () => {
+const Payment = ({ updateDisabled }) => {
   const [cardValues, setCardValues] = useState(initCardForm);
   const [errors, setErrors] = useState({});
 
-  function validateCardFormValues(name, val) {
-    let valid = true;
-    let error = "";
-
-    switch(name) {
-      case "cardName":
-        break;
-      default: 
-        break;
-    }
-
-    return { valid: valid, error: error };
-  } 
-
   const updateCardValues = (e) => {
     const { id, value } = e.target;
-    const { valid, error } = validateCardFormValues(id, value);
+    const { valid, error } = validateValues(id, value);
     if (valid) setCardValues({ ...cardValues, [id]: value });
     setErrors({ ...errors, [id]: error });
   }
+
+  useEffect(() => {
+    const cardVals = Object.values(cardValues);
+    const errorVals = Object.values(errors);
+
+    if (!cardVals.includes("") && !errorVals) updateDisabled();
+  })
 
   return (
     <div id="Payment">

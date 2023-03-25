@@ -1,5 +1,5 @@
 import "./Shipping.css";
-import { cities, phoneData, shipMethods } from "../../data";
+import { cities, phoneData, shipMethods } from "../../data-helpers/data";
 import { useEffect } from "react";
 
 const Shipping = (props) => {

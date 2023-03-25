@@ -5,7 +5,7 @@ import {
   initSignUpErrors,
   pwInputsSignUp,
   nameInputsSignUp,
-} from "../../data";
+} from "../../data-helpers/data";
 
 const SignUpForm = (props) => {
   const [formValues, setFormValues] = useState(initSignUpForm);

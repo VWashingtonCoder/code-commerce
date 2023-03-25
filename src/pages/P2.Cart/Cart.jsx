@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./Cart.css";
-import { headers, categories, qtyOptions,  } from "../../data";
+import { headers, categories, qtyOptions,  } from "../../data-helpers/data";
 import { AiOutlineClose, AiFillCloseCircle } from "react-icons/ai";
 
 const Cart = (props) => {

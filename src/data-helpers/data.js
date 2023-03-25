@@ -1,6 +1,6 @@
-import DemonSlayer from "./assets/images/product-ds.png";
-import MyHero from "./assets/images/product-mha.png";
-import Naruto from "./assets/images/product-n.png";
+import DemonSlayer from "../assets/images/product-ds.png";
+import MyHero from "../assets/images/product-mha.png";
+import Naruto from "../assets/images/product-n.png";
 /* Init States_Products */
 export const productsInfo = [
   {
