@@ -6,6 +6,10 @@ function containsOnlyLetters(str) {
   return /^[A-Za-z]+$/.test(str);
 }
 
+function containsLetters(str) {
+  return /[A-Za-z]/.test(str);
+}
+
 function cardNumberValidation(cardNumber) {
   const regexPattern = {
     MASTERCARD: /^5[1-5][0-9]{1,}|^2[2-7][0-9]{1,}$/,
@@ -170,7 +174,7 @@ export function validateCardValues(name, val) {
       const validCardMessage = cardNumberValidation(val);
       if (!val)
         validObj = { ...validObj, error: "* Card number cannot be blank" };
-      else if (!containsOnlyNumbers(val))
+      else if (containsLetters(val))
         validObj = {
           valid: false,
           error: "* Card number cannot contain letters",

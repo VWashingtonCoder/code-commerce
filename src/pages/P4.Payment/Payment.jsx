@@ -23,11 +23,11 @@ const Payment = ({ disabled, updateDisabled, sendCardData, goBack }) => {
     const errorInfo = Object.values(errors).filter(err => err !== "");
 
 
-    if (!cardInfo.includes("") && errorInfo.length === 0 && disabled) {
+    if (!cardInfo.includes("") && !errorInfo.length && disabled) {
       sendCardData(cardValues);
       updateDisabled();
     } 
-    else if ((cardInfo.includes("") || errorInfo.length > 0) && !disabled){
+    else if ((cardInfo.includes("") || errorInfo.length) && !disabled){
       updateDisabled();
     }
   }
@@ -35,7 +35,15 @@ const Payment = ({ disabled, updateDisabled, sendCardData, goBack }) => {
   const updateCardValues = (e) => {
     const { id, value } = e.target;
     const { valid, error } = validateCardValues(id, value);
-    if (valid) setCardValues({ ...cardValues, [id]: value });
+    let mask = undefined;
+    if (id === "cardNum" && valid) {
+      mask = value.split(" ").join("");
+      if (mask.length) {
+        mask = mask.match(new RegExp(".{1,4}", "g")).join(" ");
+        setCardValues({ ...cardValues, [id]: mask });
+      }
+    } else if (valid) setCardValues({ ...cardValues, [id]: value });
+    
     setErrors({ ...errors, [id]: error });
   };
 
