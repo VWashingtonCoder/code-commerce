@@ -50,7 +50,7 @@ const testData = {
 
 const CodeCommerceApp = () => {
   //Global
-  const [page, setPage] = useState(pageKeys[2]); // init: pageKeys[0] 
+  const [page, setPage] = useState(pageKeys[3]); // init: pageKeys[0] 
   const [barProgress, setBarProgress] = useState(testData.barProgress); // init: initBarProgress
   // SignUpLogin
   const [activeAccount, setActiveAccount] = useState(testData.account); // init: {}
@@ -85,6 +85,10 @@ const CodeCommerceApp = () => {
       setDisabled(false);
       setTotals({ ...totals, discount: 0, total: total + discount });
     }
+    if (page === "pay") {
+      setDisabled(true);
+      setBarProgress({ ...barProgress, ship: false })
+    }
   };
 
   const checkout = () => {
@@ -94,8 +98,8 @@ const CodeCommerceApp = () => {
         discount: discount === 0 ? 4.5 : discount,
         total: total - 4.5,
       });
-    } else if (page === "ship") {
-      setBarProgress({ ...barProgress, ship: true });
+    } else if (page === "ship" || page === "pay") {
+      setBarProgress({ ...barProgress, [page]: true });
     }
     
     changePage();
@@ -178,15 +182,17 @@ const CodeCommerceApp = () => {
                 <Shipping
                   disabled={disabled}
                   updateDisabled={updateDisabled}
-                  updateInfo={updateShipInfo} 
                   updateTotals={updateShipTotals}
+                  sendShipInfo={updateShipInfo} 
                   goBack={changePageBack}
                 />
               }
               {page === "pay" &&
                 <Payment 
+                  disabled={disabled}
                   updateDisabled={updateDisabled} 
                   sendCardData={updatePayCard}
+                  goBack={changePageBack}
                 />
               }
              
@@ -194,13 +200,13 @@ const CodeCommerceApp = () => {
           }
           <Summary
             account={activeAccount}
-            // addressInfo={shipFormValues}
+            addressInfo={shipInfo.addressData}
             bag={bag}
             discount={discount}
             page={page}
             itemTotals={items}
             shipCost={shipCost}
-            // shipMethod={shipMethod}
+            shipMethod={shipInfo.methodData}
             sub={subtotal}
             total={total}
             checkout={checkout}

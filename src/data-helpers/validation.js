@@ -153,14 +153,14 @@ export function validateShipValues(name, val) {
   return validObj
 }
 
-export function validateValues(name, val) {
+export function validateCardValues(name, val) {
   let validObj = { valid: true, error: "" };
 
   switch (name) {
     case "cardName":
       if (!val)
         validObj = { ...validObj, error: "* Card name cannot be blank" };
-      else if (containsOnlyNumbers(val))
+      else if (!containsOnlyLetters(val))
         validObj = {
           valid: false,
           error: "* Card name cannot contain numbers",
@@ -170,7 +170,7 @@ export function validateValues(name, val) {
       const validCardMessage = cardNumberValidation(val);
       if (!val)
         validObj = { ...validObj, error: "* Card number cannot be blank" };
-      else if (containsOnlyLetters(val))
+      else if (!containsOnlyNumbers(val))
         validObj = {
           valid: false,
           error: "* Card number cannot contain letters",
@@ -187,6 +187,11 @@ export function validateValues(name, val) {
       break;
     case "cvv":
       if (!val) validObj = { ...validObj, error: "* Enter your cvv" };
+      else if (!containsOnlyNumbers(val))
+        validObj = {
+          valid: false,
+          error: "* CVV cannot contain letters",
+        };
       else if (val.length < 3) 
         validObj = { ...validObj, error: "* CVV must be 3 characters or more" };
       break;

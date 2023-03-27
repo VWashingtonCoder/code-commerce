@@ -3,7 +3,7 @@ import "./Summary.css";
 const Summary = (props) => {
   const { 
     account,
-    // addressInfo,
+    addressInfo,
     bag, 
     discount, 
     page, 
@@ -16,7 +16,7 @@ const Summary = (props) => {
     disabled 
   } = props;
   const { bagItems, quantities } = bag;
-  // const  { name, street, city, state, country, zip } = addressInfo;
+  const  { name, street, city, state, country, zip } = addressInfo;
   
 
 
@@ -82,7 +82,14 @@ const Summary = (props) => {
         </div>
         <div className="cart-shipping totals-container flex-align-center">
           <p className="total-title">Shipping & Handling:</p>
-          <p className="total-num">{shipCost === 0 ? "-" : `$${shipCost.toFixed(2)}`}</p>
+          <p className="total-num">
+            {shipCost === 0 
+              ? (page === "cart" || page === "ship") 
+                ? "-"
+                : "Free"
+              : `$${shipCost.toFixed(2)}`
+            }
+          </p>
         </div>
         <div className="cart-shipping totals-container flex-align-center">
           <p className="total-title">Discount:</p>
@@ -98,7 +105,7 @@ const Summary = (props) => {
         </div>
       </div>
 
-{/* 
+
       {page === "pay" && (
         <div className="shipment-info">
           <div className="shipment-address underline-border">
@@ -113,12 +120,12 @@ const Summary = (props) => {
           <div className="shipment-method">
             <h2>Shipment Method</h2>
             <div className="shipment-method-text">
-              <p className="shipment-method-key">{shipMethod.key}</p>
+              <p className="shipment-method-key">{shipMethod.method}</p>
               <p className="shipment-method-info">{shipMethod.info}</p>
             </div>
           </div>
         </div>
-      )} */}
+      )}
 
 
       <button className="checkout-btn" onClick={checkout} disabled={disabled}>

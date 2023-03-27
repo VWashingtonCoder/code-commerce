@@ -7,8 +7,8 @@ const Shipping = (props) => {
   const {
     disabled,
     updateDisabled,
-    updateInfo,
     updateTotals,
+    sendShipInfo,
     goBack,
   } = props;
   const [shipFormValues, setShipFormValues] = useState(initShipFormValues);
@@ -48,10 +48,9 @@ const Shipping = (props) => {
       (!requiredArr.includes("") && disabled === true) ||
       (requiredArr.includes("") && disabled === false)
     ) { 
-      updateDisabled(!disabled);
-      updateInfo(shipmentInfo);
+      sendShipInfo(shipmentInfo);
+      updateDisabled();
     }
-    
   };
 
   const updateShipFormValues = (e) => {

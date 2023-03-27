@@ -1,6 +1,6 @@
 import "./Payment.css";
 import { monthOptions, yearOptions } from "../../data-helpers/data";
-import { validateValues } from "../../data-helpers/validation";
+import { validateCardValues } from "../../data-helpers/validation";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
 
@@ -12,35 +12,43 @@ const initCardForm = {
   cvv: ""
 }
 
-const errorKeys = ["cardName", "cardNum", "expMonth", "expYear", "cvv"];
+const cardErrorKeys = ["cardName", "cardNum", "expMonth", "expYear", "cvv"];
 
-const Payment = ({ updateDisabled, sendCardData }) => {
+const Payment = ({ disabled, updateDisabled, sendCardData, goBack }) => {
   const [cardValues, setCardValues] = useState(initCardForm);
   const [errors, setErrors] = useState({});
 
-  const updateCardValues = (e) => {
-    const { id, value } = e.target;
-    const { valid, error } = validateValues(id, value);
-    if (valid) setCardValues({ ...cardValues, [id]: value });
-    setErrors({ ...errors, [id]: error });
-  }
+  const checkFullCard = () => {
+    const cardInfo = Object.values(cardValues);
+    const errorInfo = Object.values(errors).filter(err => err !== "");
 
-  useEffect(() => {
-    const cardVals = Object.values(cardValues);
-    const errorVals = Object.values(errors);
 
-    if (!cardVals.includes("") && !errorVals){
+    if (!cardInfo.includes("") && errorInfo.length === 0 && disabled) {
       sendCardData(cardValues);
       updateDisabled();
+    } 
+    else if ((cardInfo.includes("") || errorInfo.length > 0) && !disabled){
+      updateDisabled();
     }
-  })
+  }
+
+  const updateCardValues = (e) => {
+    const { id, value } = e.target;
+    const { valid, error } = validateCardValues(id, value);
+    if (valid) setCardValues({ ...cardValues, [id]: value });
+    setErrors({ ...errors, [id]: error });
+  };
+
+  useEffect(() => {
+    checkFullCard();
+  });
 
   return (
     <div id="Payment">
       <h2 className="underline-border">Payment Information</h2>
       {errors && (
         <div className="errors-box">
-          {errorKeys.map(key => (
+          {cardErrorKeys.map(key => (
             <p key={key} className="error-text">{errors[key]}</p>
           ))}
         </div>
@@ -99,12 +107,13 @@ const Payment = ({ updateDisabled, sendCardData }) => {
             type="text" 
             id="cvv"
             value={cardValues.cvv} 
+            maxLength={4}
             onChange={updateCardValues}  
           />
           <AiOutlineQuestionCircle className="question-circle" />
         </div>
       </div>
-      <button className="back-btn">Back To Cart</button>
+      <button className="back-btn" onClick={goBack}>Back To Cart</button>
     </div>
   );
 };
