@@ -1,17 +1,20 @@
 import "./Shipping.css";
-import { cities, phoneData, shipMethods } from "../../data-helpers/data";
-import { useEffect } from "react";
+import { cities, initShipFormValues, phoneData, shipMethods } from "../../data-helpers/data";
+import { validateShipValues } from "../../data-helpers/validation";
+import { useEffect, useState } from "react";
 
 const Shipping = (props) => {
   const {
-    errors,
-    form,
-    method,
-    checkFullForm,
-    updateMethod,
-    updateVals,
+    disabled,
+    updateDisabled,
+    updateInfo,
+    updateTotals,
     goBack,
   } = props;
+  const [shipFormValues, setShipFormValues] = useState(initShipFormValues);
+  const [shipFormErrors, setShipFormErrors] = useState({});
+  const [shipMethod, setShipMethod] = useState(shipMethods[0].key);
+  
   const {
     addressTitle,
     name,
@@ -24,9 +27,58 @@ const Shipping = (props) => {
     cellNum,
     telCode,
     telNum,
-  } = form;
+  } = shipFormValues;
 
-  const errorActive = Object.values(errors).some((entry) =>
+  const checkFullForm = () => {
+    const requiredArr = Object.entries(shipFormValues).filter(key => 
+      key[0] !== "addressTitle" 
+      && key[0] !== "cellCode"
+      && key[0] !== "cellNum"
+      && key[0] !== "telCode"
+      && key[0] !== "telNum" 
+    );
+    const requiredObj = requiredArr.reduce((obj, data) => ({ ...obj, [data[0]]: data[1] }), {});
+    const methodInfo = shipMethods.find(type => type.key === shipMethod);
+    const shipmentInfo = {
+      addressData: requiredObj,
+      methodData: { method: methodInfo.key, info: methodInfo.info }
+    }
+
+    if (
+      (!requiredArr.includes("") && disabled === true) ||
+      (requiredArr.includes("") && disabled === false)
+    ) { 
+      updateDisabled(!disabled);
+      updateInfo(shipmentInfo);
+    }
+    
+  };
+
+  const updateShipFormValues = (e) => {
+    const { name, value } = e.target;
+    const { valid, error } = validateShipValues(name, value);
+
+    if (valid) {
+      setShipFormValues({
+        ...shipFormValues,
+        [name]: value,
+      });
+    }
+
+    setShipFormErrors({
+      ...shipFormErrors,
+      [name]: error,
+    });
+  };
+
+  const updateShipMethod = (e) => {
+    const method = e.target.value;
+    const methodCost = shipMethods.find(type => type.key === method).cost;
+    setShipMethod(method);
+    updateTotals(methodCost)
+  };
+
+  const errorActive = Object.values(shipFormErrors).some((entry) =>
     entry.includes("*")
   );
 
@@ -41,7 +93,7 @@ const Shipping = (props) => {
 
         {errorActive && (
           <div className="error-box">
-            {Object.values(errors).map((error) => (
+            {Object.values(shipFormErrors).map((error) => (
               <p className="error-text">{error}</p>
             ))}
           </div>
@@ -50,47 +102,49 @@ const Shipping = (props) => {
         <div className="ship-address-group underline-border">
           <div className="input-bar flex-align-center">
             <label htmlFor="addressTitle" className="first-label">
-              Address Title
+              Address Title 
             </label>
             <input
               id="addressTitle"
               name="addressTitle"
               type="text"
               value={addressTitle}
-              onChange={updateVals}
+              onChange={updateShipFormValues}
             />
           </div>
 
           <div className="input-bar flex-align-center">
             <label htmlFor="name" className="first-label">
-              Name - Surname
+              Name - Surname *
             </label>
             <input
               id="name"
               name="name"
               type="text"
               value={name}
-              onChange={updateVals}
+              onChange={updateShipFormValues}
+              required
             />
           </div>
 
           <div className="input-bar flex-align-center">
             <label htmlFor="street" className="first-label">
-              Your Address
+              Your Address *
             </label>
             <input
               id="street"
               name="street"
               type="text"
               value={street}
-              onChange={updateVals}
+              onChange={updateShipFormValues}
+              required
             />
           </div>
 
           <div className="input-bar group flex-align-center">
             <div className="input-group zip">
               <label htmlFor="zip" className="first-label">
-                Zip Code
+                Zip Code *
               </label>
               <input
                 id="zip"
@@ -99,24 +153,32 @@ const Shipping = (props) => {
                 value={zip}
                 pattern="[0-9]*"
                 maxLength={5}
-                onChange={updateVals}
+                onChange={updateShipFormValues}
+                required
               />
             </div>
             <div className="input-group country">
-              <label htmlFor="country">Country</label>
+              <label htmlFor="country">Country *</label>
               <select
                 id="country"
                 name="country"
                 value={country}
-                onChange={updateVals}
+                onChange={updateShipFormValues}
+                required
               >
                 <option value="">Select</option>
                 <option value="USA">United States</option>
               </select>
             </div>
             <div className="input-group city">
-              <label htmlFor="city">City</label>
-              <select id="city" name="city" value={city} onChange={updateVals}>
+              <label htmlFor="city">City *</label>
+              <select 
+                id="city" 
+                name="city" 
+                value={city} 
+                onChange={updateShipFormValues} 
+                required
+              >
                 <option value="">Select</option>
                 {Object.entries(cities).map((city) => {
                   const [key, val] = city;
@@ -130,12 +192,13 @@ const Shipping = (props) => {
               </select>
             </div>
             <div className="input-group state">
-              <label htmlFor="state">State</label>
+              <label htmlFor="state">State *</label>
               <select
                 id="state"
                 name="state"
                 value={state}
-                onChange={updateVals}
+                onChange={updateShipFormValues}
+                required
               >
                 <option value="">Select</option>
                 <option value="CO">CO</option>
@@ -155,7 +218,7 @@ const Shipping = (props) => {
                     id={`${key}Code`}
                     name={`${key}Code`}
                     value={key === "cell" ? cellCode : telCode}
-                    onChange={updateVals}
+                    onChange={updateShipFormValues}
                     pattern="[0-9]{3}"
                     maxLength={3}
                   />
@@ -165,7 +228,7 @@ const Shipping = (props) => {
                   id={`${key}Num`}
                   name={`${key}Num`}
                   value={key === "cell" ? cellNum : telNum}
-                  onChange={updateVals}
+                  onChange={updateShipFormValues}
                   pattern={"[0-9]{3}-[0-9]{4}" || "[0-9]{7}"}
                   maxLength={7}
                 />
@@ -179,14 +242,14 @@ const Shipping = (props) => {
           {shipMethods.map((type) => {
             const { key, info } = type;
             return (
-              <div className="radio-row" key={key} value={method}>
+              <div className="radio-row" key={key} value={shipMethod}>
                 <input
                   type="radio"
                   name="method"
                   id={key}
                   value={key}
-                  checked={method === key}
-                  onChange={updateMethod}
+                  checked={shipMethod === key}
+                  onChange={updateShipMethod}
                 />
                 <span className="label-key">{key}</span>
                 <span className="label-info">{info}</span>

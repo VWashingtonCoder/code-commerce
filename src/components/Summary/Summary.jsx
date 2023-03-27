@@ -3,7 +3,7 @@ import "./Summary.css";
 const Summary = (props) => {
   const { 
     account,
-    addressInfo,
+    // addressInfo,
     bag, 
     discount, 
     page, 
@@ -16,7 +16,7 @@ const Summary = (props) => {
     disabled 
   } = props;
   const { bagItems, quantities } = bag;
-  const  { name, street, city, state, country, zip } = addressInfo;
+  // const  { name, street, city, state, country, zip } = addressInfo;
   
 
 
@@ -98,6 +98,7 @@ const Summary = (props) => {
         </div>
       </div>
 
+{/* 
       {page === "pay" && (
         <div className="shipment-info">
           <div className="shipment-address underline-border">
@@ -117,7 +118,7 @@ const Summary = (props) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
 
       <button className="checkout-btn" onClick={checkout} disabled={disabled}>

@@ -113,10 +113,12 @@ export const shipMethods = [
   {
     key: "standard",
     info: "Delivery in 4-6 Business Days - Free",
+    cost: 0
   },
   {
     key: "express",
     info: "Delivery in 1-3 Business Days - $5.00",
+    cost: 5
   },
 ];
 

@@ -87,7 +87,7 @@ export function validateShipValues(name, val) {
     case "name":
       if (!val)
         validObj = { ...validObj, error: "* Please enter your name-surname." };
-      else if (containsOnlyNumbers(val))
+      else if (!containsOnlyLetters(val))
         validObj = { valid: false, error: "* No numbers in your name please." };
       break;
     case "street":
@@ -97,7 +97,7 @@ export function validateShipValues(name, val) {
     case "zip":
       if (!val) 
         validObj = { ...validObj, error: "* Please enter your zip code." };
-      else if (containsOnlyLetters(val))
+      else if (!containsOnlyNumbers(val))
         validObj = { valid: false, error: "* No letters in your zip code please." };
       break;
     case "country":
@@ -112,13 +112,13 @@ export function validateShipValues(name, val) {
     case "cellCode":
       if (!val)
         validObj = { ...validObj, error: "* Please enter your cell phone code." };
-      else if (containsOnlyLetters(val))
+      else if (!containsOnlyNumbers(val))
         validObj = { valid: false, error: "* No letters in cell phone code please." };
       break;
     case "cellNum":
       if (!val)
         validObj = { ...validObj, error: "* Please enter your cell phone number." };
-      else if (containsOnlyLetters(val))
+      else if (!containsOnlyNumbers(val))
         validObj = {
           valid: false,
           error: "* Cell phone number cannot contain letters",
@@ -130,7 +130,7 @@ export function validateShipValues(name, val) {
           ...validObj,
           error: "* Enter your telephone phone area code",
         };
-      else if (containsOnlyLetters(val))
+      else if (!containsOnlyNumbers(val))
         validObj = {
           ...validObj,
           valid: false,
@@ -140,7 +140,7 @@ export function validateShipValues(name, val) {
     case "telNum":
       if (!val)
         validObj = { ...validObj, error: "* Enter your telephone number" };
-      else if (containsOnlyLetters(val))
+      else if (!containsOnlyNumbers(val))
         validObj = {
           valid: false,
           error: "* Telephone number cannot contain letters",
