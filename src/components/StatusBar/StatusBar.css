@@ -1,7 +1,13 @@
-#StatusBar {
+#StatusBar, #FullBar  {
     font-size: 35px;
-    max-width: 70vw;
+    margin: auto;
     margin-bottom: 20px;
+}
+#StatusBar {
+    max-width: 70vw;
+}
+#FullBar {
+    max-width: 95vw;
 }
 .logo-circle {
     background-color: lightgrey;
@@ -11,7 +17,7 @@
 .logo-bar {
     background-color: lightgrey; 
     height: .9rem; 
-    width: 20rem; 
+    width: 28rem; 
 }
 .done {
     background-color: grey;

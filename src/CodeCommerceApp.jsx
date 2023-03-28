@@ -25,7 +25,7 @@ const testData = {
   },
   barProgress: {
     ship: true,
-    pay: false
+    pay: true
   },
   payCard: {
     cardName: "Andre Blaze",
@@ -57,7 +57,7 @@ const testData = {
 
 const CodeCommerceApp = () => {
   //Global
-  const [page, setPage] = useState(pageKeys[3]); // init: pageKeys[0] 
+  const [page, setPage] = useState(pageKeys[4]); // init: pageKeys[0] 
   const [barProgress, setBarProgress] = useState(testData.barProgress); // init: initBarProgress
   // SignUpLogin
   const [activeAccount, setActiveAccount] = useState(testData.account); // init: {}
@@ -197,28 +197,34 @@ const CodeCommerceApp = () => {
                   goBack={changePageBack}
                 />
               }
-             
+              <Summary
+                account={activeAccount}
+                addressInfo={shipInfo.addressData}
+                bag={bag}
+                discount={discount}
+                page={page}
+                itemTotals={items}
+                shipCost={shipCost}
+                shipMethod={shipInfo.methodData}
+                sub={subtotal}
+                total={total}
+                checkout={checkout}
+                disabled={disabled}
+              />
             </div>
-          }
-          
-          <Summary
-            account={activeAccount}
-            addressInfo={shipInfo.addressData}
-            bag={bag}
-            discount={discount}
-            page={page}
-            itemTotals={items}
-            shipCost={shipCost}
-            shipMethod={shipInfo.methodData}
-            sub={subtotal}
-            total={total}
-            checkout={checkout}
-            disabled={disabled}
-          />
+          }      
         </div>
       )}
 
-      {page === "confirm" && <Confirmation />}
+      {page === "confirm" && (
+        <div className="final-screen">
+          <StatusBar page={page} progress={barProgress} />
+          <Confirmation />          
+        </div>
+        
+        
+        
+      )}
     </div>
   );
 };

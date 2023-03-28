@@ -8,7 +8,7 @@ const StatusBar = ({progress}) => {
     const { ship, pay } = progress;
 
     return (
-        <div id="StatusBar" className="flex-align-center">
+        <div id={`${!pay ? "StatusBar" : "FullBar"}`} className="flex-align-center">
             <div className="logo-circle done">
                 <AiFillCheckCircle />
             </div>
@@ -21,7 +21,7 @@ const StatusBar = ({progress}) => {
                 {pay ? (<AiFillCheckCircle />) : (<MdPayment />)}
             </div>
             <div className={`logo-bar ${pay && "done"}`}></div>
-            <div className="logo-circle confirm">
+            <div className={`logo-circle confirm ${pay && "done"}`}>
                 <GiConfirmed />
             </div>
         </div>

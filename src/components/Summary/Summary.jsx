@@ -32,7 +32,7 @@ const Summary = (props) => {
           </div>
         </div>
       )}
-      {(page === "ship" || page=== "pay") && (
+      {(page !== "cart") && (
         <div className="bag-summary">
           <div className="bag-items-num underline-border">
             <p className="bag-num">
@@ -106,7 +106,7 @@ const Summary = (props) => {
       </div>
 
 
-      {page === "pay" && (
+      {(page === "pay" || page === "confirm") && (
         <div className="shipment-info">
           <div className="shipment-address underline-border">
             <h2>Shipment Address</h2>
@@ -126,7 +126,6 @@ const Summary = (props) => {
           </div>
         </div>
       )}
-
 
       <button className="checkout-btn" onClick={checkout} disabled={disabled}>
         Checkout
