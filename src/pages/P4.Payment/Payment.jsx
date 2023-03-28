@@ -55,7 +55,7 @@ const Payment = ({ disabled, updateDisabled, sendCardData, goBack }) => {
     <div id="Payment">
       <h2 className="underline-border">Payment Information</h2>
       {errors && (
-        <div className="errors-box">
+        <div className="error-box">
           {cardErrorKeys.map(key => (
             <p key={key} className="error-text">{errors[key]}</p>
           ))}

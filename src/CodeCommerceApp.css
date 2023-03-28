@@ -13,3 +13,13 @@
   align-items: flex-start;
   margin: 20px 40px;
 }
+
+.error-box {
+  border: 2px solid indianred;
+  padding: 10px;
+  margin-bottom: 20px;
+  max-width: 40%;
+  letter-spacing: 1.25px;
+  font-weight: 600;
+  background-color: lavenderblush;
+}

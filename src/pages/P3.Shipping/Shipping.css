@@ -14,15 +14,7 @@
 .method-title {
   text-transform: uppercase;
 }
-.error-box {
-  border: 2px solid indianred;
-  padding: 10px;
-  margin-bottom: 20px;
-  max-width: 40%;
-  letter-spacing: 1.25px;
-  font-weight: 600;
-  background-color: lavenderblush;
-}
+
 .input-bar,
 .input-bar.group,
 .radio-row .label-key {
