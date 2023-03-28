@@ -12,6 +12,9 @@ import { useEffect, useState } from "react";
 const Payment = ({ disabled, updateDisabled, sendCardData, goBack }) => {
   const [cardValues, setCardValues] = useState(initCardForm);
   const [errors, setErrors] = useState({});
+  const errorActive = Object.values(errors).some((entry) =>
+    entry.includes("*")
+  );
 
   const checkFullCard = () => {
     const cardInfo = Object.values(cardValues);
@@ -47,7 +50,7 @@ const Payment = ({ disabled, updateDisabled, sendCardData, goBack }) => {
   return (
     <div id="Payment">
       <h2 className="underline-border">Payment Information</h2>
-      {errors && (
+      {errorActive && (
         <div className="error-box">
           {cardErrorKeys.map(key => (
             <p key={key} className="error-text">{errors[key]}</p>

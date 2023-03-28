@@ -27,6 +27,13 @@ const testData = {
     ship: true,
     pay: false
   },
+  payCard: {
+    cardName: "Andre Blaze",
+    cardNum: "5555999900003333",
+    expMonth: "10",
+    expYear: "2026",
+    cvv: "888"
+  },
   shipInfo: {
     addressData: {
       name: "Andre Blaze",
@@ -58,19 +65,18 @@ const CodeCommerceApp = () => {
   const [disabled, setDisabled] = useState(true); // init: false
   const [totals, setTotals] = useState(testData.totals); // init: initTotals
   const { 
-      items, 
-      subtotal, 
-      shipCost, 
-      discount, 
-      total 
-    } = totals;
+    items, 
+    subtotal, 
+    shipCost, 
+    discount, 
+    total 
+  } = totals;
   // Cart
   const [bag, setBag] = useState(initBag);
   // Shipping
   const [shipInfo, setShipInfo] = useState(testData.shipInfo); // init: {}
-  const [payCard, setPayCard] = useState({});
-
-  
+  // Pay
+  const [payCard, setPayCard] = useState(testData.payCard); // init: {}
 
   const changePage = () => {
     const pageIdx = pageKeys.findIndex((key) => key === page);
@@ -84,8 +90,7 @@ const CodeCommerceApp = () => {
     if (page === "ship") {
       setDisabled(false);
       setTotals({ ...totals, discount: 0, total: total + discount });
-    }
-    if (page === "pay") {
+    } else if (page === "pay") {
       setDisabled(true);
       setBarProgress({ ...barProgress, ship: false })
     }
@@ -149,9 +154,6 @@ const CodeCommerceApp = () => {
       total: cost < shipCost ? total - shipCost : total + cost
     });
   }
-  
- 
-  
 
   return (
     <div id="CodeCommerceApp">
@@ -198,6 +200,7 @@ const CodeCommerceApp = () => {
              
             </div>
           }
+          
           <Summary
             account={activeAccount}
             addressInfo={shipInfo.addressData}

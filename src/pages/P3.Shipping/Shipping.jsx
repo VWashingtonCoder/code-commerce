@@ -14,7 +14,10 @@ const Shipping = (props) => {
   const [shipFormValues, setShipFormValues] = useState(initShipFormValues);
   const [shipFormErrors, setShipFormErrors] = useState({});
   const [shipMethod, setShipMethod] = useState(shipMethods[0].key);
-  
+  const errorActive = Object.values(shipFormErrors).some((entry) =>
+    entry.includes("*")
+  );
+
   const {
     addressTitle,
     name,
@@ -76,10 +79,6 @@ const Shipping = (props) => {
     setShipMethod(method);
     updateTotals(methodCost)
   };
-
-  const errorActive = Object.values(shipFormErrors).some((entry) =>
-    entry.includes("*")
-  );
 
   useEffect(() => {
     checkFullForm();
