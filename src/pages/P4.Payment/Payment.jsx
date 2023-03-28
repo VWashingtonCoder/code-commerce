@@ -1,18 +1,13 @@
 import "./Payment.css";
-import { monthOptions, yearOptions } from "../../data-helpers/data";
+import { 
+  initCardForm,
+  cardErrorKeys, 
+  monthOptions, 
+  yearOptions 
+} from "../../data-helpers/data";
 import { validateCardValues } from "../../data-helpers/validation";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
-
-const initCardForm = {
-  cardName: "",
-  cardNum: "",
-  expMonth: "",
-  expYear: "",
-  cvv: ""
-}
-
-const cardErrorKeys = ["cardName", "cardNum", "expMonth", "expYear", "cvv"];
 
 const Payment = ({ disabled, updateDisabled, sendCardData, goBack }) => {
   const [cardValues, setCardValues] = useState(initCardForm);
@@ -22,12 +17,10 @@ const Payment = ({ disabled, updateDisabled, sendCardData, goBack }) => {
     const cardInfo = Object.values(cardValues);
     const errorInfo = Object.values(errors).filter(err => err !== "");
 
-
     if (!cardInfo.includes("") && !errorInfo.length && disabled) {
       sendCardData(cardValues);
       updateDisabled();
-    } 
-    else if ((cardInfo.includes("") || errorInfo.length) && !disabled){
+    } else if ((cardInfo.includes("") || errorInfo.length) && !disabled){
       updateDisabled();
     }
   }

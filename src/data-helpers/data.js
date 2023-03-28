@@ -123,6 +123,14 @@ export const shipMethods = [
 ];
 
 /* Payment */
+export const initCardForm = {
+  cardName: "",
+  cardNum: "",
+  expMonth: "",
+  expYear: "",
+  cvv: ""
+}
+export const cardErrorKeys = ["cardName", "cardNum", "expMonth", "expYear", "cvv"];
 export const monthOptions = [
   { key: 0, text: "Month", value: "" },
   { key: 1, text: "01-Jan", value: "01" },
