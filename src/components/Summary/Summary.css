@@ -70,8 +70,8 @@
 
 .item-description {
   display: grid;
-    grid-template-columns: 1fr 1.5fr 1fr;
-    max-width: 170px;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  max-width: 170px;
 }
 
 .item-total {
@@ -107,7 +107,7 @@
 }
 
 .shipment-method {
- margin-bottom: 20px; 
+  margin-bottom: 20px; 
 }
 
 .shipment-method-key {
@@ -124,4 +124,8 @@
   background-color: red;
   border: none;
   margin-bottom: 10px;
+}
+
+.hide { 
+  display: none;
 }
