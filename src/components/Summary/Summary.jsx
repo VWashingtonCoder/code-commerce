@@ -17,8 +17,6 @@ const Summary = (props) => {
   } = props;
   const { bagItems, quantities } = bag;
   const  { name, street, city, state, country, zip } = addressInfo;
-  
-
 
   return (
     <div id="Summary">
@@ -108,7 +106,7 @@ const Summary = (props) => {
 
       {(page === "pay" || page === "confirm") && (
         <div className="shipment-info">
-          <div className="shipment-address underline-border">
+          <div className={`shipment-address underline-border ${page === "confirm" && "hide"}`}>
             <h2>Shipment Address</h2>
             <div className="shipment-address-text">
               <p className="shipment-name">{name}</p>
@@ -124,6 +122,12 @@ const Summary = (props) => {
               <p className="shipment-method-info">{shipMethod.info}</p>
             </div>
           </div>
+        </div>
+      )}
+
+      {page === "confirm" && (
+        <div className="pay-card">
+          <h2></h2>
         </div>
       )}
 
