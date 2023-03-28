@@ -177,7 +177,7 @@ const CodeCommerceApp = () => {
             />
           )} 
           
-          {(page === "ship" || page === "pay") &&
+          {(page !== "cart") &&
             <div className="page-status">
               <StatusBar progress={barProgress} />
               {page === "ship" && 
@@ -197,6 +197,7 @@ const CodeCommerceApp = () => {
                   goBack={changePageBack}
                 />
               }
+              {page === "confirm" && (<Confirmation />)}
               <Summary
                 account={activeAccount}
                 addressInfo={shipInfo.addressData}
@@ -216,15 +217,7 @@ const CodeCommerceApp = () => {
         </div>
       )}
 
-      {page === "confirm" && (
-        <div className="final-screen">
-          <StatusBar page={page} progress={barProgress} />
-          <Confirmation />          
-        </div>
-        
-        
-        
-      )}
+      
     </div>
   );
 };
