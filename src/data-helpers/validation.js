@@ -25,11 +25,11 @@ function cardNumberValidation(cardNumber) {
             cardNumber.replace(/[^\d]/g, "").trim()
           )
           ? ""
-          : "Enter a valid Card";
+          : "* Enter a valid card number";
       }
     }
   }
-  return "Enter a valid Card";
+  return "* Enter a valid card number";
 }
 
 function passwordValidation(pass) {
@@ -153,7 +153,7 @@ export function validateShipValues(name, val) {
     default:
       break;
   }
-
+  
   return validObj
 }
 

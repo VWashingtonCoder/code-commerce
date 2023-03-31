@@ -1,6 +1,9 @@
 import DemonSlayer from "../assets/images/product-ds.png";
 import MyHero from "../assets/images/product-mha.png";
 import Naruto from "../assets/images/product-n.png";
+import Discover_Icon from "../assets/images/discover.png";
+import Mastercard_Icon from "../assets/images/masterCard.png";
+import Visa_Icon from "../assets/images/visa.png";
 /* Init States_Products */
 export const productsInfo = [
   {
@@ -126,6 +129,7 @@ export const shipMethods = [
 export const initCardForm = {
   cardName: "",
   cardNum: "",
+  cardType: "",
   expMonth: "",
   expYear: "",
   cvv: ""
@@ -146,7 +150,6 @@ export const monthOptions = [
   { key: 11, text: "11-Nov", value: "11" },
   { key: 12, text: "12-Dec", value: "12" },
 ];
-
 export const yearOptions = () => {
   const years = [];
   const yearsLength = 10;
@@ -156,3 +159,8 @@ export const yearOptions = () => {
   }
   return years;
 };
+export const cardTypeImg = {
+  DISCOVER: Discover_Icon,
+  MASTERCARD: Mastercard_Icon,
+  VISA: Visa_Icon
+}

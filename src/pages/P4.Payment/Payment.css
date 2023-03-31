@@ -2,6 +2,7 @@
     text-align: left;
     border: 1px solid lightgrey;
     padding: 10px 15px;
+    width: 100%;
 }
 
 #Payment h2 {
@@ -20,7 +21,7 @@
 }
 .pay-row label, .pay-row span {
     display: inline-flex;
-    width: 140px;
+    width: 150px;
     font-weight: 600;
 }
 .pay-row input, .pay-row.exp select {
@@ -29,6 +30,15 @@
 }
 .pay-row.name input, .pay-row.num input {
     width: 20vw;
+}
+.pay-row {
+    position: relative;
+}
+.card-img-container {
+    max-width: 40px;
+    position: absolute;
+    top: 1px;
+    left: 445px;
 }
 .pay-row.exp select {
     margin-right: 10px;

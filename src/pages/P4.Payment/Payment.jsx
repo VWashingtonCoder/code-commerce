@@ -3,7 +3,8 @@ import {
   initCardForm,
   cardErrorKeys, 
   monthOptions, 
-  yearOptions 
+  yearOptions,
+  cardTypeImg
 } from "../../data-helpers/data";
 import { validateCardValues } from "../../data-helpers/validation";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
@@ -11,10 +12,24 @@ import { useEffect, useState } from "react";
 
 const Payment = ({ disabled, updateDisabled, sendCardData, goBack }) => {
   const [cardValues, setCardValues] = useState(initCardForm);
+  const { cardName, cardNum, cardType, expMonth, expYear, cvv } = cardValues;
   const [errors, setErrors] = useState({});
   const errorActive = Object.values(errors).some((entry) =>
     entry.includes("*")
   );
+
+  function findDebitCardType(cardNumber) {
+    const regexPattern = {
+      MASTERCARD: /^5[1-5][0-9]{1,}|^2[2-7][0-9]{1,}$/,
+      VISA: /^4[0-9]{2,}$/,
+      DISCOVER: /^6(?:011|5[0-9]{2})[0-9]{3,}$/,
+      AMERICAN_EXPRESS: /^3[47][0-9]{5,}$/
+    };
+    for(const card in regexPattern) {
+      if (cardNumber.replace(/[^\d]/g, '').match(regexPattern[card])) return card;
+    }
+    return '';
+  }
 
   const checkFullCard = () => {
     const cardInfo = Object.values(cardValues);
@@ -31,16 +46,32 @@ const Payment = ({ disabled, updateDisabled, sendCardData, goBack }) => {
   const updateCardValues = (e) => {
     const { id, value } = e.target;
     const { valid, error } = validateCardValues(id, value);
-    let mask = undefined;
-    if (id === "cardNum" && valid) {
-      mask = value.split(" ").join("");
-      if (mask.length) {
-        mask = mask.match(new RegExp(".{1,4}", "g")).join(" ");
-        setCardValues({ ...cardValues, [id]: mask });
-      }
-    } else if (valid) setCardValues({ ...cardValues, [id]: value });
-    
+
     setErrors({ ...errors, [id]: error });
+
+    if (id === "cardNum" && valid) {
+      const cardType = findDebitCardType(value);
+      let mask = ""; 
+      
+      if (value.length) {
+        mask = value.split(" ").join("");
+        if (cardType === "AMERICAN_EXPRESS") {
+          if (mask.length > 6 && mask.length <= 10) 
+            mask = mask.replace(/\b(\d{4})(\d{1,6})\b/, "$1 $2");
+          else if (mask.length > 10) {
+            mask = mask.replace(/\b(\d{4})(\d{6})(\d{1,5})\b/, "$1 $2 $3");
+          } 
+        } else mask = value.replace(/[^\d]/g, "").match(/.{1,4}/g).join(" "); 
+      } 
+      
+      setCardValues({ 
+        ...cardValues,
+        cardNum: mask,
+        cardType: cardType 
+      })
+    } else if (valid) {
+      setCardValues({ ...cardValues, [id]: value });
+    }
   };
 
   useEffect(() => {
@@ -59,25 +90,32 @@ const Payment = ({ disabled, updateDisabled, sendCardData, goBack }) => {
       )}
       <div className="pay-inputs-container">
         <div className="pay-row name">
-          <label htmlFor="cardName">Cardholder Name</label>
+          <label htmlFor="cardName">Cardholder Name *</label>
           <input 
             type="text" 
             id="cardName" 
-            value={cardValues.cardName} 
+            value={cardName} 
             onChange={updateCardValues} 
           />
         </div>
         <div className="pay-row num">
-          <label htmlFor="cardNum">Card Number</label>
+          <label htmlFor="cardNum">Card Number *</label>
           <input 
             type="text" 
             id="cardNum"
-            value={cardValues.cardNum} 
+            value={cardNum} 
             onChange={updateCardValues}  
+            maxLength={cardType !== "AMERICAN_EXPRESS" ? 19 : 17}
           />
+          { cardType && (
+            <div className="card-img-container">
+              <img src={cardTypeImg[cardValues.cardType]} alt="card type" />
+            </div>
+          )}
+          
         </div>
         <div className="pay-row exp">
-          <span className="exp-label">Exp Date</span>
+          <span className="exp-label">Exp Date *</span>
           <select 
             id="expMonth"
             value={cardValues.expMonth} 
@@ -106,7 +144,7 @@ const Payment = ({ disabled, updateDisabled, sendCardData, goBack }) => {
           </select>
         </div>
         <div className="pay-row cvv flex-align-center">
-          <label htmlFor="cvv">CVV</label>
+          <label htmlFor="cvv">CVV *</label>
           <input 
             type="text" 
             id="cvv"
