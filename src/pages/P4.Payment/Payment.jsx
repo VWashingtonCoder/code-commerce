@@ -118,7 +118,7 @@ const Payment = ({ disabled, updateDisabled, sendCardData, goBack }) => {
           <span className="exp-label">Exp Date *</span>
           <select 
             id="expMonth"
-            value={cardValues.expMonth} 
+            value={expMonth} 
             onChange={updateCardValues} 
           >
             {monthOptions.map((month) => {
@@ -132,7 +132,7 @@ const Payment = ({ disabled, updateDisabled, sendCardData, goBack }) => {
           </select>
           <select 
             id="expYear"
-            value={cardValues.expYear} 
+            value={expYear} 
             onChange={updateCardValues} 
           >
             <option value="">Year</option>
@@ -148,8 +148,8 @@ const Payment = ({ disabled, updateDisabled, sendCardData, goBack }) => {
           <input 
             type="text" 
             id="cvv"
-            value={cardValues.cvv} 
-            maxLength={4}
+            value={cvv} 
+            maxLength={cardType !== "AMERICAN_EXPRESS" ? 3 : 4}
             onChange={updateCardValues}  
           />
           <AiOutlineQuestionCircle className="question-circle" />

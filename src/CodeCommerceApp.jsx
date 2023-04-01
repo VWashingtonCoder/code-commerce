@@ -30,6 +30,7 @@ const testData = {
   payCard: {
     cardName: "Andre Blaze",
     cardNum: "5555999900003333",
+    cardType: "MASTERCARD",
     expMonth: "10",
     expYear: "2026",
     cvv: "888"
@@ -57,7 +58,7 @@ const testData = {
 
 const CodeCommerceApp = () => {
   //Global
-  const [page, setPage] = useState(pageKeys[3]); // init: pageKeys[0] 
+  const [page, setPage] = useState(pageKeys[4]); // init: pageKeys[0] 
   const [barProgress, setBarProgress] = useState(testData.barProgress); // init: initBarProgress
   // SignUpLogin
   const [activeAccount, setActiveAccount] = useState(testData.account); // init: {}
@@ -76,8 +77,10 @@ const CodeCommerceApp = () => {
   // Shipping
   const [shipInfo, setShipInfo] = useState(testData.shipInfo); // init: {}
   // Pay
-  const [payCard, setPayCard] = useState(testData.payCard); // init: {}
+  const [payCard, setPayCard] = useState(testData.payCard); // init: {} 
 
+
+  console.log(payCard)
   const changePage = () => {
     const pageIdx = pageKeys.findIndex((key) => key === page);
     setPage(pageKeys[pageIdx + 1]);

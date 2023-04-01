@@ -18,6 +18,8 @@
 
 .pay-row {
     margin-bottom: 10px;
+    max-width: 550px;
+    position: relative;
 }
 .pay-row label, .pay-row span {
     display: inline-flex;
@@ -31,14 +33,11 @@
 .pay-row.name input, .pay-row.num input {
     width: 20vw;
 }
-.pay-row {
-    position: relative;
-}
 .card-img-container {
     max-width: 40px;
     position: absolute;
     top: 1px;
-    left: 445px;
+    right: 65px;
 }
 .pay-row.exp select {
     margin-right: 10px;

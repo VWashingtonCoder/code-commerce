@@ -4,6 +4,7 @@ import Naruto from "../assets/images/product-n.png";
 import Discover_Icon from "../assets/images/discover.png";
 import Mastercard_Icon from "../assets/images/masterCard.png";
 import Visa_Icon from "../assets/images/visa.png";
+import Amex_Icon from "../assets/images/amex.png";
 /* Init States_Products */
 export const productsInfo = [
   {
@@ -160,6 +161,7 @@ export const yearOptions = () => {
   return years;
 };
 export const cardTypeImg = {
+  AMERICAN_EXPRESS: Amex_Icon, 
   DISCOVER: Discover_Icon,
   MASTERCARD: Mastercard_Icon,
   VISA: Visa_Icon
