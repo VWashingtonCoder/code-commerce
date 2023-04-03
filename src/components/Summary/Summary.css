@@ -15,6 +15,7 @@
 .summary-title {
   text-transform: uppercase;
   margin: 0;
+  margin-bottom: 10px;
 }
 
 .promo {
@@ -131,14 +132,9 @@
   margin-left: 7px;
 }
 
-.checkout-btn {
-  width: 100%;
-  padding: 20px 0;
-  font-size: 20px;
-  text-transform: uppercase;
-  color: white;
+.checkout-btn.summary {
   background-color: red;
-  border: none;
+  width: 100%;
   margin-bottom: 10px;
 }
 

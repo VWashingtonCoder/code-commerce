@@ -35,7 +35,7 @@ const Summary = (props) => {
       )}
       {(page !== "cart") && (
         <div className="bag-summary">
-          <div className="bag-items-num underline-border">
+          <div className={`bag-items-num underline-border ${page==="confirm" && "hide"}`}>
             <p className="bag-num">
               <span>{bagItems.length} items</span> in your bag
             </p>
@@ -146,7 +146,7 @@ const Summary = (props) => {
         </div>
       )}
 
-      <button className="checkout-btn" onClick={checkout} disabled={disabled}>
+      <button className={`checkout-btn summary ${page==="confirm" && "hide"}`} onClick={checkout} disabled={disabled}>
         Checkout
       </button>
     </div>

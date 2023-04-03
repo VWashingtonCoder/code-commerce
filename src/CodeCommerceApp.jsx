@@ -15,56 +15,15 @@ import Confirmation from "./pages/P5.Confirmation/Confirmation";
 import StatusBar from "./components/StatusBar/StatusBar";
 import Summary from "./components/Summary/Summary";
 
-const testData = {
-  account: {
-    key: 1,
-    email: "ex@aol.com",
-    password: "Password2022*",
-    name: "Andre Blaze",
-    zip: 81004,
-  },
-  barProgress: {
-    ship: true,
-    pay: true
-  },
-  payCard: {
-    cardName: "Andre Blaze",
-    cardNum: "5555999900003333",
-    cardType: "MASTERCARD",
-    expMonth: "10",
-    expYear: "2026",
-    cvv: "888"
-  },
-  shipInfo: {
-    addressData: {
-      name: "Andre Blaze",
-      street: "88 Ex St",
-      zip: "81457",
-      country: "USA",
-      city: "Fountain",
-      state: "CO",
-    },
-    methodData: { method: "standard", info: "3-4 Days info" }
-  },
-  totals: { 
-    items: { DS: 21.5, MHA: 27.25, NAR: 24 },
-    subtotal: 72.75,
-    shipCost: 0,
-    discount: 4.50, 
-    total: 72.75 - 4.50
-  }
-};
-
-
 const CodeCommerceApp = () => {
   //Global
-  const [page, setPage] = useState(pageKeys[4]); // init: pageKeys[0] 
-  const [barProgress, setBarProgress] = useState(testData.barProgress); // init: initBarProgress
+  const [page, setPage] = useState(pageKeys[0]);  
+  const [barProgress, setBarProgress] = useState(initBarProgress);
   // SignUpLogin
-  const [activeAccount, setActiveAccount] = useState(testData.account); // init: {}
+  const [activeAccount, setActiveAccount] = useState({});
   // Summary
-  const [disabled, setDisabled] = useState(true); // init: false
-  const [totals, setTotals] = useState(testData.totals); // init: initTotals
+  const [disabled, setDisabled] = useState(false); 
+  const [totals, setTotals] = useState(initTotals); // init: initTotals
   const { 
     items, 
     subtotal, 
@@ -75,13 +34,25 @@ const CodeCommerceApp = () => {
   // Cart
   const [bag, setBag] = useState(initBag);
   // Shipping
-  const [shipInfo, setShipInfo] = useState(testData.shipInfo); // init: {}
+  const [shipInfo, setShipInfo] = useState({}); 
   // Pay
-  const [payCard, setPayCard] = useState(testData.payCard); // init: {} 
+  const [payCard, setPayCard] = useState({}); 
+
+  const resetToInits = () => {
+    setBarProgress(initBarProgress);
+    setDisabled(false);
+    setTotals(initTotals);
+    setBag(initBag);
+    setShipInfo({});
+    setPayCard({});
+  }
 
   const changePage = () => {
     const pageIdx = pageKeys.findIndex((key) => key === page);
-    setPage(pageKeys[pageIdx + 1]);
+    if (page === "confirm"){
+      setPage(pageKeys[1]);
+      resetToInits();
+    } else setPage(pageKeys[pageIdx + 1]) 
   };
 
   const changePageBack = () => {
@@ -199,8 +170,14 @@ const CodeCommerceApp = () => {
                     goBack={changePageBack}
                   />
                 }
-                {page === "confirm" && (<Confirmation shipInfo={shipInfo}/>)}
-                <Summary
+                {page === "confirm" && (
+                  <Confirmation shipInfo={shipInfo} backToCart={changePage}/>
+                )}
+              </div>
+            </div>
+          }      
+
+          <Summary
                   account={activeAccount}
                   addressInfo={shipInfo.addressData}
                   bag={bag}
@@ -215,13 +192,9 @@ const CodeCommerceApp = () => {
                   checkout={checkout}
                   disabled={disabled}
                 />
-              </div>
-            </div>
-          }      
+              
         </div>
-      )}
-
-      
+      )}      
     </div>
   );
 };

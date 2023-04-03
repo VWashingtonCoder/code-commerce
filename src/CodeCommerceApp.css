@@ -2,7 +2,7 @@
     background-color: #FFFAFA;
 }
 
-#Summary {
+#Summary, #Confirmation {
     box-shadow: 0px 0px 10px 5px lightgrey;
     border: 1px solid lightgray;
   }
@@ -22,6 +22,14 @@
   letter-spacing: 1.25px;
   font-weight: 600;
   background-color: lavenderblush;
+}
+
+.checkout-btn {
+  padding: 20px 0;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: white;
+  border: none;
 }
 
 .hide { 
