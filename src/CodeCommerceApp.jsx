@@ -79,8 +79,6 @@ const CodeCommerceApp = () => {
   // Pay
   const [payCard, setPayCard] = useState(testData.payCard); // init: {} 
 
-
-  console.log(payCard)
   const changePage = () => {
     const pageIdx = pageKeys.findIndex((key) => key === page);
     setPage(pageKeys[pageIdx + 1]);
@@ -201,7 +199,7 @@ const CodeCommerceApp = () => {
                     goBack={changePageBack}
                   />
                 }
-                {page === "confirm" && (<Confirmation />)}
+                {page === "confirm" && (<Confirmation shipInfo={shipInfo}/>)}
                 <Summary
                   account={activeAccount}
                   addressInfo={shipInfo.addressData}

@@ -130,7 +130,6 @@ const Summary = (props) => {
 
       {page === "confirm" && (
         <div className="pay-card">
-          {console.log(payCard)}
           <h2>Payment</h2>
           <div className="card-row flex-align-center">
             <div className="card-row-img">
