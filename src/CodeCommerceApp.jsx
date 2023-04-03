@@ -4,8 +4,7 @@ import {
   pageKeys,
   initBag,
   initTotals,
-  initBarProgress,
-  shipMethods
+  initBarProgress
 } from "./data-helpers/data";
 import SignUpLogin from "./pages/P1.SignupLogin/SignupLogin";
 import Cart from "./pages/P2.Cart/Cart";
