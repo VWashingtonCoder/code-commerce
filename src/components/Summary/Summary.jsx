@@ -20,7 +20,7 @@ const Summary = (props) => {
   const { bagItems, quantities } = bag;
   const  { name, street, city, state, country, zip } = addressInfo;
   const { cardNum, cardType } = payCard;
-
+  
   return (
     <div id="Summary">
       <h2 className="summary-title underline-border">Summary</h2>

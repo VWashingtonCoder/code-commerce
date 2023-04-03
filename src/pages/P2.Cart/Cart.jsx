@@ -149,7 +149,7 @@ const Cart = (props) => {
                       <p className="category-text">{category}</p>
                       <p className="name-text">{itemName}</p>
                       {categories.map((info) => (
-                        <div className="info-container flex-align-center">
+                        <div className="info-container flex-align-center" key={info}>
                           <p className="text-label">{info}:</p>
                           <p className="text-value">
                             {info === "color" ? color : size}

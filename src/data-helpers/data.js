@@ -166,3 +166,18 @@ export const cardTypeImg = {
   MASTERCARD: Mastercard_Icon,
   VISA: Visa_Icon
 }
+
+export const initShipInfo = {
+  addressData: {
+    name: "",
+    street: "",
+    zip: "",
+    country: "",
+    city: "",
+    state: ""
+  },
+  methodData: {
+    method: "standard",
+    info: "Delivery in 4-6 Business Days"
+  }
+}

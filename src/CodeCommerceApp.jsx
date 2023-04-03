@@ -3,6 +3,8 @@ import "./CodeCommerceApp.css";
 import {
   pageKeys,
   initBag,
+  initCardForm,
+  initShipInfo,
   initTotals,
   initBarProgress
 } from "./data-helpers/data";
@@ -16,13 +18,13 @@ import Summary from "./components/Summary/Summary";
 
 const CodeCommerceApp = () => {
   //Global
-  const [page, setPage] = useState(pageKeys[0]);  
+  const [page, setPage] = useState(pageKeys[1]);  
   const [barProgress, setBarProgress] = useState(initBarProgress);
   // SignUpLogin
   const [activeAccount, setActiveAccount] = useState({});
   // Summary
   const [disabled, setDisabled] = useState(false); 
-  const [totals, setTotals] = useState(initTotals); // init: initTotals
+  const [totals, setTotals] = useState(initTotals);
   const { 
     items, 
     subtotal, 
@@ -33,9 +35,9 @@ const CodeCommerceApp = () => {
   // Cart
   const [bag, setBag] = useState(initBag);
   // Shipping
-  const [shipInfo, setShipInfo] = useState({}); 
+  const [shipInfo, setShipInfo] = useState(initShipInfo); 
   // Pay
-  const [payCard, setPayCard] = useState({}); 
+  const [payCard, setPayCard] = useState(initCardForm); 
 
   const resetToInits = () => {
     setBarProgress(initBarProgress);
