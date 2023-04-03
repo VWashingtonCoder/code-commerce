@@ -208,6 +208,7 @@ const CodeCommerceApp = () => {
                   bag={bag}
                   discount={discount}
                   page={page}
+                  payCard={payCard}
                   itemTotals={items}
                   shipCost={shipCost}
                   shipMethod={shipInfo.methodData}

@@ -1,4 +1,5 @@
 import "./Summary.css";
+import { cardTypeImg } from "../../data-helpers/data";
 
 const Summary = (props) => {
   const { 
@@ -7,6 +8,7 @@ const Summary = (props) => {
     bag, 
     discount, 
     page, 
+    payCard,
     itemTotals,
     shipCost,
     shipMethod,
@@ -17,6 +19,7 @@ const Summary = (props) => {
   } = props;
   const { bagItems, quantities } = bag;
   const  { name, street, city, state, country, zip } = addressInfo;
+  const { cardNum, cardType } = payCard;
 
   return (
     <div id="Summary">
@@ -127,7 +130,20 @@ const Summary = (props) => {
 
       {page === "confirm" && (
         <div className="pay-card">
-          <h2></h2>
+          {console.log(payCard)}
+          <h2>Payment</h2>
+          <div className="card-row flex-align-center">
+            <div className="card-row-img">
+              <img src={cardTypeImg[cardType]} alt="card logo" />
+            </div>
+            <span className="card-info type">{cardType}</span>
+            <span className="card-info cardNo">
+              { cardType !== "AMERICAN_EXPRESS" 
+                ? cardNum.slice(cardNum.length - 4) 
+                : cardNum.slice(cardNum.length - 5)
+              }
+            </span>
+          </div>
         </div>
       )}
 

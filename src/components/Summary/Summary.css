@@ -115,6 +115,22 @@
   font-weight: 700;
 }
 
+.pay-card {
+  margin-bottom: 10px;
+}
+
+.card-row-img {
+  max-width: 50px;
+}
+
+.card-info.type {
+  font-weight: 700px;
+}
+
+.card-info.cardNo {
+  margin-left: 7px;
+}
+
 .checkout-btn {
   width: 100%;
   padding: 20px 0;
@@ -126,6 +142,3 @@
   margin-bottom: 10px;
 }
 
-.hide { 
-  display: none;
-}
