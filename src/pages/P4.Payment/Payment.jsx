@@ -155,7 +155,7 @@ const Payment = ({ disabled, updateDisabled, sendCardData, goBack }) => {
           <AiOutlineQuestionCircle className="question-circle" />
         </div>
       </div>
-      <button className="back-btn" onClick={goBack}>Back To Cart</button>
+      <button className="back-btn" onClick={goBack}>Back To Shipping</button>
     </div>
   );
 };

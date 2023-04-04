@@ -18,7 +18,6 @@
 
 .pay-row {
     margin-bottom: 10px;
-    max-width: 550px;
     position: relative;
 }
 .pay-row label, .pay-row span {
@@ -30,18 +29,19 @@
     height: 25px;
     border: 1px solid lightgrey;
 }
-.pay-row.name input, .pay-row.num input {
-    width: 20vw;
+.pay-row.name input, 
+.pay-row.num input {
+    width: 170px;
 }
 .card-img-container {
     max-width: 40px;
     position: absolute;
     top: 1px;
-    right: 65px;
+    left: 280px;
 }
 .pay-row.exp select {
     margin-right: 10px;
-    width: 7vw;
+    width: 75px;
     background-color: gainsboro;
 }
 

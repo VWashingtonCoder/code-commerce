@@ -24,6 +24,8 @@ const Summary = (props) => {
   const  { name, street, city, state, country, zip } = addressInfo;
   const { cardNum, cardType } = payCard;
 
+  console.log(addressInfo)
+
   return (
     <div id="Summary">
       <h2 className="summary-title underline-border">Summary</h2>

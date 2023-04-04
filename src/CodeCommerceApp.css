@@ -2,16 +2,16 @@
     background-color: #FFFAFA;
 }
 
-#Summary, #Confirmation {
-    box-shadow: 0px 0px 10px 5px lightgrey;
-    border: 1px solid lightgray;
-  }
+#Payment, #Summary, #Confirmation {
+  box-shadow: 0px 0px 10px 5px lightgrey;
+  border: 1px solid lightgray;
+}
 
 .page-container {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin: 20px 40px;
+  margin: 20px 10px;
 }
 
 .error-box {
@@ -34,4 +34,28 @@
 
 .hide { 
   display: none;
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    flex-flow: column;
+    align-items: baseline;
+    margin: auto;
+  }  
+  .page-container #Cart, 
+  .page-container #Confirmation,
+  .page-container #StatusBar {
+    max-width: 95vw;
+  }
+  .page-container #Shipping {
+    max-width: 89vw;
+  }
+  .page-container #Payment {
+    max-width: 90vw;
+  }
+  .page-container #Summary {
+    max-width: 45vw;
+    margin-top: 20px;
+  }
+
 }

@@ -1,9 +1,11 @@
 #Summary {
   margin-left: 15px;
-  padding: 0px 20px 10px;
+  padding: 0px 20px 50px;
   text-align: left;
-  max-width: 20vw;
+  max-width: 26vw;
+  width: 100%;
   position: relative;
+
 }
 
 .summary-title,
@@ -28,7 +30,7 @@
 }
 
 .input-row input {
-  width: 55%;
+  width: 73%;
   padding: 11px 10px;
   font-style: italic;
   border: 2px solid black;
@@ -82,6 +84,7 @@
 
 .cart-totals {
   padding: 15px 0;
+  margin-bottom: 20px;
 }
 
 .totals-container {
@@ -108,16 +111,13 @@
 }
 
 .shipment-method {
+  padding-bottom: 20px;
   margin-bottom: 20px; 
 }
 
 .shipment-method-key {
   text-transform: uppercase;
   font-weight: 700;
-}
-
-.pay-card {
-  margin-bottom: 10px;
 }
 
 .card-row-img {
@@ -134,7 +134,9 @@
 
 .checkout-btn.summary {
   background-color: red;
-  width: 100%;
-  margin-bottom: 10px;
+  position: absolute;
+  bottom: 7px;
+  left: 10px;
+  right: 10px;
 }
 

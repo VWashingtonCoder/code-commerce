@@ -1,5 +1,6 @@
 #Cart {
-  width: 70vw;
+  max-width: 70vw;
+  width: 100%;
 }
 
 .status-bar {

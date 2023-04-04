@@ -19,7 +19,7 @@ import Summary from "./components/Summary/Summary";
 
 const CodeCommerceApp = () => {
   //Global
-  const [page, setPage] = useState(pageKeys[1]);  
+  const [page, setPage] = useState(pageKeys[0]);  
   const [barProgress, setBarProgress] = useState(initBarProgress);
   // SignUpLogin
   const [activeAccount, setActiveAccount] = useState({});
@@ -44,10 +44,11 @@ const CodeCommerceApp = () => {
   const resetToInits = () => {
     setBarProgress(initBarProgress);
     setDisabled(false);
+    setDiscountCode("");
     setTotals(initTotals);
     setBag(initBag);
-    setShipInfo({});
-    setPayCard({});
+    setShipInfo(initShipInfo);
+    setPayCard(initCardForm);
   }
 
   const changePage = () => {
@@ -55,7 +56,7 @@ const CodeCommerceApp = () => {
     if (page === "confirm"){
       setPage(pageKeys[1]);
       resetToInits();
-    } else setPage(pageKeys[pageIdx + 1]) 
+    } else setPage(pageKeys[pageIdx + 1]); 
   };
 
   const changePageBack = () => {
@@ -72,6 +73,8 @@ const CodeCommerceApp = () => {
   };
 
   const checkout = () => {
+    changePage();
+    setDisabled(!disabled);
     if (page === "cart") {
       setTotals({
         ...totals,
@@ -81,9 +84,6 @@ const CodeCommerceApp = () => {
     } else if (page === "ship" || page === "pay") {
       setBarProgress({ ...barProgress, [page]: true });
     }
-    
-    changePage();
-    setDisabled(true);
   };
 
   const updateActiveAccount = (accountInfo) => {

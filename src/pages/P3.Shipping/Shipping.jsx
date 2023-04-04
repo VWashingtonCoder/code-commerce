@@ -33,6 +33,7 @@ const Shipping = (props) => {
   } = shipFormValues;
 
   const checkFullForm = () => {
+    let requiredFull = true;
     const requiredArr = Object.entries(shipFormValues).filter(key => 
       key[0] !== "addressTitle" 
       && key[0] !== "cellCode"
@@ -40,20 +41,21 @@ const Shipping = (props) => {
       && key[0] !== "telCode"
       && key[0] !== "telNum" 
     );
-    const requiredObj = requiredArr.reduce((obj, data) => ({ ...obj, [data[0]]: data[1] }), {});
-    const methodInfo = shipMethods.find(type => type.key === shipMethod);
-    const shipmentInfo = {
-      addressData: requiredObj,
-      methodData: { method: methodInfo.key, info: methodInfo.info }
-    }
-
-    if (
-      (!requiredArr.includes("") && disabled === true) ||
-      (requiredArr.includes("") && disabled === false)
-    ) { 
+    
+    requiredArr.forEach(item => {
+      if(!item[1]) requiredFull = false;
+    })
+    
+    if (requiredFull === true && disabled === true) {
+      const requiredObj = requiredArr.reduce((obj, data) => ({ ...obj, [data[0]]: data[1] }), {});
+      const methodInfo = shipMethods.find(type => type.key === shipMethod);
+      const shipmentInfo = {
+        addressData: requiredObj,
+        methodData: { method: methodInfo.key, info: methodInfo.info }
+      }
       sendShipInfo(shipmentInfo);
       updateDisabled();
-    }
+    } else if (requiredFull === false && disabled === false) updateDisabled();
   };
 
   const updateShipFormValues = (e) => {
