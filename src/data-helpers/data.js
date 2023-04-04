@@ -72,11 +72,11 @@ export const nameInputsSignUp = [
   { key: "first", label: "First Name *", name: "firstName" },
   { key: "sur", label: "Surname *", name: "surname" },
 ];
-
 /*Cart_Table*/
 export const headers = [" ", "product", "price", "quantity", "total"];
 export const categories = ["color", "size"];
 export const qtyOptions = [1, 2, 3, 4, 5];
+export const discountCodes = { CODE10: 10, CODE15: 15, CODE20: 20 }
 /*Shipping*/
 export const initShipFormValues = {
   addressTitle: "",

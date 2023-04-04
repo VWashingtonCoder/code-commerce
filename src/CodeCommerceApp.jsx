@@ -3,6 +3,7 @@ import "./CodeCommerceApp.css";
 import {
   pageKeys,
   initBag,
+  discountCodes,
   initCardForm,
   initShipInfo,
   initTotals,
@@ -34,6 +35,7 @@ const CodeCommerceApp = () => {
   } = totals;
   // Cart
   const [bag, setBag] = useState(initBag);
+  const [discountCode, setDiscountCode] = useState("");
   // Shipping
   const [shipInfo, setShipInfo] = useState(initShipInfo); 
   // Pay
@@ -74,7 +76,7 @@ const CodeCommerceApp = () => {
       setTotals({
         ...totals,
         discount: discount === 0 ? 4.5 : discount,
-        total: total - 4.5,
+        total: discount === 0 ? total - 4.5 : total - discount,
       });
     } else if (page === "ship" || page === "pay") {
       setBarProgress({ ...barProgress, [page]: true });
@@ -96,6 +98,16 @@ const CodeCommerceApp = () => {
     setBag({ ...bag, quantities: qty });
   };
 
+  const updateDiscountCode = (e) => {
+    setDiscountCode(e.target.value.toUpperCase().trim());
+  }
+
+  const updateDiscount = (e) => {
+    e.preventDefault();
+    const discAmount = discountCodes[discountCode];
+    setTotals({ ...totals, discount: discAmount, total: total - discAmount });
+  }
+
   const updateDisabled = () => {
     setDisabled(!disabled);
   };
@@ -112,7 +124,7 @@ const CodeCommerceApp = () => {
       ...totals,
       items: itemTotals,
       subtotal: sub,
-      total: sub,
+      total: sub - discount,
     });
   };
 
@@ -179,19 +191,23 @@ const CodeCommerceApp = () => {
           }      
 
           <Summary
-                  account={activeAccount}
-                  addressInfo={shipInfo.addressData}
-                  bag={bag}
-                  discount={discount}
-                  page={page}
-                  payCard={payCard}
-                  itemTotals={items}
-                  shipCost={shipCost}
-                  shipMethod={shipInfo.methodData}
-                  sub={subtotal}
-                  total={total}
-                  checkout={checkout}
-                  disabled={disabled}
+                account={activeAccount}
+                addressInfo={shipInfo.addressData}
+                bag={bag}
+                discount={discount}
+                discountCode={discountCode}
+                changeDiscount={updateDiscountCode}
+                checkDiscount={updateDiscount}
+                useDiscount={updateDiscount}
+                page={page}
+                payCard={payCard}
+                itemTotals={items}
+                shipCost={shipCost}
+                shipMethod={shipInfo.methodData}
+                sub={subtotal}
+                total={total}
+                checkout={checkout}
+                disabled={disabled}
                 />
               
         </div>

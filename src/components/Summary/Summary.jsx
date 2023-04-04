@@ -6,7 +6,10 @@ const Summary = (props) => {
     account,
     addressInfo,
     bag, 
-    discount, 
+    discount,
+    discountCode,
+    changeDiscount,
+    checkDiscount,
     page, 
     payCard,
     itemTotals,
@@ -20,7 +23,7 @@ const Summary = (props) => {
   const { bagItems, quantities } = bag;
   const  { name, street, city, state, country, zip } = addressInfo;
   const { cardNum, cardType } = payCard;
-  
+
   return (
     <div id="Summary">
       <h2 className="summary-title underline-border">Summary</h2>
@@ -28,8 +31,16 @@ const Summary = (props) => {
         <div className="promo underline-border">
           <label htmlFor="promo-code">Do you have a promo code?</label>
           <div className="input-row flex-align-center">
-            <input type="text" name="promo-code" placeholder="Code" />
-            <button className="promo-apply-btn">Apply</button>
+            <input 
+              type="text" 
+              name="promo-code" 
+              onChange={changeDiscount}
+              placeholder="Code"
+              value={discountCode} 
+            />
+            <button className="promo-apply-btn" onClick={checkDiscount}>
+              Apply
+            </button>
           </div>
         </div>
       )}
