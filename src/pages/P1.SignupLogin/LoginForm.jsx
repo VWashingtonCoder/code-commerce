@@ -7,7 +7,6 @@ const LoginForm = (props) => {
   const [password, setPassword] = useState("");
   const [showPW, setShowPW] = useState(false);
 
-
   const updateForm = (e) => {
     const { name, value } = e.target;
     name === "email" ? setEmail(value) : setPassword(value);
@@ -21,16 +20,18 @@ const LoginForm = (props) => {
   const submit = (e) => {
     e.preventDefault();
 
-    if(email && password) {
-        const values = [email, password];
-        validate(values);
+    if (email && password) {
+      const values = [email, password];
+      validate(values);
     }
-  } 
+  };
 
   return (
     <form id="LoginForm" onSubmit={submit}>
       <div className="login form-input">
-        <label htmlFor="email" className="input-label">Email</label>
+        <label htmlFor="email" className="input-label">
+          Email
+        </label>
         <input
           name="email"
           type="email"
@@ -41,7 +42,9 @@ const LoginForm = (props) => {
         />
       </div>
       <div className="login form-input pw-input-hide">
-        <label htmlFor="password" className="input-label">Password</label>
+        <label htmlFor="password" className="input-label">
+          Password
+        </label>
         <input
           name="password"
           type={showPW ? "text" : "password"}
@@ -61,11 +64,7 @@ const LoginForm = (props) => {
         </button>
       </div>
 
-      <input 
-        className="form-submit big-btn" 
-        type="submit" 
-        value="Login"
-      />
+      <input className="form-submit big-btn" type="submit" value="Login" />
     </form>
   );
 };

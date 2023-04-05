@@ -7,7 +7,7 @@ import {
   initCardForm,
   initShipInfo,
   initTotals,
-  initBarProgress
+  initBarProgress,
 } from "./data-helpers/data";
 import SignUpLogin from "./pages/P1.SignupLogin/SignupLogin";
 import Cart from "./pages/P2.Cart/Cart";
@@ -19,27 +19,21 @@ import Summary from "./components/Summary/Summary";
 
 const CodeCommerceApp = () => {
   //Global
-  const [page, setPage] = useState(pageKeys[0]);  
+  const [page, setPage] = useState(pageKeys[1]);
   const [barProgress, setBarProgress] = useState(initBarProgress);
   // SignUpLogin
   const [activeAccount, setActiveAccount] = useState({});
   // Summary
-  const [disabled, setDisabled] = useState(false); 
+  const [disabled, setDisabled] = useState(false);
   const [totals, setTotals] = useState(initTotals);
-  const { 
-    items, 
-    subtotal, 
-    shipCost, 
-    discount, 
-    total 
-  } = totals;
+  const { items, subtotal, shipCost, discount, total } = totals;
   // Cart
   const [bag, setBag] = useState(initBag);
   const [discountCode, setDiscountCode] = useState("");
   // Shipping
-  const [shipInfo, setShipInfo] = useState(initShipInfo); 
+  const [shipInfo, setShipInfo] = useState(initShipInfo);
   // Pay
-  const [payCard, setPayCard] = useState(initCardForm); 
+  const [payCard, setPayCard] = useState(initCardForm);
 
   const resetToInits = () => {
     setBarProgress(initBarProgress);
@@ -49,14 +43,14 @@ const CodeCommerceApp = () => {
     setBag(initBag);
     setShipInfo(initShipInfo);
     setPayCard(initCardForm);
-  }
+  };
 
   const changePage = () => {
     const pageIdx = pageKeys.findIndex((key) => key === page);
-    if (page === "confirm"){
+    if (page === "confirm") {
       setPage(pageKeys[1]);
       resetToInits();
-    } else setPage(pageKeys[pageIdx + 1]); 
+    } else setPage(pageKeys[pageIdx + 1]);
   };
 
   const changePageBack = () => {
@@ -68,7 +62,7 @@ const CodeCommerceApp = () => {
       setTotals({ ...totals, discount: 0, total: total + discount });
     } else if (page === "pay") {
       setDisabled(true);
-      setBarProgress({ ...barProgress, ship: false })
+      setBarProgress({ ...barProgress, ship: false });
     }
   };
 
@@ -88,7 +82,7 @@ const CodeCommerceApp = () => {
 
   const updateActiveAccount = (accountInfo) => {
     setActiveAccount(accountInfo);
-  }
+  };
 
   const updateBag = (bag) => {
     setBag(bag);
@@ -100,13 +94,13 @@ const CodeCommerceApp = () => {
 
   const updateDiscountCode = (e) => {
     setDiscountCode(e.target.value.toUpperCase().trim());
-  }
+  };
 
   const updateDiscount = (e) => {
     e.preventDefault();
     const discAmount = discountCodes[discountCode];
     setTotals({ ...totals, discount: discAmount, total: total - discAmount });
-  }
+  };
 
   const updateDisabled = () => {
     setDisabled(!disabled);
@@ -114,7 +108,7 @@ const CodeCommerceApp = () => {
 
   const updatePayCard = (cardData) => {
     setPayCard(cardData);
-  }
+  };
 
   const updateCartTotals = (itemTotals) => {
     let sub = 0;
@@ -130,28 +124,25 @@ const CodeCommerceApp = () => {
 
   const updateShipInfo = (shipInfo) => {
     setShipInfo(shipInfo);
-  }
+  };
 
   const updateShipTotals = (cost) => {
-    setTotals({ 
-      ...totals, 
+    setTotals({
+      ...totals,
       shipCost: cost,
-      total: cost < shipCost ? total - shipCost : total + cost
+      total: cost < shipCost ? total - shipCost : total + cost,
     });
-  }
+  };
 
   return (
     <div id="CodeCommerceApp">
       {page === "signLog" && (
-        <SignUpLogin
-          updateActive={updateActiveAccount}
-          pageSet={changePage} 
-        />
+        <SignUpLogin updateActive={updateActiveAccount} pageSet={changePage} />
       )}
 
       {page !== "signLog" && (
         <div className="page-container">
-          {(page === "cart" && 
+          {page === "cart" && (
             <Cart
               bag={bag}
               itemTotals={items}
@@ -160,58 +151,57 @@ const CodeCommerceApp = () => {
               updateQty={updateBagQty}
               updateTotals={updateCartTotals}
             />
-          )} 
-          
-          {(page !== "cart") &&
+          )}
+
+          {page !== "cart" && (
             <div className="page-status">
               <StatusBar progress={barProgress} />
               <div className="page-container">
-                {page === "ship" && 
+                {page === "ship" && (
                   <Shipping
                     disabled={disabled}
                     updateDisabled={updateDisabled}
                     updateTotals={updateShipTotals}
-                    sendShipInfo={updateShipInfo} 
+                    sendShipInfo={updateShipInfo}
                     goBack={changePageBack}
                   />
-                }
-                {page === "pay" &&
-                  <Payment 
+                )}
+                {page === "pay" && (
+                  <Payment
                     disabled={disabled}
-                    updateDisabled={updateDisabled} 
+                    updateDisabled={updateDisabled}
                     sendCardData={updatePayCard}
                     goBack={changePageBack}
                   />
-                }
+                )}
                 {page === "confirm" && (
-                  <Confirmation shipInfo={shipInfo} backToCart={changePage}/>
+                  <Confirmation shipInfo={shipInfo} backToCart={changePage} />
                 )}
               </div>
             </div>
-          }      
+          )}
 
           <Summary
-                account={activeAccount}
-                addressInfo={shipInfo.addressData}
-                bag={bag}
-                discount={discount}
-                discountCode={discountCode}
-                changeDiscount={updateDiscountCode}
-                checkDiscount={updateDiscount}
-                useDiscount={updateDiscount}
-                page={page}
-                payCard={payCard}
-                itemTotals={items}
-                shipCost={shipCost}
-                shipMethod={shipInfo.methodData}
-                sub={subtotal}
-                total={total}
-                checkout={checkout}
-                disabled={disabled}
-                />
-              
+            account={activeAccount}
+            addressInfo={shipInfo.addressData}
+            bag={bag}
+            discount={discount}
+            discountCode={discountCode}
+            changeDiscount={updateDiscountCode}
+            checkDiscount={updateDiscount}
+            useDiscount={updateDiscount}
+            page={page}
+            payCard={payCard}
+            itemTotals={items}
+            shipCost={shipCost}
+            shipMethod={shipInfo.methodData}
+            sub={subtotal}
+            total={total}
+            checkout={checkout}
+            disabled={disabled}
+          />
         </div>
-      )}      
+      )}
     </div>
   );
 };

@@ -1,11 +1,11 @@
 #Summary {
-  margin-left: 15px;
+  margin: auto;
+  margin-left: 50px;
   padding: 0px 20px 50px;
   text-align: left;
-  max-width: 26vw;
+  max-width: 16vw;
   width: 100%;
   position: relative;
-
 }
 
 .summary-title,
@@ -46,6 +46,9 @@
 
 .bag-items-summary {
   padding: 5px 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .bag-items-num {
@@ -58,7 +61,12 @@
 
 .bag-item {
   display: flex;
-  width: 300px;
+  width: 20rem;
+  font-size: 18px;
+}
+
+.bag-item span {
+  margin-left: 5px;
 }
 
 .item-img {
@@ -68,7 +76,7 @@
 
 .item-name {
   font-weight: 700;
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .item-description {
@@ -112,7 +120,7 @@
 
 .shipment-method {
   padding-bottom: 20px;
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
 }
 
 .shipment-method-key {
@@ -135,8 +143,7 @@
 .checkout-btn.summary {
   background-color: red;
   position: absolute;
-  bottom: 7px;
+  bottom: 15px;
   left: 10px;
   right: 10px;
 }
-

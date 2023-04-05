@@ -1,8 +1,10 @@
 #CodeCommerceApp {
-    background-color: #FFFAFA;
+  background-color: #fffafa;
 }
 
-#Payment, #Summary, #Confirmation {
+#Payment,
+#Summary,
+#Confirmation {
   box-shadow: 0px 0px 10px 5px lightgrey;
   border: 1px solid lightgray;
 }
@@ -32,7 +34,7 @@
   border: none;
 }
 
-.hide { 
+.hide {
   display: none;
 }
 
@@ -41,8 +43,8 @@
     flex-flow: column;
     align-items: baseline;
     margin: auto;
-  }  
-  .page-container #Cart, 
+  }
+  .page-container #Cart,
   .page-container #Confirmation,
   .page-container #StatusBar {
     max-width: 95vw;
@@ -57,5 +59,4 @@
     max-width: 45vw;
     margin-top: 20px;
   }
-
 }

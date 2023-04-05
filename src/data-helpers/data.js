@@ -1,6 +1,6 @@
-import DemonSlayer from "../assets/images/product-ds.png";
-import MyHero from "../assets/images/product-mha.png";
-import Naruto from "../assets/images/product-n.png";
+import TicTacToe from "../assets/images/tic-tac-toe.png";
+import Sun from "../assets/images/sun.jpg";
+import Love from "../assets/images/love.png";
 import Discover_Icon from "../assets/images/discover.png";
 import Mastercard_Icon from "../assets/images/masterCard.png";
 import Visa_Icon from "../assets/images/visa.png";
@@ -8,35 +8,40 @@ import Amex_Icon from "../assets/images/amex.png";
 /* Init States_Products */
 export const productsInfo = [
   {
-    key: "DS",
-    imgSrc: DemonSlayer,
-    category: "Unisex",
-    itemName: "Anime Print Hoodie Demon Slayer",
-    color: "Pink",
-    size: "XL",
+    key: "TTT",
+    imgSrc: TicTacToe,
+    category: "Game",
+    itemName: "Tic Tac Toe",
+    frame: "React",
     price: 21.5,
   },
   {
-    key: "MHA",
-    imgSrc: MyHero,
-    category: "Unisex",
-    itemName: "Anime Print Hoodie My Hero Academia",
-    color: "Multi",
-    size: "XL",
+    key: "WEA",
+    imgSrc: Sun,
+    category: "App",
+    itemName: "Weather Watcher",
+    frame: "React",
     price: 27.25,
   },
   {
-    key: "NAR",
-    imgSrc: Naruto,
-    category: "Unisex",
-    itemName: "Anime Print Hoodie Naruto",
-    color: "Orange",
-    size: "XL",
+    key: "DWS",
+    imgSrc: Love,
+    category: "Website",
+    itemName: "Dating (Template)",
+    frame: "HTML/CSS",
     price: 24,
   },
 ];
-export const productsQuantities = { DS: 1, MHA: 1, NAR: 1 };
-export const productsTotals = { DS: 21.5, MHA: 27.25, NAR: 24 };
+export const productsQuantities = {
+  TTT: 1,
+  WEA: 1,
+  DWS: 1,
+};
+export const productsTotals = {
+  TTT: 21.5,
+  WEA: 27.25,
+  DWS: 24,
+};
 
 /* CodeCommerce */
 export const pageKeys = ["signLog", "cart", "ship", "pay", "confirm"];
@@ -74,9 +79,8 @@ export const nameInputsSignUp = [
 ];
 /*Cart_Table*/
 export const headers = [" ", "product", "price", "quantity", "total"];
-export const categories = ["color", "size"];
 export const qtyOptions = [1, 2, 3, 4, 5];
-export const discountCodes = { CODE10: 10, CODE15: 15, CODE20: 20 }
+export const discountCodes = { CODE10: 10, CODE15: 15, CODE20: 20 };
 /*Shipping*/
 export const initShipFormValues = {
   addressTitle: "",
@@ -117,12 +121,12 @@ export const shipMethods = [
   {
     key: "standard",
     info: "Delivery in 4-6 Business Days - Free",
-    cost: 0
+    cost: 0,
   },
   {
     key: "express",
     info: "Delivery in 1-3 Business Days - $5.00",
-    cost: 5
+    cost: 5,
   },
 ];
 
@@ -133,9 +137,15 @@ export const initCardForm = {
   cardType: "",
   expMonth: "",
   expYear: "",
-  cvv: ""
-}
-export const cardErrorKeys = ["cardName", "cardNum", "expMonth", "expYear", "cvv"];
+  cvv: "",
+};
+export const cardErrorKeys = [
+  "cardName",
+  "cardNum",
+  "expMonth",
+  "expYear",
+  "cvv",
+];
 export const monthOptions = [
   { key: 0, text: "Month", value: "" },
   { key: 1, text: "01-Jan", value: "01" },
@@ -161,11 +171,11 @@ export const yearOptions = () => {
   return years;
 };
 export const cardTypeImg = {
-  AMERICAN_EXPRESS: Amex_Icon, 
+  AMERICAN_EXPRESS: Amex_Icon,
   DISCOVER: Discover_Icon,
   MASTERCARD: Mastercard_Icon,
-  VISA: Visa_Icon
-}
+  VISA: Visa_Icon,
+};
 
 export const initShipInfo = {
   addressData: {
@@ -174,10 +184,10 @@ export const initShipInfo = {
     zip: "",
     country: "",
     city: "",
-    state: ""
+    state: "",
   },
   methodData: {
     method: "standard",
-    info: "Delivery in 4-6 Business Days"
-  }
-}
+    info: "Delivery in 4-6 Business Days",
+  },
+};

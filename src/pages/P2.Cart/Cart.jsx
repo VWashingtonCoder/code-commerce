@@ -1,21 +1,20 @@
 import { useState } from "react";
 import "./Cart.css";
-import { headers, categories, qtyOptions,  } from "../../data-helpers/data";
+import { headers, qtyOptions } from "../../data-helpers/data";
 import { AiOutlineClose, AiFillCloseCircle } from "react-icons/ai";
 
 const Cart = (props) => {
-  const { 
-    bag, 
-    itemTotals, 
-    updateBag, 
+  const {
+    bag,
+    itemTotals,
+    updateBag,
     updateDisabled,
-    updateTotals,  
-    updateQty 
+    updateTotals,
+    updateQty,
   } = props;
   const { bagItems, quantities } = bag;
   const [status, setStatus] = useState({ message: "", item: "" });
   const [removedItems, setRemovedItems] = useState([]);
-  
 
   const updateStatus = (act, val, item) => {
     let message = "";
@@ -30,9 +29,9 @@ const Cart = (props) => {
   };
   const removeItem = (e) => {
     const { value } = e.target;
-    const removed = bagItems.find(item => item.key === value);
+    const removed = bagItems.find((item) => item.key === value);
     const { key, itemName } = removed;
-    const newCart = bagItems.filter(item => item !== removed);
+    const newCart = bagItems.filter((item) => item !== removed);
 
     setRemovedItems([...removedItems, removed]);
     if (newCart.length <= 0) updateDisabled();
@@ -41,7 +40,7 @@ const Cart = (props) => {
       quantities: { ...quantities, [key]: 0 },
     });
     updateStatus("minus", quantities[value], itemName);
-    updateTotals({ ...itemTotals, [key]: 0 })
+    updateTotals({ ...itemTotals, [key]: 0 });
   };
   const undoRemove = () => {
     const currBag = [...bagItems];
@@ -51,7 +50,7 @@ const Cart = (props) => {
     const { key, itemName, price } = lastItem;
     currBag.unshift(lastItem);
     removed.pop();
-    
+
     setRemovedItems(removed);
     if (currBag.length === 1) updateDisabled();
     updateBag({
@@ -125,7 +124,7 @@ const Cart = (props) => {
 
         <tbody>
           {bagItems.map((item) => {
-            const { category, color, imgSrc, itemName, key, price, size } = item;
+            const { category, frame, imgSrc, itemName, key, price } = item;
 
             return (
               <tr className="item-row" key={key}>
@@ -148,14 +147,7 @@ const Cart = (props) => {
                     <div className="text-container">
                       <p className="category-text">{category}</p>
                       <p className="name-text">{itemName}</p>
-                      {categories.map((info) => (
-                        <div className="info-container flex-align-center" key={info}>
-                          <p className="text-label">{info}:</p>
-                          <p className="text-value">
-                            {info === "color" ? color : size}
-                          </p>
-                        </div>
-                      ))}
+                      <p className="frame-text">{frame}</p>
                     </div>
                   </div>
                 </td>
@@ -179,9 +171,7 @@ const Cart = (props) => {
                 </td>
 
                 <td className="total-column underline-border">
-                  <p className="total-text">
-                    ${itemTotals[key].toFixed(2)}
-                  </p>
+                  <p className="total-text">${itemTotals[key].toFixed(2)}</p>
                 </td>
               </tr>
             );

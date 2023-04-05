@@ -1,58 +1,59 @@
 #Payment {
-    text-align: left;
-    border: 1px solid lightgrey;
-    padding: 10px 15px;
-    width: 100%;
+  text-align: left;
+  border: 1px solid lightgrey;
+  padding: 10px 15px;
+  width: 100%;
 }
 
 #Payment h2 {
-    margin-top: 0px;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-    text-transform: uppercase;
+  margin-top: 0px;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
 }
 
 .pay-inputs-container {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 .pay-row {
-    margin-bottom: 10px;
-    position: relative;
+  margin-bottom: 10px;
+  position: relative;
 }
-.pay-row label, .pay-row span {
-    display: inline-flex;
-    width: 150px;
-    font-weight: 600;
+.pay-row label,
+.pay-row span {
+  display: inline-flex;
+  width: 150px;
+  font-weight: 600;
 }
-.pay-row input, .pay-row.exp select {
-    height: 25px;
-    border: 1px solid lightgrey;
+.pay-row input,
+.pay-row.exp select {
+  height: 25px;
+  border: 1px solid lightgrey;
 }
-.pay-row.name input, 
+.pay-row.name input,
 .pay-row.num input {
-    width: 170px;
+  width: 170px;
 }
 .card-img-container {
-    max-width: 40px;
-    position: absolute;
-    top: 1px;
-    left: 280px;
+  max-width: 40px;
+  position: absolute;
+  top: 1px;
+  left: 280px;
 }
 .pay-row.exp select {
-    margin-right: 10px;
-    width: 75px;
-    background-color: gainsboro;
+  margin-right: 10px;
+  width: 75px;
+  background-color: gainsboro;
 }
 
 .pay-row.cvv input {
-    width: 5vw; 
+  width: 5vw;
 }
 
 .question-circle {
-    margin-left: 10px;
-    color: darkgray;
-    font-size: 18px;
-    pointer-events: none;
+  margin-left: 10px;
+  color: darkgray;
+  font-size: 18px;
+  pointer-events: none;
 }
-

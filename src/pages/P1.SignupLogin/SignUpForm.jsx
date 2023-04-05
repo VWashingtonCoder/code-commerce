@@ -15,18 +15,21 @@ const SignUpForm = (props) => {
 
   const changeValues = (e) => {
     const { name, value } = e.target;
-    const { valid, error } = 
-      name !== "confirm" 
-        ? validateSignUpValues(name, value) 
+    const { valid, error } =
+      name !== "confirm"
+        ? validateSignUpValues(name, value)
         : validateSignUpValues(name, value, formValues.password);
     if (valid) setFormValues({ ...formValues, [name]: value });
     setErrors({ ...errors, [name]: error });
   };
 
   const checkAvailableEmail = (e) => {
-    if (accounts.find((account) => account.email === e.target.value)) 
-      setErrors({ ...errors, email: "Email is already in use. Log in instead." });
-  }
+    if (accounts.find((account) => account.email === e.target.value))
+      setErrors({
+        ...errors,
+        email: "Email is already in use. Log in instead.",
+      });
+  };
 
   const resetForm = () => {
     setFormValues(initSignUpForm);
@@ -47,7 +50,11 @@ const SignUpForm = (props) => {
 
   return (
     <form id="SignUpForm" onSubmit={submit}>
-        {!validForm && <p className="head-error">We're sorry, but one or more fields are incomplete or incorrect</p>}
+      {!validForm && (
+        <p className="head-error">
+          We're sorry, but one or more fields are incomplete or incorrect
+        </p>
+      )}
       <div className="sign-up form-input email">
         <div className="input-labels flex-align-center">
           <label htmlFor="email">Your Email Address *</label>
@@ -81,13 +88,16 @@ const SignUpForm = (props) => {
                 name={name}
                 value={formValues[name]}
                 onChange={changeValues}
-
                 minLength="8"
                 maxLength="20"
                 autoComplete="off"
                 required
               />
-              <button className={`pw-btn icon-btn ${name}`} value={name} onClick={hide}>
+              <button
+                className={`pw-btn icon-btn ${name}`}
+                value={name}
+                onClick={hide}
+              >
                 {formValues[state] ? (
                   <AiFillEyeInvisible className="eye-icon" />
                 ) : (
@@ -95,7 +105,13 @@ const SignUpForm = (props) => {
                 )}
               </button>
             </div>
-            { name==="password" && <p className="pw-rules">Password must be 8-20 characters, including: at least one capital letter, at least one small letter, one number, and one special character - !@#$%^&*</p>}
+            {name === "password" && (
+              <p className="pw-rules">
+                Password must be 8-20 characters, including: at least one
+                capital letter, at least one small letter, one number, and one
+                special character - !@#$%^&*
+              </p>
+            )}
           </div>
         );
       })}
@@ -126,7 +142,7 @@ const SignUpForm = (props) => {
           <span className="error-text">{errors.postCode}</span>
         </div>
         <input
-            className={errors.postCode && "active-error"}
+          className={errors.postCode && "active-error"}
           type="text"
           name="postCode"
           value={formValues.postCode}
@@ -134,11 +150,7 @@ const SignUpForm = (props) => {
           autoComplete="off"
         />
       </div>
-      <input 
-        className="form-submit big-btn" 
-        type="submit" 
-        value="Save"
-      />
+      <input className="form-submit big-btn" type="submit" value="Save" />
     </form>
   );
 };

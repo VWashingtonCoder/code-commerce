@@ -1,16 +1,16 @@
 import "./Shipping.css";
-import { cities, initShipFormValues, phoneData, shipMethods } from "../../data-helpers/data";
+import {
+  cities,
+  initShipFormValues,
+  phoneData,
+  shipMethods,
+} from "../../data-helpers/data";
 import { validateShipValues } from "../../data-helpers/validation";
 import { useEffect, useState } from "react";
 
 const Shipping = (props) => {
-  const {
-    disabled,
-    updateDisabled,
-    updateTotals,
-    sendShipInfo,
-    goBack,
-  } = props;
+  const { disabled, updateDisabled, updateTotals, sendShipInfo, goBack } =
+    props;
   const [shipFormValues, setShipFormValues] = useState(initShipFormValues);
   const [shipFormErrors, setShipFormErrors] = useState({});
   const [shipMethod, setShipMethod] = useState(shipMethods[0].key);
@@ -34,25 +34,29 @@ const Shipping = (props) => {
 
   const checkFullForm = () => {
     let requiredFull = true;
-    const requiredArr = Object.entries(shipFormValues).filter(key => 
-      key[0] !== "addressTitle" 
-      && key[0] !== "cellCode"
-      && key[0] !== "cellNum"
-      && key[0] !== "telCode"
-      && key[0] !== "telNum" 
+    const requiredArr = Object.entries(shipFormValues).filter(
+      (key) =>
+        key[0] !== "addressTitle" &&
+        key[0] !== "cellCode" &&
+        key[0] !== "cellNum" &&
+        key[0] !== "telCode" &&
+        key[0] !== "telNum"
     );
-    
-    requiredArr.forEach(item => {
-      if(!item[1]) requiredFull = false;
-    })
-    
+
+    requiredArr.forEach((item) => {
+      if (!item[1]) requiredFull = false;
+    });
+
     if (requiredFull === true && disabled === true) {
-      const requiredObj = requiredArr.reduce((obj, data) => ({ ...obj, [data[0]]: data[1] }), {});
-      const methodInfo = shipMethods.find(type => type.key === shipMethod);
+      const requiredObj = requiredArr.reduce(
+        (obj, data) => ({ ...obj, [data[0]]: data[1] }),
+        {}
+      );
+      const methodInfo = shipMethods.find((type) => type.key === shipMethod);
       const shipmentInfo = {
         addressData: requiredObj,
-        methodData: { method: methodInfo.key, info: methodInfo.info }
-      }
+        methodData: { method: methodInfo.key, info: methodInfo.info },
+      };
       sendShipInfo(shipmentInfo);
       updateDisabled();
     } else if (requiredFull === false && disabled === false) updateDisabled();
@@ -77,9 +81,9 @@ const Shipping = (props) => {
 
   const updateShipMethod = (e) => {
     const method = e.target.value;
-    const methodCost = shipMethods.find(type => type.key === method).cost;
+    const methodCost = shipMethods.find((type) => type.key === method).cost;
     setShipMethod(method);
-    updateTotals(methodCost)
+    updateTotals(methodCost);
   };
 
   useEffect(() => {
@@ -102,7 +106,7 @@ const Shipping = (props) => {
         <div className="ship-address-group underline-border">
           <div className="input-bar flex-align-center">
             <label htmlFor="addressTitle" className="first-label">
-              Address Title 
+              Address Title
             </label>
             <input
               id="addressTitle"
@@ -172,11 +176,11 @@ const Shipping = (props) => {
             </div>
             <div className="input-group city">
               <label htmlFor="city">City *</label>
-              <select 
-                id="city" 
-                name="city" 
-                value={city} 
-                onChange={updateShipFormValues} 
+              <select
+                id="city"
+                name="city"
+                value={city}
+                onChange={updateShipFormValues}
                 required
               >
                 <option value="">Select</option>

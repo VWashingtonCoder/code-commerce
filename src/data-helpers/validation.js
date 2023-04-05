@@ -48,35 +48,37 @@ export function validateSignUpValues(name, val, password) {
         validObj = { ...validObj, error: "Please enter a valid email." };
       break;
     case "password":
-        if (!val || !passwordValidation(val)) 
-          validObj = { ...validObj, error: "Please enter a valid password." };
-        break;
-      case "confirm":
-        if (!val) 
-          validObj = { ...validObj, error: "Please confirm your password." };
-        else if (val !== password)
-          validObj = { ...validObj, error: "Your passwords aren't matching." };
-        break;
-      case "firstName":
-        if (!val) 
-          validObj = { ...validObj, error: "Please enter your first name." };
-        else if (!containsOnlyLetters(val))
-          validObj = { valid: false, error: "No numbers in your name please." }; 
-        break;
-      case "surname":
-        if (!val)
-          validObj = { ...validObj, error: "Please enter your surname." }; 
-        else if (!containsOnlyLetters(val))
-          validObj = { valid: false, error: "No numbers in your name please." };
-          break;
-      case "postCode":
-        if (!val) break;
-        else if (!containsOnlyNumbers(val))
-          validObj = { valid: false, error: "No letters in your postcode please." };
-          break;
-        default:
-          break;
-      }
+      if (!val || !passwordValidation(val))
+        validObj = { ...validObj, error: "Please enter a valid password." };
+      break;
+    case "confirm":
+      if (!val)
+        validObj = { ...validObj, error: "Please confirm your password." };
+      else if (val !== password)
+        validObj = { ...validObj, error: "Your passwords aren't matching." };
+      break;
+    case "firstName":
+      if (!val)
+        validObj = { ...validObj, error: "Please enter your first name." };
+      else if (!containsOnlyLetters(val))
+        validObj = { valid: false, error: "No numbers in your name please." };
+      break;
+    case "surname":
+      if (!val) validObj = { ...validObj, error: "Please enter your surname." };
+      else if (!containsOnlyLetters(val))
+        validObj = { valid: false, error: "No numbers in your name please." };
+      break;
+    case "postCode":
+      if (!val) break;
+      else if (!containsOnlyNumbers(val))
+        validObj = {
+          valid: false,
+          error: "No letters in your postcode please.",
+        };
+      break;
+    default:
+      break;
+  }
   return validObj;
 }
 
@@ -85,7 +87,7 @@ export function validateShipValues(name, val) {
 
   switch (name) {
     case "addressTitle":
-      if (!val) 
+      if (!val)
         validObj = { ...validObj, error: "* Please enter your address title." };
       break;
     case "name":
@@ -95,14 +97,17 @@ export function validateShipValues(name, val) {
         validObj = { valid: false, error: "* No numbers in your name please." };
       break;
     case "street":
-      if (!val) 
+      if (!val)
         validObj = { ...validObj, error: "* Please enter your address." };
       break;
     case "zip":
-      if (!val) 
+      if (!val)
         validObj = { ...validObj, error: "* Please enter your zip code." };
       else if (!containsOnlyNumbers(val))
-        validObj = { valid: false, error: "* No letters in your zip code please." };
+        validObj = {
+          valid: false,
+          error: "* No letters in your zip code please.",
+        };
       break;
     case "country":
       if (!val) validObj = { ...validObj, error: "* Select a country." };
@@ -115,13 +120,22 @@ export function validateShipValues(name, val) {
       break;
     case "cellCode":
       if (!val)
-        validObj = { ...validObj, error: "* Please enter your cell phone code." };
+        validObj = {
+          ...validObj,
+          error: "* Please enter your cell phone code.",
+        };
       else if (!containsOnlyNumbers(val))
-        validObj = { valid: false, error: "* No letters in cell phone code please." };
+        validObj = {
+          valid: false,
+          error: "* No letters in cell phone code please.",
+        };
       break;
     case "cellNum":
       if (!val)
-        validObj = { ...validObj, error: "* Please enter your cell phone number." };
+        validObj = {
+          ...validObj,
+          error: "* Please enter your cell phone number.",
+        };
       else if (!containsOnlyNumbers(val))
         validObj = {
           valid: false,
@@ -153,8 +167,8 @@ export function validateShipValues(name, val) {
     default:
       break;
   }
-  
-  return validObj
+
+  return validObj;
 }
 
 export function validateCardValues(name, val) {
@@ -196,7 +210,7 @@ export function validateCardValues(name, val) {
           valid: false,
           error: "* CVV cannot contain letters",
         };
-      else if (val.length < 3) 
+      else if (val.length < 3)
         validObj = { ...validObj, error: "* CVV must be 3 characters or more" };
       break;
     default:

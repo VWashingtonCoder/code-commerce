@@ -1,153 +1,154 @@
 #SignupLogin {
-    max-width: 640px;
-    margin: auto;
-    margin-top: 3rem;
-    border: 1px solid transparent;
-    border-radius: 3px;
-    box-shadow: 0px 0px 15px grey;
-    position: relative;
+  max-width: 640px;
+  margin: auto;
+  margin-top: 3rem;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  box-shadow: 0px 0px 15px grey;
+  position: relative;
 }
 
 #SignupLogin .close-x {
-    right: 1rem;
-    top: 1rem;
-    font-size: 1.75rem;
+  right: 1rem;
+  top: 1rem;
+  font-size: 1.75rem;
 }
 
 #SignupLogin .sign-log-inputs {
-    font-size: 1.75rem;
-    text-align: left;
-    margin: 2rem 0.5rem;
+  font-size: 1.75rem;
+  text-align: left;
+  margin: 2rem 0.5rem;
 }
 
 .sign-log-inputs input[type="radio"] {
-    transform: scale(1.5);
-    margin-left: 2rem;
-    margin-right: 1rem;
+  transform: scale(1.5);
+  margin-left: 2rem;
+  margin-right: 1rem;
 }
 
 .sign-log-inputs .active,
 .input-labels .error-text {
-    color: red;
+  color: red;
 }
 
-#SignUpForm, #LoginForm {
-    padding: 0px 2rem;
-    font-size: 20px;
+#SignUpForm,
+#LoginForm {
+  padding: 0px 2rem;
+  font-size: 20px;
 }
 
 #SignUpForm .head-error {
-    text-align: left;
-    color: red;
+  text-align: left;
+  color: red;
 }
 
 .form-input .input-labels {
-    justify-content: space-between;
-    text-align: left;
-    margin-bottom: 0.5rem;
+  justify-content: space-between;
+  text-align: left;
+  margin-bottom: 0.5rem;
 }
 
 .form-input input {
-    width: 99%;
-    height: 2.25rem;
-    border: 1px solid gray;
-    margin-bottom: 1.25rem;
-    padding-left: 10px;
+  width: 99%;
+  height: 2.25rem;
+  border: 1px solid gray;
+  margin-bottom: 1.25rem;
+  padding-left: 10px;
 }
 
 .form-input .active-error {
-    background-color: mistyrose;
-    border-color: lightcoral;
+  background-color: mistyrose;
+  border-color: lightcoral;
 }
 
 .pw-input-hide {
-    position: relative;
+  position: relative;
 }
 
 .pw-input-hide .pw-btn {
-    font-size: 30px;
+  font-size: 30px;
 }
 
-.pw-btn.password, 
-.pw-btn.confirm, 
+.pw-btn.password,
+.pw-btn.confirm,
 .pw-btn.login-pw {
-    position: absolute;
-    right: 0;
+  position: absolute;
+  right: 0;
 }
 
-.pw-btn.password, 
+.pw-btn.password,
 .pw-btn.confirm {
-    top: 4px;
+  top: 4px;
 }
 
 .pw-btn.login-pw {
-    top: 37px;
+  top: 37px;
 }
 .pw-btn .eye-icon {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .pw-rules {
-    text-align: left;    
-    margin: 0;
-    margin-bottom: 2rem;
-    font-size: 18px;
+  text-align: left;
+  margin: 0;
+  margin-bottom: 2rem;
+  font-size: 18px;
 }
 
 #SignupLogin .form-submit {
-    background-color: red;
-    width: 100%;
+  background-color: red;
+  width: 100%;
 }
 
 #SignupLogin .operator {
-    justify-content: space-evenly;
-    font-size: 20px;
-    margin: 1rem auto;
+  justify-content: space-evenly;
+  font-size: 20px;
+  margin: 1rem auto;
 }
 
 .operator .solid-line {
-    width: 100%;
+  width: 100%;
 }
 
 #SignupLogin .facebook-btn {
-    background-color: blue;
-    width: 90%;
-    justify-content: center;
-    margin: auto;
+  background-color: blue;
+  width: 90%;
+  justify-content: center;
+  margin: auto;
 }
 
 .form-footer .foot-link {
-    border: none;
-    background: transparent;
-    margin: 1rem auto;
-    font-size: 18px;
-    margin: 1rem;
+  border: none;
+  background: transparent;
+  margin: 1rem auto;
+  font-size: 18px;
+  margin: 1rem;
 }
 
 .form-footer .foot-link:hover {
-    color: blue;
+  color: blue;
 }
 
 #LoginForm {
-    max-width: 90%;
-    text-align: left;
+  max-width: 90%;
+  text-align: left;
 }
 .login.form-input {
-    width: 99%;
+  width: 99%;
 }
 .login.form-input input {
-    margin-top: 0.3rem;
+  margin-top: 0.3rem;
 }
 
 @media (max-width: 375px) {
-    #SignupLogin .sign-log-inputs,
-    #SignupLogin .close-x {
-        font-size: 18px;
-    }
-    #SignupLogin .sign-log-inputs {
-        margin-top: 3rem;
-    }       
-    #SignupLogin .facebook-btn {
-        font-size: 16px;
-    }
+  #SignupLogin .sign-log-inputs,
+  #SignupLogin .close-x {
+    font-size: 18px;
+  }
+  #SignupLogin .sign-log-inputs {
+    margin-top: 3rem;
+  }
+  #SignupLogin .facebook-btn {
+    font-size: 16px;
+  }
 }

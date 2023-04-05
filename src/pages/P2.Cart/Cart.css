@@ -60,7 +60,7 @@ th.close-column {
 }
 
 .product-info .img-container {
-  max-width: 150px;
+  max-width: 100px;
   margin-right: 10px;
 }
 
@@ -71,8 +71,12 @@ th.close-column {
   letter-spacing: 1.25px;
 }
 
-.name-text {
+.name-text,
+.frame-text {
   font-size: 18px;
+}
+
+.name-text {
   margin-bottom: 6px;
   font-weight: 700;
 }
@@ -84,7 +88,7 @@ th.close-column {
 .text-value {
   font-weight: 700;
 }
-.price-text, 
+.price-text,
 .total-text {
   font-size: 18px;
   font-weight: 700;
