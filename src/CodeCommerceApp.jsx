@@ -19,7 +19,7 @@ import Summary from "./components/Summary/Summary";
 
 const CodeCommerceApp = () => {
   //Global
-  const [page, setPage] = useState(pageKeys[1]);
+  const [page, setPage] = useState(pageKeys[0]);
   const [barProgress, setBarProgress] = useState(initBarProgress);
   // SignUpLogin
   const [activeAccount, setActiveAccount] = useState({});

@@ -77,6 +77,15 @@ export const nameInputsSignUp = [
   { key: "first", label: "First Name *", name: "firstName" },
   { key: "sur", label: "Surname *", name: "surname" },
 ];
+export const initAccounts = [
+  {
+    key: 0,
+    email: "ex@gmail.com",
+    password: "Password#1",
+    name: "Jacob Johnson",
+    zip: "33404"
+  }
+];
 /*Cart_Table*/
 export const headers = [" ", "product", "price", "quantity", "total"];
 export const qtyOptions = [1, 2, 3, 4, 5];

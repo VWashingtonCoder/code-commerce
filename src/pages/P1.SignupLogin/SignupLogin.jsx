@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { AiOutlineClose, AiFillFacebook } from "react-icons/ai";
 import { MdHorizontalRule } from "react-icons/md";
+import { initAccounts } from "../../data-helpers/data";
 import SignUpForm from "./SignUpForm";
 import LoginForm from "./LoginForm";
 import "./SignupLogin.css";
 
 const SignupLogin = (props) => {
   const { pageSet, updateActive } = props;
-  const [accounts, setAccounts] = useState([]);
+  const [accounts, setAccounts] = useState(initAccounts);
   const [signLog, setSignLog] = useState("sign-up");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPW, setShowConfirmPW] = useState(false);
